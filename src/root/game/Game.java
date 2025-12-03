@@ -1,3 +1,9 @@
+package root.game;
+
+import root.board.Board;
+import root.players.AiPlayer;
+import root.players.Player;
+
 public class Game {
 
     private Player p1;

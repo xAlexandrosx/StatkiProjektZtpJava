@@ -1,3 +1,5 @@
+package root.battleship;
+
 import java.util.List;
 
 public class Battleship {

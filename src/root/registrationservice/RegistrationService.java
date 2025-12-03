@@ -1,10 +1,15 @@
+package root.registrationservice;
+
+import root.menu.Menu;
+import root.players.HumanPlayer;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
 public class RegistrationService {
 
-    private static final String PLAYER_FILE = "src/players.csv";
+    private static final String PLAYER_FILE = "src/root/players/players.csv";
     private final Menu m;
 
     public RegistrationService(Menu menu) {
@@ -42,16 +47,16 @@ public class RegistrationService {
         }
 
         if (isLoggedIn(playerName)) {
-            System.out.println("Player already logged in.");
+            System.out.println("root.players.Player already logged in.");
             return;
         }
 
         if (m.getP1() == null) {
             m.setP1(new HumanPlayer(playerName));
-            System.out.println(playerName + " logged in as Player 1.");
+            System.out.println(playerName + " logged in as root.players.Player 1.");
         } else if (m.getP2() == null) {
             m.setP2(new HumanPlayer(playerName));
-            System.out.println(playerName + " logged in as Player 2.");
+            System.out.println(playerName + " logged in as root.players.Player 2.");
         } else {
             System.out.println("Two players are already logged in.");
         }

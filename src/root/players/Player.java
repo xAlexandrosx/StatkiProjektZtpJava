@@ -1,8 +1,12 @@
+package root.players;
+
+import root.board.Board;
+
 public abstract class Player {
 
     protected final String name;
-    protected Board ownBoard;
-    protected Board enemyBoard;
+    public Board ownBoard;
+    public Board enemyBoard;
 
     public Player(String name) {
         this.name = name;

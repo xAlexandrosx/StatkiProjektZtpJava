@@ -1,3 +1,7 @@
+package root.board;
+
+import root.battleship.Battleship;
+
 import java.util.List;
 
 public class Board {

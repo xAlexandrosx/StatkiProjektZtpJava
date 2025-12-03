@@ -1,3 +1,7 @@
+package root.players;
+
+import root.battleship.Battleship;
+
 import java.util.*;
 
 public class AiPlayer extends Player {

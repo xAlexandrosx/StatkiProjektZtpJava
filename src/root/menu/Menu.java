@@ -1,3 +1,12 @@
+package root.menu;
+
+import root.board.Board;
+import root.game.Game;
+import root.players.AiPlayer;
+import root.players.HumanPlayer;
+import root.players.Player;
+import root.registrationservice.RegistrationService;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -18,8 +27,6 @@ public class Menu {
 
     public void setP1(HumanPlayer p) { this.P1 = p; }
     public void setP2(HumanPlayer p) { this.P2 = p; }
-
-    public int getBoardSize() { return boardSize; }
 
     // MENU DISPLAY
     public void display() {
@@ -112,13 +119,13 @@ public class Menu {
         System.out.print("Enter new board size: ");
         boardSize = sc.nextInt();
         sc.nextLine();
-        System.out.println("Board size updated.");
+        System.out.println("root.board.Board size updated.");
     }
 
     private void logOutMenu() {
         System.out.println("Logout:");
-        System.out.println("0 - Log out Player 1");
-        System.out.println("1 - Log out Player 2");
+        System.out.println("0 - Log out root.players.Player 1");
+        System.out.println("1 - Log out root.players.Player 2");
 
         int idx = sc.nextInt();
         sc.nextLine();
