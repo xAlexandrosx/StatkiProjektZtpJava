@@ -1,5 +1,6 @@
 package root.menu;
 
+import root.board.BattleshipDeployer;
 import root.board.Board;
 import root.game.Game;
 import root.players.AiPlayer;
@@ -87,8 +88,8 @@ public class Menu {
         P1.setBoards(p1Board, p2Board);
         P2.setBoards(p2Board, p1Board);
 
-        p1Board.importShips(AiPlayer.getBattleshipsRandom(boardSize));
-        p2Board.importShips(AiPlayer.getBattleshipsRandom(boardSize));
+        p1Board.importShips(BattleshipDeployer.getBattleshipsRandom(boardSize));
+        p2Board.importShips(BattleshipDeployer.getBattleshipsRandom(boardSize));
 
         g.setupGame(boardSize, P1, P2);
         g.runGame();
@@ -108,8 +109,8 @@ public class Menu {
         Player ai = new AiPlayer("Computer");
         ai.setBoards(p2Board, p1Board);
 
-        p1Board.importShips(AiPlayer.getBattleshipsRandom(boardSize));
-        p2Board.importShips(AiPlayer.getBattleshipsRandom(boardSize));
+        p1Board.importShips(BattleshipDeployer.getBattleshipsRandom(boardSize));
+        p2Board.importShips(BattleshipDeployer.getBattleshipsRandom(boardSize));
 
         g.setupGame(boardSize, hp, ai);
         g.runGame();

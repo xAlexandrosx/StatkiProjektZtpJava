@@ -1,7 +1,7 @@
 package root.game;
 
+import root.board.BattleshipDeployer;
 import root.board.Board;
-import root.players.AiPlayer;
 import root.players.Player;
 
 public class Game {
@@ -23,8 +23,8 @@ public class Game {
         p2.ownBoard = b2;
         p2.enemyBoard = b1;
 
-        b1.importShips(AiPlayer.getBattleshipsRandom(size));
-        b2.importShips(AiPlayer.getBattleshipsRandom(size));
+        b1.importShips(BattleshipDeployer.getBattleshipsRandom(size));
+        b2.importShips(BattleshipDeployer.getBattleshipsRandom(size));
     }
 
 
