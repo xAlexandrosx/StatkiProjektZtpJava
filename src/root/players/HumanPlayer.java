@@ -1,5 +1,7 @@
 package root.players;
 
+import root.game.Game;
+
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
@@ -17,6 +19,8 @@ public class HumanPlayer extends Player {
 
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
+
+        Game.mhs.recordTurn(this.name, x, y);
 
         enemyBoard.registerShot(x, y);
     }
