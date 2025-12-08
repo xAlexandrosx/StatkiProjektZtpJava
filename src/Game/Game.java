@@ -10,6 +10,7 @@ import players.HumanPlayer;
 import registrationservice.RegistrationService;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
 
@@ -18,6 +19,7 @@ public class Game {
     public final int COMPUTER_VS_COMPUTER = 2;
 
     public Random random = new Random();
+    public final Scanner sc = new Scanner(System.in);
     public BattleshipDeployer battleshipDeployer = new BattleshipDeployer(this);
     public ConsoleMenu consoleMenu = new ConsoleMenu(this);
     public RegistrationService rService = new RegistrationService(this);
@@ -72,14 +74,17 @@ public class Game {
         return boardSize;
     }
 
-    public void setBoardSize(int boardSize) {
+    public void setBoardSize() {
 
-        if (boardSize < 10) {
+        System.out.print("Enter new board size: ");
+        int size = sc.nextInt();
+        sc.nextLine();
+        if (size < 10) {
             System.out.println("Boardsize must be 10 or greater.");
         }
         else {
-            this.boardSize = boardSize;
-            System.out.println("Boardsize updated.");
+            this.boardSize = size;
+            System.out.println("Board size updated.");
         }
     }
 }

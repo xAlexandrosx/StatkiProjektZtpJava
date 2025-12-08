@@ -13,7 +13,7 @@ public class AiPlayer extends Player {
     @Override
     public void takeTurn() {
 
-        int size = enemyBoard.getSize();
+        int size = g.getBoardSize();
         int x, y;
 
         while (true) {

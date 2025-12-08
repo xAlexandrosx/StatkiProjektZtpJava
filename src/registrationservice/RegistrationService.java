@@ -42,8 +42,10 @@ public class RegistrationService {
         return isPlayer1 || isPlayer2;
     }
 
+    public void logIn() {
+        System.out.print("Enter player name to log in: ");
+        String playerName = g.sc.nextLine();
 
-    public void logIn(String playerName) {
         List<String> players = readPlayers();
 
         if (!players.contains(playerName)) {
@@ -69,21 +71,31 @@ public class RegistrationService {
         }
     }
 
-    public void logOut(int playerIndex) {
-        if (playerIndex == 0 && g.isPlayerExisting(1)) {
+    public void logOut() {
+        System.out.println("Logout:");
+        System.out.println("0 - Log out players.Player 1");
+        System.out.println("1 - Log out players.Player 2");
+
+        int idx = g.sc.nextInt();
+        g.sc.nextLine();
+
+        if (idx == 0 && g.isPlayerExisting(1)) {
             System.out.println(g.getPlayer(1).getName() + " logged out.");
             g.setPlayer(null ,1);
         }
-        else if (playerIndex == 1 && g.isPlayerExisting(2)) {
+        else if (idx == 1 && g.isPlayerExisting(2)) {
             System.out.println(g.getPlayer(2).getName() + " logged out.");
             g.setPlayer(null ,2);
         }
         else {
-            System.out.println("No player logged in at index " + playerIndex + ".");
+            System.out.println("No player logged in at index " + idx + ".");
         }
     }
 
-    public void signIn(String playerName) {
+    public void signIn() {
+        System.out.print("Enter a new username: ");
+        String playerName = g.sc.nextLine();
+
         List<String> players = readPlayers();
 
         if (players.contains(playerName)) {

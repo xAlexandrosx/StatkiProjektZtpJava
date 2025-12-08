@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Match {
 
-    public final Game g;
+    private final Game g;
     private final Player p1;
     private final Player p2;
 
@@ -30,8 +30,8 @@ public class Match {
             this.p2 = new AiPlayer("Computer 2", g);
         }
 
-        Board b1 = new Board(g.getBoardSize());
-        Board b2 = new Board(g.getBoardSize());
+        Board b1 = new Board(g);
+        Board b2 = new Board(g);
 
         p1.ownBoard = b1;
         p1.enemyBoard = b2;

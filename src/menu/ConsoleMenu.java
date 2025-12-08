@@ -2,12 +2,10 @@ package menu;
 
 import Game.Game;
 import Match.Match;
-import java.util.Scanner;
 
 public class ConsoleMenu {
 
     private final Game g;
-    private final Scanner sc = new Scanner(System.in);
 
     public ConsoleMenu(Game g) {
         this.g = g;
@@ -46,18 +44,18 @@ public class ConsoleMenu {
     }
 
     public int handleInput() {
-        int choice = sc.nextInt();
-        sc.nextLine();
+        int choice = g.sc.nextInt();
+        g.sc.nextLine();
 
         switch (choice) {
             case 1 -> new Match(g, g.PLAYER_VS_PLAYER).playMatch();
             case 2 -> new Match(g, g.PLAYER_VS_COMPUTER).playMatch();
             case 3 -> new Match(g, g.COMPUTER_VS_COMPUTER).playMatch();
             case 4 -> g.mhService.displayHistory();
-            case 5 -> changeBoardSize();
-            case 6 -> logOutMenu();
-            case 7 -> logInMenu();
-            case 8 -> registerMenu();
+            case 5 -> g.setBoardSize();
+            case 6 -> g.rService.logOut();
+            case 7 -> g.rService.logIn();
+            case 8 -> g.rService.signIn();
             case 9 -> {
                 System.out.println("Goodbye!");
                 return -1;
@@ -65,37 +63,5 @@ public class ConsoleMenu {
             default -> System.out.println("Invalid option.");
         }
         return choice;
-    }
-
-    private void changeBoardSize() {
-        System.out.print("Enter new board size: ");
-        g.setBoardSize(sc.nextInt());
-        sc.nextLine();
-        System.out.println("Board size updated.");
-    }
-
-    private void logOutMenu() {
-        System.out.println("Logout:");
-        System.out.println("0 - Log out players.Player 1");
-        System.out.println("1 - Log out players.Player 2");
-
-        int idx = sc.nextInt();
-        sc.nextLine();
-
-        g.rService.logOut(idx);
-    }
-
-    private void logInMenu() {
-        System.out.print("Enter player name to log in: ");
-        String name = sc.nextLine();
-
-        g.rService.logIn(name);
-    }
-
-    private void registerMenu() {
-        System.out.print("Enter a new username: ");
-        String name = sc.nextLine();
-
-        g.rService.signIn(name);
     }
 }

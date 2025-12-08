@@ -1,22 +1,20 @@
 package board;
 
+import Game.Game;
 import battleship.Battleship;
 
 import java.util.List;
 
 public class Board {
 
+    private final Game g;
+
     private final int[][] tiles;
-    private final int size;
     private List<Battleship> ships;
 
-    public Board(int size) {
-        this.size = size;
-        this.tiles = new int[size][size];
-    }
-
-    public int getSize() {
-        return size;
+    public Board(Game g) {
+        this.g = g;
+        this.tiles = new int[g.getBoardSize()][g.getBoardSize()];
     }
 
     public List<Battleship> getShips() {
@@ -42,13 +40,13 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         sb.append("   ");
-        for (int j = 0; j < size; j++) sb.append(j).append(" ");
+        for (int j = 0; j < g.getBoardSize(); j++) sb.append(j).append(" ");
         sb.append("\n");
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < g.getBoardSize(); i++) {
             sb.append(i).append("  ");
 
-            for (int j = 0; j < size; j++) {
+            for (int j = 0; j < g.getBoardSize(); j++) {
                 int tile = tiles[i][j];
 
                 if (isEnemy && tile == SHIP) {
@@ -83,7 +81,7 @@ public class Board {
 
     public void registerShot(int x, int y) {
 
-        if (!(x >= 0 && x < size && y >= 0 && y < size)) {
+        if (!(x >= 0 && x < g.getBoardSize() && y >= 0 && y < g.getBoardSize())) {
             System.out.println("Shot out of bounds!");
             return;
         }
