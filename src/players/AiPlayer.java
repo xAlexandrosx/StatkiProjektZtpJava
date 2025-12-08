@@ -2,8 +2,6 @@ package players;
 
 import Game.Game;
 
-import java.util.*;
-
 public class AiPlayer extends Player {
 
     public AiPlayer(String name, Game g) {
@@ -25,7 +23,7 @@ public class AiPlayer extends Player {
             if (tile == 0 || tile == 1) break;
         }
 
-        g.mhService.recordTurn(this.name, x, y);
+        g.matchHistoryService.recordTurn(this.name, x, y);
 
         System.out.println(name + " shoots at " + x + ", " + y);
         enemyBoard.registerShot(x, y);

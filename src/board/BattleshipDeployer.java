@@ -5,7 +5,7 @@ import battleship.Battleship;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleshipDeployer {
+public class BattleshipDeployer implements IBattleshipDeployer {
 
     private final Game g;
 
@@ -26,7 +26,7 @@ public class BattleshipDeployer {
         return ships;
     }
 
-    private Battleship placeShip(int size, int length, boolean[][] grid) {
+    public Battleship placeShip(int size, int length, boolean[][] grid) {
 
         while (true) {
             boolean horizontal = g.random.nextBoolean();

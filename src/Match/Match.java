@@ -8,7 +8,7 @@ import players.Player;
 
 import java.util.List;
 
-public class Match {
+public class Match implements IMatch {
 
     private final Game g;
     private final Player p1;
@@ -47,8 +47,8 @@ public class Match {
         b1.importShips(ships1);
         b2.importShips(ships2);
 
-        g.mhService.recordPlayers(p1, p2, g.getBoardSize());
-        g.mhService.recordShips(ships1, ships2);
+        g.matchHistoryService.recordPlayers(p1, p2);
+        g.matchHistoryService.recordShips(ships1, ships2);
     }
 
     public void playMatch() {
@@ -81,7 +81,7 @@ public class Match {
             }
         }
 
-        g.mhService.setWinner(winner.getName());
-        g.mhService.saveMatchToFile();
+        g.matchHistoryService.setWinner(winner.getName());
+        g.matchHistoryService.saveMatchToFile();
     }
 }

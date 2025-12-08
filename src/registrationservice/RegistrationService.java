@@ -7,32 +7,33 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class RegistrationService {
+public class RegistrationService implements IRegistrationService {
 
     private final Game g;
+    private final String FILE_PATH = "src/players/players.csv";
 
     public RegistrationService(Game g) {
         this.g = g;
     }
 
-    private List<String> readPlayers() {
+    public List<String> readPlayers() {
         try {
-            return Files.readAllLines(Paths.get("src/players/players.csv"));
+            return Files.readAllLines(Paths.get(FILE_PATH));
         } catch (IOException e) {
             System.out.println("Couldn't read file.");
         }
         return new ArrayList<>();
     }
 
-    private void writePlayer(String name) {
-        try (FileWriter fw = new FileWriter("src/players/players.csv", true)) {
+    public void writePlayer(String name) {
+        try (FileWriter fw = new FileWriter(FILE_PATH, true)) {
             fw.write(name + System.lineSeparator());
         } catch (IOException e) {
             System.out.println("Couldn't write to file.");
         }
     }
 
-    private boolean isLoggedIn(String playerName) {
+    public boolean isLoggedIn(String playerName) {
         Player p1 = g.getPlayer(1);
         Player p2 = g.getPlayer(2);
 
@@ -44,7 +45,7 @@ public class RegistrationService {
 
     public void logIn() {
         System.out.print("Enter player name to log in: ");
-        String playerName = g.sc.nextLine();
+        String playerName = g.scanner.nextLine();
 
         List<String> players = readPlayers();
 
@@ -76,8 +77,8 @@ public class RegistrationService {
         System.out.println("0 - Log out players.Player 1");
         System.out.println("1 - Log out players.Player 2");
 
-        int idx = g.sc.nextInt();
-        g.sc.nextLine();
+        int idx = g.scanner.nextInt();
+        g.scanner.nextLine();
 
         if (idx == 0 && g.isPlayerExisting(1)) {
             System.out.println(g.getPlayer(1).getName() + " logged out.");
@@ -94,7 +95,7 @@ public class RegistrationService {
 
     public void signIn() {
         System.out.print("Enter a new username: ");
-        String playerName = g.sc.nextLine();
+        String playerName = g.scanner.nextLine();
 
         List<String> players = readPlayers();
 

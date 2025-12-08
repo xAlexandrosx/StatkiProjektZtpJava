@@ -3,7 +3,7 @@ package menu;
 import Game.Game;
 import Match.Match;
 
-public class ConsoleMenu {
+public class ConsoleMenu implements IMenu {
 
     private final Game g;
 
@@ -26,11 +26,7 @@ public class ConsoleMenu {
         System.out.println("Board Size: " + g.getBoardSize());
         System.out.println();
 
-        boolean twoPlayersLogged = (g.getPlayer(1) != null && g.getPlayer(2) != null);
-
-        System.out.println("1. Start match with 2 players"
-                + (twoPlayersLogged ? "" : " (unavailable)"));
-
+        System.out.println("1. Start match with 2 players");
         System.out.println("2. Start match vs AI");
         System.out.println("3. Watch AI vs AI");
         System.out.println("4. Match history");
@@ -44,18 +40,18 @@ public class ConsoleMenu {
     }
 
     public int handleInput() {
-        int choice = g.sc.nextInt();
-        g.sc.nextLine();
+        int choice = g.scanner.nextInt();
+        g.scanner.nextLine();
 
         switch (choice) {
             case 1 -> new Match(g, g.PLAYER_VS_PLAYER).playMatch();
             case 2 -> new Match(g, g.PLAYER_VS_COMPUTER).playMatch();
             case 3 -> new Match(g, g.COMPUTER_VS_COMPUTER).playMatch();
-            case 4 -> g.mhService.displayHistory();
+            case 4 -> g.matchHistoryService.displayHistory();
             case 5 -> g.setBoardSize();
-            case 6 -> g.rService.logOut();
-            case 7 -> g.rService.logIn();
-            case 8 -> g.rService.signIn();
+            case 6 -> g.registrationService.logOut();
+            case 7 -> g.registrationService.logIn();
+            case 8 -> g.registrationService.signIn();
             case 9 -> {
                 System.out.println("Goodbye!");
                 return -1;

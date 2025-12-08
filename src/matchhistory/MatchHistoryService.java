@@ -10,16 +10,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MatchHistoryService {
+public class MatchHistoryService implements IMatchHistoryService {
 
     private final Game g;
     private MatchRecord current;
+    private final String FILE_PATH = "src/matchhistory/match_history.json";
 
     public MatchHistoryService(Game g) {
         this.g = g;
     }
 
-    public void recordPlayers(Player p1, Player p2, int boardSize) {
+    public void recordPlayers(Player p1, Player p2) {
         current = new MatchRecord();
         current.turns = new ArrayList<>();
 
@@ -30,7 +31,7 @@ public class MatchHistoryService {
         current.time = LocalTime.now().withNano(0).toString();
         current.player1 = p1.getName();
         current.player2 = p2.getName();
-        current.boardSize = boardSize;
+        current.boardSize = g.getBoardSize();
     }
 
     public void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships) {
@@ -38,7 +39,7 @@ public class MatchHistoryService {
         current.ships2 = extractShipCoordinates(p2Ships);
     }
 
-    private List<List<int[]>> extractShipCoordinates(List<Battleship> ships) {
+    public List<List<int[]>> extractShipCoordinates(List<Battleship> ships) {
         List<List<int[]>> list = new ArrayList<>();
 
         for (Battleship ship : ships) {
@@ -63,17 +64,17 @@ public class MatchHistoryService {
         List<MatchRecord> matches = loadExistingMatches();
         matches.add(current);
 
-        try (Writer writer = new FileWriter("match_history.json")) {
+        try (Writer writer = new FileWriter(FILE_PATH)) {
             g.gson.toJson(matches, writer);
         } catch (IOException e) {
             System.out.println("Error: could not save match history.");
         }
     }
 
-    private List<MatchRecord> loadExistingMatches() {
+    public List<MatchRecord> loadExistingMatches() {
         List<MatchRecord> matches = new ArrayList<>();
 
-        try (Reader reader = new FileReader("match_history.json")) {
+        try (Reader reader = new FileReader(FILE_PATH)) {
             MatchRecord[] existing = g.gson.fromJson(reader, MatchRecord[].class);
             if (existing != null) {
                 matches.addAll(Arrays.asList(existing));
@@ -88,7 +89,7 @@ public class MatchHistoryService {
     public void displayHistory() {
         List<MatchRecord> matches;
 
-        try (Reader reader = new FileReader("match_history.json")) {
+        try (Reader reader = new FileReader(FILE_PATH)) {
             MatchRecord[] existing = g.gson.fromJson(reader, MatchRecord[].class);
             if (existing == null || existing.length == 0) {
                 System.out.println("No match history found.");
