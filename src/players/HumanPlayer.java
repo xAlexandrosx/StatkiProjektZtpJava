@@ -1,6 +1,7 @@
-package root.players;
+package players;
 
-import root.game.Game;
+import Game.Game;
+import game.Match;
 
 import java.util.Scanner;
 
@@ -8,8 +9,8 @@ public class HumanPlayer extends Player {
 
     private final Scanner sc = new Scanner(System.in);
 
-    public HumanPlayer(String name) {
-        super(name);
+    public HumanPlayer(String name, Game g) {
+        super(name, g);
     }
 
     @Override
@@ -20,7 +21,7 @@ public class HumanPlayer extends Player {
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
 
-        Game.mhs.recordTurn(this.name, x, y);
+        g.mhService.recordTurn(this.name, x, y);
 
         enemyBoard.registerShot(x, y);
     }

@@ -1,4 +1,4 @@
-package root.matchhistory;
+package matchhistory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,19 @@
-package root.board;
+package board;
 
-import root.battleship.Battleship;
-
+import Game.Game;
+import battleship.Battleship;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class BattleshipDeployer {
 
-    private static final Random rn = new Random();
+    private final Game g;
 
-    public static List<Battleship> getBattleshipsRandom(int size) {
+    public BattleshipDeployer(Game g) {
+        this.g = g;
+    }
+
+    public List<Battleship> getBattleshipsRandom(int size) {
         List<Battleship> ships = new ArrayList<>();
         boolean[][] grid = new boolean[size][size];
 
@@ -23,13 +26,13 @@ public class BattleshipDeployer {
         return ships;
     }
 
-    private static Battleship placeShip(int size, int length, boolean[][] grid) {
+    private Battleship placeShip(int size, int length, boolean[][] grid) {
 
         while (true) {
-            boolean horizontal = rn.nextBoolean();
+            boolean horizontal = g.random.nextBoolean();
 
-            int row = rn.nextInt(size);
-            int col = rn.nextInt(size);
+            int row = g.random.nextInt(size);
+            int col = g.random.nextInt(size);
 
             if (horizontal) {
                 if (col + length > size) continue;

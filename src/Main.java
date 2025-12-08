@@ -1,12 +1,12 @@
-import root.menu.Menu;
+import Game.Game;
 
 void main() {
 
-    Menu menu = new Menu();
+    Game g = new Game();
 
     int option;
     do {
-        menu.display();
-        option = menu.handleInput();
+        g.consoleMenu.display();
+        option = g.consoleMenu.handleInput();
     } while (option != -1);
 }

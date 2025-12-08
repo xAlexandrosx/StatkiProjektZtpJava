@@ -1,4 +1,4 @@
-package root.matchhistory;
+package matchhistory;
 
 public class TurnRecord {
     public String player;

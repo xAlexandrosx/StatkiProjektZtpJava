@@ -1,14 +1,18 @@
-package root.players;
+package players;
 
-import root.board.Board;
+import Game.Game;
+import board.Board;
 
 public abstract class Player {
+
+    public final Game g;
 
     protected final String name;
     public Board ownBoard;
     public Board enemyBoard;
 
-    public Player(String name) {
+    public Player(String name, Game g) {
+        this.g = g;
         this.name = name;
     }
 
@@ -17,9 +21,4 @@ public abstract class Player {
     }
 
     public abstract void takeTurn();
-
-    public void setBoards(Board p1Board, Board p2Board) {
-        ownBoard = p1Board;
-        enemyBoard = p2Board;
-    }
 }
