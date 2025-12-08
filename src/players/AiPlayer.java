@@ -1,15 +1,13 @@
-package root.players;
+package players;
 
-import root.game.Game;
+import Game.Game;
 
 import java.util.*;
 
 public class AiPlayer extends Player {
 
-    private static final Random rn = new Random();
-
-    public AiPlayer(String name) {
-        super(name);
+    public AiPlayer(String name, Game g) {
+        super(name, g);
     }
 
     @Override
@@ -19,15 +17,15 @@ public class AiPlayer extends Player {
         int x, y;
 
         while (true) {
-            x = rn.nextInt(size);
-            y = rn.nextInt(size);
+            x = g.random.nextInt(size);
+            y = g.random.nextInt(size);
 
             int tile = enemyBoard.getTile(x, y);
 
             if (tile == 0 || tile == 1) break;
         }
 
-        Game.mhs.recordTurn(this.name, x, y);
+        g.mhService.recordTurn(this.name, x, y);
 
         System.out.println(name + " shoots at " + x + ", " + y);
         enemyBoard.registerShot(x, y);
@@ -36,7 +34,7 @@ public class AiPlayer extends Player {
         try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Waiting failed for some reason...");
         }
     }
 }

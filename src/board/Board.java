@@ -1,6 +1,6 @@
-package root.board;
+package board;
 
-import root.battleship.Battleship;
+import battleship.Battleship;
 
 import java.util.List;
 
@@ -9,6 +9,11 @@ public class Board {
     private final int[][] tiles;
     private final int size;
     private List<Battleship> ships;
+
+    public Board(int size) {
+        this.size = size;
+        this.tiles = new int[size][size];
+    }
 
     public int getSize() {
         return size;
@@ -22,11 +27,6 @@ public class Board {
     private static final int SHIP  = 1;
     private static final int HIT   = 2;
     private static final int MISS  = 3;
-
-    public Board(int size) {
-        this.size = size;
-        this.tiles = new int[size][size];
-    }
 
     public void importShips(List<Battleship> ships) {
         this.ships = ships;
@@ -55,7 +55,7 @@ public class Board {
                     tile = EMPTY;
                 }
 
-                sb.append(getSymbol(tile, i, j, isEnemy)).append(" ");            }
+                sb.append(getTileSymbol(tile, i, j, isEnemy)).append(" ");            }
 
             sb.append("\n");
         }
@@ -63,7 +63,7 @@ public class Board {
         System.out.println(sb);
     }
 
-    private char getSymbol(int tile, int x, int y, boolean isEnemy) {
+    private char getTileSymbol(int tile, int x, int y, boolean isEnemy) {
 
         return switch (tile) {
             case EMPTY -> '.';
@@ -83,7 +83,7 @@ public class Board {
 
     public void registerShot(int x, int y) {
 
-        if (!inBounds(x, y)) {
+        if (!(x >= 0 && x < size && y >= 0 && y < size)) {
             System.out.println("Shot out of bounds!");
             return;
         }
@@ -98,14 +98,21 @@ public class Board {
             tiles[x][y] = HIT;
             System.out.println("Hit");
 
-            Battleship ship = findShipAt(x, y);
+            Battleship ship = null;
+            for (Battleship s : ships) {
+                for (int[] pos : s.getTiles()) {
+                    if (pos[0] == x && pos[1] == y) {
+                        ship = s;
+                        break;
+                    }
+                }
+            }
 
             if (ship == null) {
                 System.out.println("ERROR: Ship not found!");
                 return;
             }
 
-            // Check if sunk
             if (isSunk(ship)) {
                 System.out.println("Sunk");
                 ships.remove(ship);
@@ -122,19 +129,6 @@ public class Board {
             }
         }
         return true;
-    }
-
-    private Battleship findShipAt(int x, int y) {
-        for (Battleship s : ships) {
-            for (int[] pos : s.getTiles()) {
-                if (pos[0] == x && pos[1] == y) return s;
-            }
-        }
-        return null;
-    }
-
-    private boolean inBounds(int x, int y) {
-        return x >= 0 && x < size && y >= 0 && y < size;
     }
 
     private boolean isTileFromSunkShip(int x, int y) {
