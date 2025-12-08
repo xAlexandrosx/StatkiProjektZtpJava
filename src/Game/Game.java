@@ -31,18 +31,30 @@ public class Game {
     public HumanPlayer getPlayer(int index) {
         if (index == 1) {
             if (player1 == null) {
-                return new HumanPlayer("Guest", this);
+                return new HumanPlayer("Guest1", this);
             }
             return player1;
         }
         else if (index == 2) {
             if (player2 == null) {
-                return new HumanPlayer("Guest", this);
+                return new HumanPlayer("Guest2", this);
             }
             return player2;
         }
         System.out.println("Incorrect index!");
         return null;
+    }
+
+    public boolean isPlayerExisting(int index) {
+        if (index == 1 && player1 == null) {
+            return false;
+        }
+        else if (index == 2 && player2 == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public void setPlayer(HumanPlayer player, int index) {
@@ -67,7 +79,7 @@ public class Game {
         }
         else {
             this.boardSize = boardSize;
-
+            System.out.println("Boardsize updated.");
         }
     }
 }

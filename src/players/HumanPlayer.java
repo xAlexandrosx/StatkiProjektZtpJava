@@ -1,7 +1,6 @@
 package players;
 
 import Game.Game;
-import game.Match;
 
 import java.util.Scanner;
 

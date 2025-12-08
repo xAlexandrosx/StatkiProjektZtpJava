@@ -1,4 +1,4 @@
-package game;
+package Match;
 
 import Game.Game;
 import battleship.Battleship;
@@ -12,9 +12,7 @@ public class Match {
 
     public final Game g;
     private final Player p1;
-    private final Board b1;
     private final Player p2;
-    private final Board b2;
 
     public Match(Game g, int variant) {
         this.g = g;
@@ -32,8 +30,8 @@ public class Match {
             this.p2 = new AiPlayer("Computer 2", g);
         }
 
-        b1 = new Board(g.getBoardSize());
-        b2 = new Board(g.getBoardSize());
+        Board b1 = new Board(g.getBoardSize());
+        Board b2 = new Board(g.getBoardSize());
 
         p1.ownBoard = b1;
         p1.enemyBoard = b2;

@@ -52,17 +52,17 @@ public class RegistrationService {
         }
 
         if (isLoggedIn(playerName)) {
-            System.out.println("players.Player already logged in.");
+            System.out.println("Player already logged in.");
             return;
         }
 
-        if (g.getPlayer(1) == null) {
+        if (!g.isPlayerExisting(1)) {
             g.setPlayer(new HumanPlayer(playerName, g) ,1);
-            System.out.println(playerName + " logged in as players.Player 1.");
+            System.out.println(playerName + " logged in as Player 1.");
         }
-        else if (g.getPlayer(2) == null) {
+        else if (!g.isPlayerExisting(2)) {
             g.setPlayer(new HumanPlayer(playerName, g) ,2);
-            System.out.println(playerName + " logged in as players.Player 2.");
+            System.out.println(playerName + " logged in as Player 2.");
         }
         else {
             System.out.println("Two players are already logged in.");
@@ -70,11 +70,11 @@ public class RegistrationService {
     }
 
     public void logOut(int playerIndex) {
-        if (playerIndex == 0 && g.getPlayer(1) != null) {
+        if (playerIndex == 0 && g.isPlayerExisting(1)) {
             System.out.println(g.getPlayer(1).getName() + " logged out.");
             g.setPlayer(null ,1);
         }
-        else if (playerIndex == 1 && g.getPlayer(2) != null) {
+        else if (playerIndex == 1 && g.isPlayerExisting(2)) {
             System.out.println(g.getPlayer(2).getName() + " logged out.");
             g.setPlayer(null ,2);
         }

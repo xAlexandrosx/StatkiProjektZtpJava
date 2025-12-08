@@ -1,7 +1,7 @@
 package menu;
 
 import Game.Game;
-import game.Match;
+import Match.Match;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -16,8 +16,15 @@ public class ConsoleMenu {
     // MENU DISPLAY
     public void display() {
         System.out.println("\n===================== MENU =====================");
-        System.out.println("P1: " + (g.getPlayer(1) == null ? "" : g.getPlayer(2).getName()));
-        System.out.println("P2: " + (g.getPlayer(2) == null ? "" : g.getPlayer(2).getName()));
+
+        String p1Name = "";
+        if (g.isPlayerExisting(1)) p1Name = g.getPlayer(1).getName();
+        String p2Name = "";
+        if (g.isPlayerExisting(2)) p2Name = g.getPlayer(2).getName();
+
+        System.out.println("P1: " + p1Name);
+        System.out.println("P2: " + p2Name);
+
         System.out.println("Board Size: " + g.getBoardSize());
         System.out.println();
 
@@ -43,9 +50,9 @@ public class ConsoleMenu {
         sc.nextLine();
 
         switch (choice) {
-            case 1 -> startMatchPlayers();
-            case 2 -> startMatchAI();
-            case 3 -> watchAIvsAI();
+            case 1 -> new Match(g, g.PLAYER_VS_PLAYER).playMatch();
+            case 2 -> new Match(g, g.PLAYER_VS_COMPUTER).playMatch();
+            case 3 -> new Match(g, g.COMPUTER_VS_COMPUTER).playMatch();
             case 4 -> g.mhService.displayHistory();
             case 5 -> changeBoardSize();
             case 6 -> logOutMenu();
@@ -60,31 +67,11 @@ public class ConsoleMenu {
         return choice;
     }
 
-    private void startMatchPlayers() {
-
-        System.out.println("Starting match between " + g.getPlayer(1).getName() + " and " + g.getPlayer(2).getName());
-        Match match = new Match(g, g.PLAYER_VS_PLAYER);
-        match.playMatch();
-    }
-
-    private void startMatchAI() {
-        System.out.println("Starting match VS AI...");
-        Match match = new Match(g, g.PLAYER_VS_COMPUTER);
-        match.playMatch();
-    }
-
-    private void watchAIvsAI() {
-        System.out.println("Starting AI vs AI simulation...");
-
-        Match match = new Match(g, g.COMPUTER_VS_COMPUTER);
-        match.playMatch();
-    }
-
     private void changeBoardSize() {
         System.out.print("Enter new board size: ");
         g.setBoardSize(sc.nextInt());
         sc.nextLine();
-        System.out.println("board.Board size updated.");
+        System.out.println("Board size updated.");
     }
 
     private void logOutMenu() {
@@ -97,12 +84,14 @@ public class ConsoleMenu {
 
         g.rService.logOut(idx);
     }
+
     private void logInMenu() {
         System.out.print("Enter player name to log in: ");
         String name = sc.nextLine();
 
         g.rService.logIn(name);
     }
+
     private void registerMenu() {
         System.out.print("Enter a new username: ");
         String name = sc.nextLine();
