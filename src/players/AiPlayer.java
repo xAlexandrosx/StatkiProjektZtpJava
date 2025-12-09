@@ -23,9 +23,9 @@ public class AiPlayer extends Player {
             if (tile == 0 || tile == 1) break;
         }
 
-        g.matchHistoryService.recordTurn(this.name, x, y);
+        g.matchHistoryService.recordTurn(playerProfile.Name(), x, y);
 
-        System.out.println(name + " shoots at " + x + ", " + y);
+        System.out.println(playerProfile.Name() + " shoots at " + x + ", " + y);
         enemyBoard.registerShot(x, y);
         enemyBoard.displayBoard(false);
 

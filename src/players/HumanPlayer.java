@@ -1,6 +1,7 @@
 package players;
 
 import Game.Game;
+import registrationservice.PlayerProfile;
 
 import java.util.Scanner;
 
@@ -9,16 +10,20 @@ public class HumanPlayer extends Player {
     public HumanPlayer(String name, Game g) {
         super(name, g);
     }
+    public HumanPlayer(String name, Game g, PlayerProfile playerProfile) {
+        super(name, g);
+        this.playerProfile = playerProfile;
+    }
 
     @Override
     public void takeTurn() {
-        System.out.println(name + ", it's your turn!");
+        System.out.println(getName() + ", it's your turn!");
         enemyBoard.displayBoard(true);
 
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
 
-        g.matchHistoryService.recordTurn(this.name, x, y);
+        g.matchHistoryService.recordTurn(getName(), x, y);
 
         enemyBoard.registerShot(x, y);
     }

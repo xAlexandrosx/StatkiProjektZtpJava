@@ -10,26 +10,36 @@ import java.util.*;
 public class RegistrationService implements IRegistrationService {
 
     private final Game g;
-    private final String FILE_PATH = "src/players/players.csv";
+    private final String FILE_PATH = "src/registrationservice/player_profiles.csv";
 
     public RegistrationService(Game g) {
         this.g = g;
     }
 
-    public List<String> readPlayers() {
-        try {
-            return Files.readAllLines(Paths.get(FILE_PATH));
+    public List<PlayerProfile> loadPlayers() {
+        List<PlayerProfile> playerProfiles = new ArrayList<>();
+
+        try(Reader reader = new FileReader(FILE_PATH)) {
+            PlayerProfile[] existing = g.gson.fromJson(reader, PlayerProfile[].class);
+
+            if (existing != null){
+                playerProfiles.addAll(Arrays.asList(existing));
+            }
         } catch (IOException e) {
-            System.out.println("Couldn't read file.");
+            System.out.println("Warning: player profiles file not found or unreadable.");
         }
-        return new ArrayList<>();
+
+        return playerProfiles;
     }
 
-    public void writePlayer(String name) {
-        try (FileWriter fw = new FileWriter(FILE_PATH, true)) {
-            fw.write(name + System.lineSeparator());
+    public void writePlayer(PlayerProfile playerProfile) {
+        List<PlayerProfile> playerProfiles = loadPlayers();
+        playerProfiles.add(playerProfile);
+
+        try (Writer writer = new FileWriter(FILE_PATH)) {
+            g.gson.toJson(playerProfiles, writer);
         } catch (IOException e) {
-            System.out.println("Couldn't write to file.");
+            System.out.println("Error: could not save player profiles.");
         }
     }
 
@@ -47,9 +57,11 @@ public class RegistrationService implements IRegistrationService {
         System.out.print("Enter player name to log in: ");
         String playerName = g.scanner.nextLine();
 
-        List<String> players = readPlayers();
+        List<PlayerProfile> players = loadPlayers();
 
-        if (!players.contains(playerName)) {
+        PlayerProfile playerProfile = players.stream().filter(p -> p.Name().equals(playerName)).findFirst().orElse(null);
+
+        if (playerProfile == null) {
             System.out.println("No such account exists.");
             return;
         }
@@ -60,11 +72,11 @@ public class RegistrationService implements IRegistrationService {
         }
 
         if (!g.isPlayerExisting(1)) {
-            g.setPlayer(new HumanPlayer(playerName, g) ,1);
+            g.setPlayer(new HumanPlayer(playerName, g, playerProfile) ,1);
             System.out.println(playerName + " logged in as Player 1.");
         }
         else if (!g.isPlayerExisting(2)) {
-            g.setPlayer(new HumanPlayer(playerName, g) ,2);
+            g.setPlayer(new HumanPlayer(playerName, g, playerProfile) ,2);
             System.out.println(playerName + " logged in as Player 2.");
         }
         else {
@@ -74,8 +86,8 @@ public class RegistrationService implements IRegistrationService {
 
     public void logOut() {
         System.out.println("Logout:");
-        System.out.println("0 - Log out players.Player 1");
-        System.out.println("1 - Log out players.Player 2");
+        System.out.println("0 - Log out account of Player 1");
+        System.out.println("1 - Log out account of Player 2");
 
         int idx = g.scanner.nextInt();
         g.scanner.nextLine();
@@ -97,13 +109,17 @@ public class RegistrationService implements IRegistrationService {
         System.out.print("Enter a new username: ");
         String playerName = g.scanner.nextLine();
 
-        List<String> players = readPlayers();
+        List<PlayerProfile> players = loadPlayers();
+        boolean profileExists = players.stream().anyMatch(p -> p.Name().equals(playerName));
 
-        if (players.contains(playerName)) {
+
+        if (profileExists) {
             System.out.println("Name already taken.");
         }
         else {
-            writePlayer(playerName);
+            PlayerProfile newProfile = new PlayerProfile(playerName);
+
+            writePlayer(newProfile);
             System.out.println("Account created for: " + playerName);
         }
     }

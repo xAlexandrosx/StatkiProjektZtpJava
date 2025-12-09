@@ -10,6 +10,7 @@ import menu.ConsoleMenu;
 import menu.IMenu;
 import players.HumanPlayer;
 import registrationservice.IRegistrationService;
+import registrationservice.PlayerProfile;
 import registrationservice.RegistrationService;
 
 import java.util.Random;
@@ -32,6 +33,7 @@ public class Game {
 
     private HumanPlayer player1;
     private HumanPlayer player2;
+
     private int boardSize = 10;
 
     public HumanPlayer getPlayer(int index) {

@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface IRegistrationService {
 
-    List<String> readPlayers();
+    List<PlayerProfile> loadPlayers();
 
-    void writePlayer(String name);
+    void writePlayer(PlayerProfile playerProfile);
 
     boolean isLoggedIn(String playerName);
 

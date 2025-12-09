@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Piotr",
+    "matchesPlayed": 0,
+    "matchesWon": 0,
+    "hitCount": 0,
+    "missCount": 0,
+    "destroyedShipCount": 0,
+    "moveCount": 0,
+    "score": 0
+  },
+  {
+    "name": "Jarek",
+    "matchesPlayed": 0,
+    "matchesWon": 0,
+    "hitCount": 0,
+    "missCount": 0,
+    "destroyedShipCount": 0,
+    "moveCount": 0,
+    "score": 0
+  }
+]
