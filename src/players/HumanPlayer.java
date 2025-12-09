@@ -24,8 +24,8 @@ public class HumanPlayer extends Player {
         int y = readInt("Enter Y: ");
 
         g.matchHistoryService.recordTurn(getName(), x, y);
-
-        enemyBoard.registerShot(x, y);
+        g.statisticsService.RegisterShot(this, enemyBoard.registerShot(x, y));
+        g.statisticsService.RegisterMove(this);
     }
 
     private int readInt(String prompt) {

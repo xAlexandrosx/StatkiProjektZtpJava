@@ -79,17 +79,17 @@ public class Board {
         return tiles[x][y];
     }
 
-    public void registerShot(int x, int y) {
+    public boolean registerShot(int x, int y) {
 
         if (!(x >= 0 && x < g.getBoardSize() && y >= 0 && y < g.getBoardSize())) {
             System.out.println("Shot out of bounds!");
-            return;
+            return false;
         }
 
         if (tiles[x][y] == EMPTY) {
             tiles[x][y] = MISS;
             System.out.println("Miss");
-            return;
+            return false;
         }
 
         if (tiles[x][y] == SHIP) {
@@ -108,7 +108,7 @@ public class Board {
 
             if (ship == null) {
                 System.out.println("ERROR: Ship not found!");
-                return;
+                return false;
             }
 
             if (isSunk(ship)) {
@@ -118,6 +118,8 @@ public class Board {
                 System.out.println("Not sunk");
             }
         }
+
+        return true;
     }
 
     private boolean isSunk(Battleship ship) {

@@ -43,6 +43,23 @@ public class RegistrationService implements IRegistrationService {
         }
     }
 
+    public void updatePlayer(PlayerProfile newProfile){
+        List<PlayerProfile> playerProfiles = loadPlayers();
+
+        PlayerProfile oldProfile = playerProfiles.stream().filter(p -> p.Name().equals(newProfile.Name())).findFirst().orElse(null);
+
+        if(oldProfile != null){
+            playerProfiles.set(playerProfiles.indexOf(oldProfile), newProfile);
+
+            try (Writer writer = new FileWriter(FILE_PATH)) {
+                g.gson.toJson(playerProfiles, writer);
+            } catch (IOException e) {
+                System.out.println("Error: could not save player profiles.");
+            }
+        }
+
+    }
+
     public boolean isLoggedIn(String playerName) {
         Player p1 = g.getPlayer(1);
         Player p2 = g.getPlayer(2);

@@ -8,6 +8,8 @@ public interface IRegistrationService {
 
     void writePlayer(PlayerProfile playerProfile);
 
+    void updatePlayer(PlayerProfile playerProfile);
+
     boolean isLoggedIn(String playerName);
 
     void logIn();

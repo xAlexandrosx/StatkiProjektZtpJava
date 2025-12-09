@@ -56,6 +56,7 @@ public class Match implements IMatch {
         System.out.println("Starting match between " + p1.getName() + " and " + p2.getName());
 
         Player winner = null;
+        Player loser = null;
 
         while (true) {
             System.out.println("\n==========================");
@@ -66,6 +67,7 @@ public class Match implements IMatch {
             if (p2.ownBoard.getShips().isEmpty()) {
                 System.out.println(p1.getName() + " wins!");
                 winner = p1;
+                loser = p2;
                 break;
             }
 
@@ -77,11 +79,19 @@ public class Match implements IMatch {
             if (p1.ownBoard.getShips().isEmpty()) {
                 System.out.println(p2.getName() + " wins!");
                 winner = p2;
+                loser = p1;
                 break;
             }
         }
 
+        g.statisticsService.RegisterMatch(winner, loser);
         g.matchHistoryService.setWinner(winner.getName());
         g.matchHistoryService.saveMatchToFile();
+
+        // Saving the player profiles to save changes -
+        // we don't need to differentiate between temporary accounts and registered one -
+        // function only updates existing accounts.
+        g.registrationService.updatePlayer(winner.playerProfile);
+        g.registrationService.updatePlayer(loser.playerProfile);
     }
 }

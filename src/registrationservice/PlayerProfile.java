@@ -11,7 +11,6 @@ public class PlayerProfile {
     private int hitCount;
     private int missCount;
 
-    private int destroyedShipCount;
     private int moveCount; // Total number of moves ever made
 
     private int score;
@@ -38,9 +37,6 @@ public class PlayerProfile {
     public double Accuracy(){ return (double) hitCount /(hitCount + missCount); }
 
 
-    public int GetDestroyedShipCount(){ return destroyedShipCount; }
-    public void SetDestroyedShipCount(int destroyedShipCount){ this.destroyedShipCount = destroyedShipCount; }
-
     public int GetMoveCount(){ return moveCount; }
     public void SetMoveCount(int moveCount){ this.moveCount = moveCount; }
 
@@ -59,7 +55,6 @@ public class PlayerProfile {
 
         hitCount = 0;
         missCount = 0;
-        destroyedShipCount = 0;
         moveCount = 0;
 
         score = 0; // Fix later to use for real ELO ranking
@@ -68,7 +63,7 @@ public class PlayerProfile {
     /**
      * Constructor for recreating the user profile object from saved data
      */
-    public PlayerProfile(String name, int matchesPlayed, int matchesWon, int hitCount, int missCount, int destroyedShipCount, int moveCount, int score){
+    public PlayerProfile(String name, int matchesPlayed, int matchesWon, int hitCount, int missCount, int moveCount, int score){
         this.name = name;
 
         this.matchesPlayed = matchesPlayed;
@@ -76,7 +71,6 @@ public class PlayerProfile {
 
         this.hitCount = hitCount;
         this.missCount = missCount;
-        this.destroyedShipCount = destroyedShipCount;
         this.moveCount = moveCount;
 
         this.score = score;
