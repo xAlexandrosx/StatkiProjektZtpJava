@@ -1,13 +1,16 @@
 package board;
 
+import Game.Game;
 import battleship.Battleship;
 
+/* BUILDER */
 public class BoardBuilder {
     private final Board board;
     private boolean done = false;
 
-    public BoardBuilder(int size) {
-        board = new Board(size);
+    public BoardBuilder(Game g) {
+        board = new Board(g);
+        board.importShips(null);
     }
 
     public BoardBuilder addSingle(int x, int y) {
@@ -27,8 +30,8 @@ public class BoardBuilder {
     }
 
     public BoardBuilder add(int x, int y, int len, boolean vert) {
-        if (board.placeShip(new Battleship(x, y, len, vert))) return this;
-        throw new IllegalArgumentException("Ship collision detected!");
+        board.placeShip(new Battleship(x, y, len, vert));
+        return this;
     }
 
     public Board toBoard() {

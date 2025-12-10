@@ -1,12 +1,15 @@
 import Game.Game;
 
-void main() {
+public class Main {
+    public static void main(String[] args) {
 
-    Game g = new Game();
+        Game g = new Game();
 
-    int option;
-    do {
-        g.consoleMenu.display();
-        option = g.consoleMenu.handleInput();
-    } while (option != -1);
+        int option;
+        do {
+            g.consoleMenu.display();
+            option = g.consoleMenu.handleInput();
+        } while (option != -1);
+    }
 }
+

@@ -1,6 +1,7 @@
 package matchhistory;
 
 import battleship.Battleship;
+import battleship.IBattleship;
 import players.Player;
 
 import java.util.List;
@@ -9,9 +10,9 @@ public interface IMatchHistoryService {
 
     void recordPlayers(Player p1, Player p2);
 
-    void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships);
+    void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships);
 
-    List<List<int[]>> extractShipCoordinates(List<Battleship> ships);
+    List<List<int[]>> extractShipCoordinates(List<IBattleship> ships);
 
     void recordTurn(String player, int x, int y);
 

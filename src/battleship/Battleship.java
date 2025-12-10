@@ -21,10 +21,12 @@ public class Battleship {
     public void hit() {
         if (health > 0) health--;
     }
+
     public int getHp() {
         return health;
     }
-    public boolean isSunken() {
+
+    public boolean isSunk() {
         return health <= 0;
     }
 
