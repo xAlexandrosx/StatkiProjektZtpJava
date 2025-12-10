@@ -3,11 +3,16 @@ package statisticsservice;
 import Game.Game;
 import players.Player;
 
-public class StatisticsService implements IStatisticsService {
-    public final Game g;
+public class StatisticsService {
+    private static StatisticsService instance;
 
-    public StatisticsService(Game g){
-        this.g = g;
+    private StatisticsService(){}
+
+    public static StatisticsService getInstance(){
+        if(instance == null){
+            instance = new StatisticsService();
+        }
+        return instance;
     }
 
     public void RegisterShot(Player player, boolean hit) {

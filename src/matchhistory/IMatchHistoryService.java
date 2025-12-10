@@ -6,7 +6,6 @@ import players.Player;
 import java.util.List;
 
 public interface IMatchHistoryService {
-
     void recordPlayers(Player p1, Player p2);
 
     void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships);

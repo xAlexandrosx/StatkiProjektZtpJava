@@ -3,8 +3,10 @@ package Match;
 import Game.Game;
 import battleship.Battleship;
 import board.Board;
+import matchhistory.MatchHistoryService;
 import players.AiPlayer;
 import players.Player;
+import statisticsservice.StatisticsService;
 
 import java.util.List;
 
@@ -84,7 +86,7 @@ public class Match implements IMatch {
             }
         }
 
-        g.statisticsService.RegisterMatch(winner, loser);
+        StatisticsService.getInstance().RegisterMatch(winner, loser);
         g.matchHistoryService.setWinner(winner.getName());
         g.matchHistoryService.saveMatchToFile();
 

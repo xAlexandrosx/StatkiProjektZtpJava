@@ -1,7 +1,6 @@
 import Game.Game;
 
 void main() {
-
     Game g = new Game();
 
     int option;

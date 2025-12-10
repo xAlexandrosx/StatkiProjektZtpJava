@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MatchHistoryService implements IMatchHistoryService {
-
     private final Game g;
     private MatchRecord current;
     private final String FILE_PATH = "src/matchhistory/match_history.json";

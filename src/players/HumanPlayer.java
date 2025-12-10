@@ -2,6 +2,7 @@ package players;
 
 import Game.Game;
 import registrationservice.PlayerProfile;
+import statisticsservice.StatisticsService;
 
 import java.util.Scanner;
 
@@ -24,8 +25,8 @@ public class HumanPlayer extends Player {
         int y = readInt("Enter Y: ");
 
         g.matchHistoryService.recordTurn(getName(), x, y);
-        g.statisticsService.RegisterShot(this, enemyBoard.registerShot(x, y));
-        g.statisticsService.RegisterMove(this);
+        StatisticsService.getInstance().RegisterShot(this, enemyBoard.registerShot(x, y));
+        StatisticsService.getInstance().RegisterMove(this);
     }
 
     private int readInt(String prompt) {

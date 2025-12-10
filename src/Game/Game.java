@@ -10,10 +10,7 @@ import menu.ConsoleMenu;
 import menu.IMenu;
 import players.HumanPlayer;
 import registrationservice.IRegistrationService;
-import registrationservice.PlayerProfile;
 import registrationservice.RegistrationService;
-import statisticsservice.IStatisticsService;
-import statisticsservice.StatisticsService;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -32,7 +29,6 @@ public class Game {
     public final IMenu consoleMenu = new ConsoleMenu(this);
     public final IRegistrationService registrationService = new RegistrationService(this);
     public final IMatchHistoryService matchHistoryService = new MatchHistoryService(this);
-    public final IStatisticsService statisticsService = new StatisticsService(this);
 
     private HumanPlayer player1;
     private HumanPlayer player2;
