@@ -120,15 +120,6 @@ public class Board {
         }
     }
 
-    private boolean isSunk(Battleship ship) {
-        for (int[] pos : ship.getTiles()) {
-            if (tiles[pos[0]][pos[1]] != HIT) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private boolean isTileFromSunkShip(int x, int y) {
         if (ships == null) return false;
 
