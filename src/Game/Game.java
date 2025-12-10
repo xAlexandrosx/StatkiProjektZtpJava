@@ -11,6 +11,7 @@ import menu.IMenu;
 import players.HumanPlayer;
 import registrationservice.IRegistrationService;
 import registrationservice.RegistrationService;
+import registrationservice.RegistrationServiceAccessProxy;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -27,7 +28,8 @@ public class Game {
 
     public final IBattleshipDeployer battleshipDeployer = new BattleshipDeployer(this);
     public final IMenu consoleMenu = new ConsoleMenu(this);
-    public final IRegistrationService registrationService = new RegistrationService(this);
+    public final IRegistrationService registrationService =
+            new RegistrationServiceAccessProxy(new RegistrationService(this));
     public final IMatchHistoryService matchHistoryService = new MatchHistoryService(this);
 
     private HumanPlayer player1;
