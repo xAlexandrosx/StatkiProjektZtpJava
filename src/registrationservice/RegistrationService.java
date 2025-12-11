@@ -1,6 +1,7 @@
 package registrationservice;
 import Game.Game;
 import players.HumanPlayer;
+import players.IPlayer;
 import players.Player;
 
 import java.io.*;
@@ -34,8 +35,8 @@ public class RegistrationService implements IRegistrationService {
     }
 
     public boolean isLoggedIn(String playerName) {
-        Player p1 = g.getPlayer(1);
-        Player p2 = g.getPlayer(2);
+        IPlayer p1 = g.getPlayer(1);
+        IPlayer p2 = g.getPlayer(2);
 
         boolean isPlayer1 = p1 != null && p1.getName().equals(playerName);
         boolean isPlayer2 = p2 != null && p2.getName().equals(playerName);
@@ -60,11 +61,15 @@ public class RegistrationService implements IRegistrationService {
         }
 
         if (!g.isPlayerExisting(1)) {
-            g.setPlayer(new HumanPlayer(playerName, g) ,1);
+            IPlayer player = new HumanPlayer(g);
+            player.setName(playerName);
+            g.setPlayer(player,1);
             System.out.println(playerName + " logged in as Player 1.");
         }
         else if (!g.isPlayerExisting(2)) {
-            g.setPlayer(new HumanPlayer(playerName, g) ,2);
+            IPlayer player = new HumanPlayer(g);
+            player.setName(playerName);
+            g.setPlayer(player,2);
             System.out.println(playerName + " logged in as Player 2.");
         }
         else {

@@ -3,7 +3,6 @@ package Match;
 import Game.Game;
 import battleship.Battleship;
 import board.Board;
-import players.AiPlayer;
 import players.Player;
 
 import java.util.List;
@@ -18,16 +17,16 @@ public class Match implements IMatch {
         this.g = g;
 
         if (variant == g.PLAYER_VS_PLAYER) {
-            this.p1 = g.getPlayer(1);
-            this.p2 = g.getPlayer(2);
+            this.p1 = (Player) g.getPlayer(1);
+            this.p2 = (Player) g.getPlayer(2);
         }
         else if (variant == g.PLAYER_VS_COMPUTER) {
-            this.p1 = g.getPlayer(1);
-            this.p2 = new AiPlayer("Computer", g);
+            this.p1 = (Player) g.getPlayer(1);
+            this.p2 = (Player) g.playerProvider.provideAi();
         }
         else {
-            this.p1 = new AiPlayer("Computer 1", g);
-            this.p2 = new AiPlayer("Computer 2", g);
+            this.p1 = (Player) g.playerProvider.provideAi();
+            this.p2 = (Player) g.playerProvider.provideAi();
         }
 
         Board b1 = new Board(g);
@@ -55,7 +54,7 @@ public class Match implements IMatch {
 
         System.out.println("Starting match between " + p1.getName() + " and " + p2.getName());
 
-        Player winner = null;
+        Player winner;
 
         while (true) {
             System.out.println("\n==========================");

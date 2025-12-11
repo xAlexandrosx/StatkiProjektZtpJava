@@ -2,12 +2,10 @@ package players;
 
 import Game.Game;
 
-import java.util.Scanner;
-
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String name, Game g) {
-        super(name, g);
+    public HumanPlayer(Game g) {
+        super(g);
     }
 
     @Override

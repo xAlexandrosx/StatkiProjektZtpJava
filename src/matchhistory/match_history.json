@@ -5548,5 +5548,372 @@
         "y": 5
       }
     ]
+  },
+  {
+    "gameID": "6",
+    "date": "2025-12-11",
+    "time": "10:10:32",
+    "player1": "Guest1",
+    "player2": "Computer Cheater",
+    "winner": "Computer Cheater",
+    "boardSize": 10,
+    "ships1": [
+      [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      [
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      [
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      [
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      [
+        [
+          9,
+          1
+        ],
+        [
+          9,
+          2
+        ]
+      ],
+      [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    ],
+    "ships2": [
+      [
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      [
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ]
+      ],
+      [
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      [
+        [
+          7,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ],
+      [
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    ],
+    "turns": [
+      {
+        "player": "Guest1",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "player": "Guest1",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "player": "Guest1",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "player": "Guest1",
+        "x": 5,
+        "y": 5
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 7,
+        "y": 2
+      },
+      {
+        "player": "Guest1",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 7,
+        "y": 3
+      },
+      {
+        "player": "Guest1",
+        "x": 6,
+        "y": 6
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 7,
+        "y": 4
+      },
+      {
+        "player": "Guest1",
+        "x": 7,
+        "y": 7
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 4,
+        "y": 6
+      },
+      {
+        "player": "Guest1",
+        "x": 8,
+        "y": 8
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 5,
+        "y": 6
+      },
+      {
+        "player": "Guest1",
+        "x": 9,
+        "y": 9
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 6,
+        "y": 6
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 9
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 8
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 0,
+        "y": 7
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 7
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 9,
+        "y": 1
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 9,
+        "y": 2
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "player": "Guest1",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "player": "Computer Cheater",
+        "x": 1,
+        "y": 1
+      }
+    ]
   }
 ]

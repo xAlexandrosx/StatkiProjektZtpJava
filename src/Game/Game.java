@@ -1,5 +1,6 @@
 package Game;
 
+import playerprovider.PlayerProvider;
 import board.BattleshipDeployer;
 import board.IBattleshipDeployer;
 import com.google.gson.Gson;
@@ -8,10 +9,12 @@ import matchhistory.IMatchHistoryService;
 import matchhistory.MatchHistoryService;
 import menu.ConsoleMenu;
 import menu.IMenu;
-import players.HumanPlayer;
+import players.*;
 import registrationservice.IRegistrationService;
 import registrationservice.RegistrationService;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,25 +28,44 @@ public class Game {
     public final Scanner scanner = new Scanner(System.in);
     public final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    public final int AI_DELAY = 0;
+
     public final IBattleshipDeployer battleshipDeployer = new BattleshipDeployer(this);
     public final IMenu consoleMenu = new ConsoleMenu(this);
     public final IRegistrationService registrationService = new RegistrationService(this);
     public final IMatchHistoryService matchHistoryService = new MatchHistoryService(this);
+    public final PlayerStrategy aiStrategy;
+    public final PlayerProvider playerProvider;
 
-    private HumanPlayer player1;
-    private HumanPlayer player2;
+    private IPlayer player1;
+    private IPlayer player2;
     private int boardSize = 10;
 
-    public HumanPlayer getPlayer(int index) {
+    public Game() {
+
+        Map<Integer, IPlayer> AiHandlers = new HashMap<>();
+        AiHandlers.put(0, new AiPlayerEasy(this));
+        AiHandlers.put(1, new AiPlayerEasy(this));
+        AiHandlers.put(2, new AiPlayerMedium(this));
+        AiHandlers.put(3, new AiPlayerCheater(this));
+        this.aiStrategy = new PlayerStrategy(AiHandlers);
+        this.playerProvider = new PlayerProvider(aiStrategy, this);
+    }
+
+    public IPlayer getPlayer(int index) {
         if (index == 1) {
             if (player1 == null) {
-                return new HumanPlayer("Guest1", this);
+                HumanPlayer player = new HumanPlayer(this);
+                player.setName("Guest1");
+                return player;
             }
             return player1;
         }
         else if (index == 2) {
             if (player2 == null) {
-                return new HumanPlayer("Guest2", this);
+                HumanPlayer player = new HumanPlayer(this);
+                player.setName("Guest2");
+                return player;
             }
             return player2;
         }
@@ -55,7 +77,7 @@ public class Game {
         return (index != 1 || player1 != null) && (index != 2 || player2 != null);
     }
 
-    public void setPlayer(HumanPlayer player, int index) {
+    public void setPlayer(IPlayer player, int index) {
         if (index == 1) {
             this.player1 = player;
         }

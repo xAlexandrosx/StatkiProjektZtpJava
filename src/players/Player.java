@@ -3,21 +3,24 @@ package players;
 import Game.Game;
 import board.Board;
 
-public abstract class Player {
+public abstract class Player implements IPlayer {
 
     public final Game g;
 
-    protected final String name;
+    protected String name;
     public Board ownBoard;
     public Board enemyBoard;
 
-    public Player(String name, Game g) {
+    public Player(Game g) {
         this.g = g;
-        this.name = name;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public abstract void takeTurn();

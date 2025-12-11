@@ -2,10 +2,11 @@ package players;
 
 import Game.Game;
 
-public class AiPlayer extends Player {
+public class AiPlayerEasy extends Player {
 
-    public AiPlayer(String name, Game g) {
-        super(name, g);
+    public AiPlayerEasy(Game g) {
+        super(g);
+        this.setName("Computer Easy");
     }
 
     @Override
@@ -30,7 +31,7 @@ public class AiPlayer extends Player {
         enemyBoard.displayBoard(false);
 
         try {
-            Thread.sleep(0);
+            Thread.sleep(g.AI_DELAY);
         } catch (InterruptedException e) {
             System.out.println("Waiting failed for some reason...");
         }
