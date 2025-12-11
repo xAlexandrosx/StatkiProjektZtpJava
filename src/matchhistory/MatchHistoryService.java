@@ -1,6 +1,7 @@
 package matchhistory;
 import Game.Game;
 import battleship.Battleship;
+import players.IPlayer;
 import players.Player;
 import java.io.*;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class MatchHistoryService implements IMatchHistoryService {
         this.g = g;
     }
 
-    public void recordPlayers(Player p1, Player p2) {
+    public void recordPlayers(IPlayer p1, IPlayer p2) {
         current = new MatchRecord();
         current.turns = new ArrayList<>();
 

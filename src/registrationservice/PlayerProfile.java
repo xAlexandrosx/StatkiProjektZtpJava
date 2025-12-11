@@ -2,7 +2,7 @@ package registrationservice;
 
 public class PlayerProfile {
     // Identification variables
-    private final String name;
+    private String name;
 
     // Statistics saved in files
     private int matchesPlayed;
@@ -16,7 +16,12 @@ public class PlayerProfile {
     private int score;
 
     // Access methods
-    public String Name(){ return name; }
+    public String getName(){
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
     public int GetMatchesPlayed(){ return matchesPlayed; }

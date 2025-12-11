@@ -1,6 +1,6 @@
 package statisticsservice;
 
-import Game.Game;
+import players.IPlayer;
 import players.Player;
 
 public class StatisticsService {
@@ -17,21 +17,21 @@ public class StatisticsService {
 
     public void RegisterShot(Player player, boolean hit) {
         if(hit){
-            player.playerProfile.SetHitCount(player.playerProfile.GetHitCount() + 1);
+            player.getPlayerProfile().SetHitCount(player.getPlayerProfile().GetHitCount() + 1);
         }
         else{
-            player.playerProfile.SetMissCount(player.playerProfile.GetMissCount() + 1);
+            player.getPlayerProfile().SetMissCount(player.getPlayerProfile().GetMissCount() + 1);
         }
     }
 
     public void RegisterMove(Player player) {
-        player.playerProfile.SetMoveCount(player.playerProfile.GetMoveCount() + 1);
+        player.getPlayerProfile().SetMoveCount(player.getPlayerProfile().GetMoveCount() + 1);
     }
 
-    public void RegisterMatch(Player winner, Player loser) {
-        winner.playerProfile.SetMatchesWon(winner.playerProfile.GetMatchesWon() + 1);
-        winner.playerProfile.SetMatchesPlayed(winner.playerProfile.GetMatchesPlayed() + 1);
+    public void RegisterMatch(IPlayer winner, IPlayer loser) {
+        winner.getPlayerProfile().SetMatchesWon(winner.getPlayerProfile().GetMatchesWon() + 1);
+        winner.getPlayerProfile().SetMatchesPlayed(winner.getPlayerProfile().GetMatchesPlayed() + 1);
 
-        loser.playerProfile.SetMatchesPlayed(loser.playerProfile.GetMatchesPlayed() + 1);
+        loser.getPlayerProfile().SetMatchesPlayed(loser.getPlayerProfile().GetMatchesPlayed() + 1);
     }
 }

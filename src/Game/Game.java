@@ -9,6 +9,8 @@ import matchhistory.MatchHistoryService;
 import menu.ConsoleMenu;
 import menu.IMenu;
 import players.HumanPlayer;
+import players.IPlayer;
+import players.playerstrategy.IPlayerSupplier;
 import registrationservice.IRegistrationService;
 import registrationservice.RegistrationService;
 import registrationservice.RegistrationServiceAccessProxy;
@@ -18,9 +20,17 @@ import java.util.Scanner;
 
 public class Game {
 
+    public Game(IPlayerSupplier playerSupplier) {
+        this.playerSupplier = playerSupplier;
+    }
+
     public final int PLAYER_VS_PLAYER = 0;
     public final int PLAYER_VS_COMPUTER = 1;
     public final int COMPUTER_VS_COMPUTER = 2;
+
+    public final int HUMAN_PLAYER = 0;
+
+    public final int AI_DELAY = 0;
 
     public final Random random = new Random();
     public final Scanner scanner = new Scanner(System.in);
@@ -31,22 +41,29 @@ public class Game {
     public final IRegistrationService registrationService =
             new RegistrationServiceAccessProxy(new RegistrationService(this));
     public final IMatchHistoryService matchHistoryService = new MatchHistoryService(this);
+    public final IPlayerSupplier playerSupplier;
 
-    private HumanPlayer player1;
-    private HumanPlayer player2;
+    private IPlayer player1;
+    private IPlayer player2;
 
     private int boardSize = 10;
 
-    public HumanPlayer getPlayer(int index) {
+    public IPlayer getPlayer(int index) {
         if (index == 1) {
             if (player1 == null) {
-                return new HumanPlayer("Guest1", this);
+                IPlayer newPlayer = playerSupplier.createPlayer(HUMAN_PLAYER);
+                newPlayer.setName("Guest 1");
+                newPlayer.setGame(this);
+                return newPlayer;
             }
             return player1;
         }
         else if (index == 2) {
             if (player2 == null) {
-                return new HumanPlayer("Guest2", this);
+                IPlayer newPlayer = playerSupplier.createPlayer(HUMAN_PLAYER);
+                newPlayer.setName("Guest 2");
+                newPlayer.setGame(this);
+                return newPlayer;
             }
             return player2;
         }
@@ -58,7 +75,7 @@ public class Game {
         return (index != 1 || player1 != null) && (index != 2 || player2 != null);
     }
 
-    public void setPlayer(HumanPlayer player, int index) {
+    public void setPlayer(IPlayer player, int index) {
         if (index == 1) {
             this.player1 = player;
         }

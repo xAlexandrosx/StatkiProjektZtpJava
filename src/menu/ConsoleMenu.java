@@ -2,6 +2,7 @@ package menu;
 
 import Game.Game;
 import Match.Match;
+import players.IPlayer;
 
 public class ConsoleMenu implements IMenu {
 
@@ -59,5 +60,22 @@ public class ConsoleMenu implements IMenu {
             default -> System.out.println("Invalid option.");
         }
         return choice;
+    }
+
+    @Override
+    public int userChooseAiDifficulty() {
+        while (true) {
+            System.out.println("Choose difficulty:");
+            System.out.println("1. Easy");
+            System.out.println("2. Medium");
+            System.out.println("3. Hard");
+            int choice = g.scanner.nextInt();
+            g.scanner.nextInt();
+            if (choice > 3 || choice < 1) {
+                System.out.println("Wrong input");
+                continue;
+            }
+            return choice;
+        }
     }
 }

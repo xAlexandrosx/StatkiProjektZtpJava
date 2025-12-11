@@ -1,12 +1,13 @@
 package matchhistory;
 
 import battleship.Battleship;
+import players.IPlayer;
 import players.Player;
 
 import java.util.List;
 
 public interface IMatchHistoryService {
-    void recordPlayers(Player p1, Player p2);
+    void recordPlayers(IPlayer p1, IPlayer p2);
 
     void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships);
 

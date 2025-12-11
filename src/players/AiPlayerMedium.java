@@ -2,9 +2,9 @@ package players;
 
 import Game.Game;
 
-public class AiPlayer extends Player {
+public class AiPlayerMedium extends Player {
 
-    public AiPlayer(String name, Game g) {
+    public AiPlayerMedium(String name, Game g) {
         super(name, g);
     }
 
@@ -23,14 +23,14 @@ public class AiPlayer extends Player {
             if (tile == 0 || tile == 1) break;
         }
 
-        g.matchHistoryService.recordTurn(playerProfile.Name(), x, y);
+        g.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
 
-        System.out.println(playerProfile.Name() + " shoots at " + x + ", " + y);
+        System.out.println(playerProfile.getName() + " shoots at " + x + ", " + y);
         enemyBoard.registerShot(x, y);
         enemyBoard.displayBoard(false);
 
         try {
-            Thread.sleep(0);
+            Thread.sleep(g.AI_DELAY);
         } catch (InterruptedException e) {
             System.out.println("Waiting failed for some reason...");
         }

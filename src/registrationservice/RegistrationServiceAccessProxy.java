@@ -13,12 +13,12 @@ public class RegistrationServiceAccessProxy implements IRegistrationService {
     //jezeli profi jest Ai, jego nazwa zaczyna się od komputer (przynajmniej póki co)
     private boolean isAiProfile(PlayerProfile profile) {
         if (profile == null) return false;
-        String name = profile.Name();
+        String name = profile.getName();
         return name.startsWith("Computer");
     }
     private boolean isGuestProfile(PlayerProfile profile) {
         if (profile == null) return false;
-        String name = profile.Name();
+        String name = profile.getName();
         return name.startsWith("Guest");
     }
     //tylko człowieki musza być  zalogowane
@@ -35,7 +35,7 @@ public class RegistrationServiceAccessProxy implements IRegistrationService {
         }
 
         // człowieki z profilem musza bycc zalogowane
-        if (!realService.isLoggedIn(profile.Name())) {
+        if (!realService.isLoggedIn(profile.getName())) {
             throw new SecurityException("Brak dostępu — musisz być zalogowany!");
         }
     }

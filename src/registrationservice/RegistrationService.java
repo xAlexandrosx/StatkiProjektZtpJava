@@ -1,10 +1,10 @@
 package registrationservice;
 import Game.Game;
 import players.HumanPlayer;
+import players.IPlayer;
 import players.Player;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 public class RegistrationService implements IRegistrationService {
@@ -46,7 +46,11 @@ public class RegistrationService implements IRegistrationService {
     public void updatePlayer(PlayerProfile newProfile){
         List<PlayerProfile> playerProfiles = loadPlayers();
 
-        PlayerProfile oldProfile = playerProfiles.stream().filter(p -> p.Name().equals(newProfile.Name())).findFirst().orElse(null);
+        PlayerProfile oldProfile = playerProfiles
+                .stream()
+                .filter(p -> p.getName().equals(newProfile.getName()))
+                .findFirst()
+                .orElse(null);
 
         if(oldProfile != null){
             playerProfiles.set(playerProfiles.indexOf(oldProfile), newProfile);
@@ -61,8 +65,8 @@ public class RegistrationService implements IRegistrationService {
     }
 
     public boolean isLoggedIn(String playerName) {
-        Player p1 = g.getPlayer(1);
-        Player p2 = g.getPlayer(2);
+        IPlayer p1 = g.getPlayer(1);
+        IPlayer p2 = g.getPlayer(2);
 
         boolean isPlayer1 = p1 != null && p1.getName().equals(playerName);
         boolean isPlayer2 = p2 != null && p2.getName().equals(playerName);
@@ -76,7 +80,11 @@ public class RegistrationService implements IRegistrationService {
 
         List<PlayerProfile> players = loadPlayers();
 
-        PlayerProfile playerProfile = players.stream().filter(p -> p.Name().equals(playerName)).findFirst().orElse(null);
+        PlayerProfile playerProfile = players
+                .stream()
+                .filter(p -> p.getName().equals(playerName))
+                .findFirst()
+                .orElse(null);
 
         if (playerProfile == null) {
             System.out.println("No such account exists.");
@@ -127,7 +135,9 @@ public class RegistrationService implements IRegistrationService {
         String playerName = g.scanner.nextLine();
 
         List<PlayerProfile> players = loadPlayers();
-        boolean profileExists = players.stream().anyMatch(p -> p.Name().equals(playerName));
+        boolean profileExists = players
+                .stream()
+                .anyMatch(p -> p.getName().equals(playerName));
 
 
         if (profileExists) {

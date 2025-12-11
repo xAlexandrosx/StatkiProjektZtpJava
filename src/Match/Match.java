@@ -3,8 +3,8 @@ package Match;
 import Game.Game;
 import battleship.Battleship;
 import board.Board;
-import matchhistory.MatchHistoryService;
-import players.AiPlayer;
+import players.AiPlayerEasy;
+import players.IPlayer;
 import players.Player;
 import statisticsservice.StatisticsService;
 
@@ -13,8 +13,8 @@ import java.util.List;
 public class Match implements IMatch {
 
     private final Game g;
-    private final Player p1;
-    private final Player p2;
+    private final IPlayer p1;
+    private final IPlayer p2;
 
     public Match(Game g, int variant) {
         this.g = g;
@@ -25,21 +25,31 @@ public class Match implements IMatch {
         }
         else if (variant == g.PLAYER_VS_COMPUTER) {
             this.p1 = g.getPlayer(1);
-            this.p2 = new AiPlayer("Computer", g);
+            IPlayer ai = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
+            ai.setGame(g);
+            ai.setName("Computer");
+            this.p2 = ai;
         }
-        else {
-            this.p1 = new AiPlayer("Computer 1", g);
-            this.p2 = new AiPlayer("Computer 2", g);
+        else { // COMPUTER_VS_COMPUTER
+            IPlayer ai1 = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
+            ai1.setGame(g);
+            ai1.setName("Computer 1");
+            this.p1 = ai1;
+
+            IPlayer ai2 = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
+            ai2.setGame(g);
+            ai2.setName("Computer 2");
+            this.p2 = ai2;
         }
 
         Board b1 = new Board(g);
         Board b2 = new Board(g);
 
-        p1.ownBoard = b1;
-        p1.enemyBoard = b2;
+        p1.setOwnBoard(b1);
+        p1.setEnemyBoard(b2);
 
-        p2.ownBoard = b2;
-        p2.enemyBoard = b1;
+        p2.setOwnBoard(b2);
+        p2.setEnemyBoard(b1);
 
         // te dwie linijki sa do zmiany, to tylko chwilowe rozwiązanie
         List<Battleship> ships1 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
@@ -57,8 +67,8 @@ public class Match implements IMatch {
 
         System.out.println("Starting match between " + p1.getName() + " and " + p2.getName());
 
-        Player winner = null;
-        Player loser = null;
+        IPlayer winner = null;
+        IPlayer loser = null;
 
         while (true) {
             System.out.println("\n==========================");
@@ -66,7 +76,7 @@ public class Match implements IMatch {
             System.out.println("==========================");
             p1.takeTurn();
 
-            if (p2.ownBoard.getShips().isEmpty()) {
+            if (p2.getOwnBoard().getShips().isEmpty()) {
                 System.out.println(p1.getName() + " wins!");
                 winner = p1;
                 loser = p2;
@@ -78,7 +88,7 @@ public class Match implements IMatch {
             System.out.println("==========================");
             p2.takeTurn();
 
-            if (p1.ownBoard.getShips().isEmpty()) {
+            if (p1.getOwnBoard().getShips().isEmpty()) {
                 System.out.println(p2.getName() + " wins!");
                 winner = p2;
                 loser = p1;
@@ -93,7 +103,7 @@ public class Match implements IMatch {
         // Saving the player profiles to save changes -
         // we don't need to differentiate between temporary accounts and registered one -
         // function only updates existing accounts.
-        g.registrationService.updatePlayer(winner.playerProfile);
-        g.registrationService.updatePlayer(loser.playerProfile);
+        g.registrationService.updatePlayer(winner.getPlayerProfile());
+        g.registrationService.updatePlayer(loser.getPlayerProfile());
     }
 }
