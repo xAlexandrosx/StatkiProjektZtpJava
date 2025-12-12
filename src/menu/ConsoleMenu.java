@@ -69,9 +69,11 @@ public class ConsoleMenu implements IMenu {
             System.out.println("1. Easy");
             System.out.println("2. Medium");
             System.out.println("3. Hard");
+
             int choice = g.scanner.nextInt();
-            g.scanner.nextInt();
-            if (choice > 3 || choice < 1) {
+            g.scanner.nextLine(); // ← poprawne czyszczenie bufora
+
+            if (choice < 1 || choice > 3) {
                 System.out.println("Wrong input");
                 continue;
             }
