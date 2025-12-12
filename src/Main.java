@@ -26,9 +26,7 @@ void main() {
 
     Scanner scanner = new Scanner(System.in);
 
-    Game g = new Game(scanner);
-
-    IMatchHistoryService matchHistoryService = new MatchHistoryService(gson, g);
+    IMatchHistoryService matchHistoryService = new MatchHistoryService(gson);
 
     Map<Integer, IPlayer> playerMap = new HashMap<>();
     playerMap.put(0, new HumanPlayer("", null, matchHistoryService, scanner));
@@ -38,7 +36,7 @@ void main() {
     IPlayerStrategy playerStrategy = new PlayerStrategy(playerMap);
     IPlayerSupplier playerSupplier = new PlayerSupplier(playerStrategy);
 
-    g.setPlayerSupplier(playerSupplier);
+    Game g = new Game(playerSupplier, scanner);
 
     IRegistrationService registrationService = new RegistrationService(g, gson, scanner, matchHistoryService);
 

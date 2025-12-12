@@ -17,6 +17,10 @@ public class Board {
         this.tiles = new int[g.getBoardSize()][g.getBoardSize()];
     }
 
+    public int getSize() {
+        return g.getBoardSize();
+    }
+
     public List<Battleship> getShips() {
         return ships;
     }

@@ -9,18 +9,15 @@ public class Game {
     public final int HUMAN_PLAYER = 0;
     public final int AI_DELAY = 0;
 
-    private IPlayerSupplier playerSupplier;
+    private final IPlayerSupplier playerSupplier;
     private final Scanner scanner;
     private IPlayer player1;
     private IPlayer player2;
     private int boardSize = 10;
 
-    public Game(Scanner sc) {
+    public Game(IPlayerSupplier supplier, Scanner sc) {
+        this.playerSupplier = supplier;
         this.scanner = sc;
-    }
-
-    public void setPlayerSupplier(IPlayerSupplier playerSupplier) {
-        this.playerSupplier = playerSupplier;
     }
 
     public IPlayer getPlayer(int index) {
@@ -46,10 +43,6 @@ public class Game {
         return null;
     }
 
-    public boolean isPlayerExisting(int index) {
-        return (index != 1 || player1 != null) && (index != 2 || player2 != null);
-    }
-
     public void setPlayer(IPlayer player, int index) {
         if (index == 1) {
             this.player1 = player;
@@ -59,6 +52,10 @@ public class Game {
 
         }
         System.out.println("Incorrect index!");
+    }
+
+    public boolean isPlayerExisting(int index) {
+        return (index != 1 || player1 != null) && (index != 2 || player2 != null);
     }
 
     public int getBoardSize() {

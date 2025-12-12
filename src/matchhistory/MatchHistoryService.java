@@ -13,14 +13,12 @@ import java.util.List;
 
 public class MatchHistoryService implements IMatchHistoryService {
 
-    private final Gson gson;
-    private final Game g;
-
-    private MatchRecord current;
     private final String FILE_PATH = "src/matchhistory/match_history.json";
 
-    public MatchHistoryService(Gson gson, Game g) {
-        this.g = g;
+    private final Gson gson;
+    private MatchRecord current;
+
+    public MatchHistoryService(Gson gson) {
         this.gson = gson;
     }
 
@@ -30,12 +28,11 @@ public class MatchHistoryService implements IMatchHistoryService {
 
         List<MatchRecord> matches = loadExistingMatches();
         current.gameID = String.valueOf(matches.size() + 1);
-
         current.date = LocalDate.now().toString();
         current.time = LocalTime.now().withNano(0).toString();
         current.player1 = p1.getName();
         current.player2 = p2.getName();
-        current.boardSize = g.getBoardSize();
+        current.boardSize = p1.getOwnBoard().getSize();
     }
 
     public void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships) {
