@@ -2,7 +2,10 @@ package players;
 
 import Game.Game;
 import board.Board;
+import matchhistory.IMatchHistoryService;
 import registrationservice.PlayerProfile;
+
+import java.util.Scanner;
 
 public abstract class Player implements IPlayer {
 
@@ -10,10 +13,11 @@ public abstract class Player implements IPlayer {
     protected Board ownBoard;
     protected Board enemyBoard;
     protected PlayerProfile playerProfile;
+    protected IMatchHistoryService matchHistoryService;
 
-    public Player(String name, Game g) {
+    public Player(String name, Game g, IMatchHistoryService mhs) {
         this.g = g;
-
+        this.matchHistoryService = mhs;
         playerProfile = new PlayerProfile(name);
     }
 

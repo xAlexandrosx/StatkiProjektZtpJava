@@ -1,6 +1,7 @@
 package players;
 
 import Game.Game;
+import matchhistory.IMatchHistoryService;
 import registrationservice.PlayerProfile;
 import statisticsservice.StatisticsService;
 
@@ -8,12 +9,16 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String name, Game g) {
-        super(name, g);
+    private final Scanner scanner;
+
+    public HumanPlayer(String name, Game g, IMatchHistoryService mhs, Scanner sc) {
+        super(name, g, mhs);
+        this.scanner = sc;
     }
-    public HumanPlayer(String name, Game g, PlayerProfile playerProfile) {
-        super(name, g);
+    public HumanPlayer(String name, Game g, PlayerProfile playerProfile, IMatchHistoryService mhs, Scanner sc) {
+        super(name, g, mhs);
         this.playerProfile = playerProfile;
+        this.scanner = sc;
     }
 
     @Override
@@ -24,18 +29,18 @@ public class HumanPlayer extends Player {
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
 
-        g.matchHistoryService.recordTurn(getName(), x, y);
+        matchHistoryService.recordTurn(getName(), x, y);
         StatisticsService.getInstance().RegisterShot(this, enemyBoard.registerShot(x, y));
         StatisticsService.getInstance().RegisterMove(this);
     }
 
     private int readInt(String prompt) {
         System.out.print(prompt);
-        while (!g.scanner.hasNextInt()) {
+        while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
-            g.scanner.next();
+            scanner.next();
             System.out.print(prompt);
         }
-        return g.scanner.nextInt();
+        return scanner.nextInt();
     }
 }

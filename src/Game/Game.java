@@ -1,52 +1,27 @@
 package Game;
 
-import board.BattleshipDeployer;
-import board.IBattleshipDeployer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import matchhistory.IMatchHistoryService;
-import matchhistory.MatchHistoryService;
-import menu.ConsoleMenu;
-import menu.IMenu;
-import players.HumanPlayer;
 import players.IPlayer;
 import players.playerstrategy.IPlayerSupplier;
-import registrationservice.IRegistrationService;
-import registrationservice.RegistrationService;
-import registrationservice.RegistrationServiceAccessProxy;
-
-import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 
-    public Game(IPlayerSupplier playerSupplier) {
-        this.playerSupplier = playerSupplier;
-    }
-
-    public final int PLAYER_VS_PLAYER = 0;
-    public final int PLAYER_VS_COMPUTER = 1;
-    public final int COMPUTER_VS_COMPUTER = 2;
-
     public final int HUMAN_PLAYER = 0;
-
     public final int AI_DELAY = 0;
 
-    public final Random random = new Random();
-    public final Scanner scanner = new Scanner(System.in);
-    public final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    public final IBattleshipDeployer battleshipDeployer = new BattleshipDeployer(this);
-    public final IMenu consoleMenu = new ConsoleMenu(this);
-    public final IRegistrationService registrationService =
-            new RegistrationServiceAccessProxy(new RegistrationService(this));
-    public final IMatchHistoryService matchHistoryService = new MatchHistoryService(this);
-    public final IPlayerSupplier playerSupplier;
-
+    private IPlayerSupplier playerSupplier;
+    private final Scanner scanner;
     private IPlayer player1;
     private IPlayer player2;
-
     private int boardSize = 10;
+
+    public Game(Scanner sc) {
+        this.scanner = sc;
+    }
+
+    public void setPlayerSupplier(IPlayerSupplier playerSupplier) {
+        this.playerSupplier = playerSupplier;
+    }
 
     public IPlayer getPlayer(int index) {
         if (index == 1) {

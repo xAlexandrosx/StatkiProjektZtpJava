@@ -1,5 +1,7 @@
 package registrationservice;
 import Game.Game;
+import com.google.gson.Gson;
+import matchhistory.IMatchHistoryService;
 import players.HumanPlayer;
 import players.IPlayer;
 import players.Player;
@@ -10,17 +12,23 @@ import java.util.*;
 public class RegistrationService implements IRegistrationService {
 
     private final Game g;
+    private final Gson gson;
+    private final Scanner scanner;
+    private final IMatchHistoryService matchHistoryService;
     private final String FILE_PATH = "src/registrationservice/player_profiles.csv";
 
-    public RegistrationService(Game g) {
+    public RegistrationService(Game g, Gson gson, Scanner sc, IMatchHistoryService mhs) {
         this.g = g;
+        this.gson = gson;
+        this.scanner = sc;
+        this.matchHistoryService = mhs;
     }
 
     public List<PlayerProfile> loadPlayers() {
         List<PlayerProfile> playerProfiles = new ArrayList<>();
 
         try(Reader reader = new FileReader(FILE_PATH)) {
-            PlayerProfile[] existing = g.gson.fromJson(reader, PlayerProfile[].class);
+            PlayerProfile[] existing = gson.fromJson(reader, PlayerProfile[].class);
 
             if (existing != null){
                 playerProfiles.addAll(Arrays.asList(existing));
@@ -37,7 +45,7 @@ public class RegistrationService implements IRegistrationService {
         playerProfiles.add(playerProfile);
 
         try (Writer writer = new FileWriter(FILE_PATH)) {
-            g.gson.toJson(playerProfiles, writer);
+            gson.toJson(playerProfiles, writer);
         } catch (IOException e) {
             System.out.println("Error: could not save player profiles.");
         }
@@ -56,7 +64,7 @@ public class RegistrationService implements IRegistrationService {
             playerProfiles.set(playerProfiles.indexOf(oldProfile), newProfile);
 
             try (Writer writer = new FileWriter(FILE_PATH)) {
-                g.gson.toJson(playerProfiles, writer);
+                gson.toJson(playerProfiles, writer);
             } catch (IOException e) {
                 System.out.println("Error: could not save player profiles.");
             }
@@ -76,7 +84,7 @@ public class RegistrationService implements IRegistrationService {
 
     public void logIn() {
         System.out.print("Enter player name to log in: ");
-        String playerName = g.scanner.nextLine();
+        String playerName = scanner.nextLine();
 
         List<PlayerProfile> players = loadPlayers();
 
@@ -96,12 +104,14 @@ public class RegistrationService implements IRegistrationService {
             return;
         }
 
-        if (!g.isPlayerExisting(1)) {
-            g.setPlayer(new HumanPlayer(playerName, g, playerProfile) ,1);
+//     HumanPlayer(String name, Game, PlayerProfile playerProfile, IMatchHistoryService, Scanner) {
+
+            if (!g.isPlayerExisting(1)) {
+            g.setPlayer(new HumanPlayer(playerName, g, playerProfile, matchHistoryService, scanner) ,1);
             System.out.println(playerName + " logged in as Player 1.");
         }
         else if (!g.isPlayerExisting(2)) {
-            g.setPlayer(new HumanPlayer(playerName, g, playerProfile) ,2);
+            g.setPlayer(new HumanPlayer(playerName, g, playerProfile, matchHistoryService, scanner) ,2);
             System.out.println(playerName + " logged in as Player 2.");
         }
         else {
@@ -114,8 +124,8 @@ public class RegistrationService implements IRegistrationService {
         System.out.println("0 - Log out account of Player 1");
         System.out.println("1 - Log out account of Player 2");
 
-        int idx = g.scanner.nextInt();
-        g.scanner.nextLine();
+        int idx = scanner.nextInt();
+        scanner.nextLine();
 
         if (idx == 0 && g.isPlayerExisting(1)) {
             System.out.println(g.getPlayer(1).getName() + " logged out.");
@@ -132,7 +142,7 @@ public class RegistrationService implements IRegistrationService {
 
     public void signIn() {
         System.out.print("Enter a new username: ");
-        String playerName = g.scanner.nextLine();
+        String playerName = scanner.nextLine();
 
         List<PlayerProfile> players = loadPlayers();
         boolean profileExists = players

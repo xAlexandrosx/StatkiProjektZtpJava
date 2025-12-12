@@ -1,11 +1,17 @@
 package players;
 
 import Game.Game;
+import matchhistory.IMatchHistoryService;
+
+import java.util.Random;
 
 public class AiPlayerEasy extends Player {
 
-    public AiPlayerEasy(String name, Game g) {
-        super(name, g);
+    private final Random random;
+
+    public AiPlayerEasy(String name, Game g, IMatchHistoryService mhs, Random rn) {
+        super(name, g, mhs);
+        this.random = rn;
     }
 
     @Override
@@ -15,15 +21,15 @@ public class AiPlayerEasy extends Player {
         int x, y;
 
         while (true) {
-            x = g.random.nextInt(size);
-            y = g.random.nextInt(size);
+            x = random.nextInt(size);
+            y = random.nextInt(size);
 
             int tile = enemyBoard.getTile(x, y);
 
             if (tile == 0 || tile == 1) break;
         }
 
-        g.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
+        matchHistoryService.recordTurn(playerProfile.getName(), x, y);
 
         System.out.println(playerProfile.getName() + " shoots at " + x + ", " + y);
         enemyBoard.registerShot(x, y);
