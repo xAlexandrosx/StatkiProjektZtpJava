@@ -57,8 +57,7 @@ public class Game {
                 return newPlayer;
             }
             return player1;
-        }
-        else if (index == 2) {
+        } else if (index == 2) {
             if (player2 == null) {
                 IPlayer newPlayer = playerSupplier.createPlayer(HUMAN_PLAYER);
                 newPlayer.setName("Guest 2");
@@ -78,8 +77,7 @@ public class Game {
     public void setPlayer(IPlayer player, int index) {
         if (index == 1) {
             this.player1 = player;
-        }
-        else if (index == 2) {
+        } else if (index == 2) {
             this.player2 = player;
 
         }
@@ -97,8 +95,7 @@ public class Game {
         scanner.nextLine();
         if (size < 10) {
             System.out.println("Boardsize must be 10 or greater.");
-        }
-        else {
+        } else {
             this.boardSize = size;
             System.out.println("Board size updated.");
         }

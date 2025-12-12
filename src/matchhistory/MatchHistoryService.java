@@ -2,6 +2,7 @@ package matchhistory;
 import Game.Game;
 import battleship.Battleship;
 import players.IPlayer;
+import battleship.IBattleship;
 import players.Player;
 import java.io.*;
 import java.time.LocalDate;
@@ -34,15 +35,15 @@ public class MatchHistoryService implements IMatchHistoryService {
         current.boardSize = g.getBoardSize();
     }
 
-    public void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships) {
+    public void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships) {
         current.ships1 = extractShipCoordinates(p1Ships);
         current.ships2 = extractShipCoordinates(p2Ships);
     }
 
-    public List<List<int[]>> extractShipCoordinates(List<Battleship> ships) {
+    public List<List<int[]>> extractShipCoordinates(List<IBattleship> ships) {
         List<List<int[]>> list = new ArrayList<>();
 
-        for (Battleship ship : ships) {
+        for (IBattleship ship : ships) {
             List<int[]> coords = new ArrayList<>();
             for (int[] t : ship.getTiles()) {
                 coords.add(new int[]{ t[0], t[1] });

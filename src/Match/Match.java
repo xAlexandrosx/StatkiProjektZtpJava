@@ -22,8 +22,7 @@ public class Match implements IMatch {
         if (variant == g.PLAYER_VS_PLAYER) {
             this.p1 = g.getPlayer(1);
             this.p2 = g.getPlayer(2);
-        }
-        else if (variant == g.PLAYER_VS_COMPUTER) {
+        } else if (variant == g.PLAYER_VS_COMPUTER) {
             this.p1 = g.getPlayer(1);
             IPlayer ai = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
             ai.setGame(g);
@@ -42,8 +41,8 @@ public class Match implements IMatch {
             this.p2 = ai2;
         }
 
-        Board b1 = new Board(g);
-        Board b2 = new Board(g);
+        Board b1 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
+        Board b2 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
 
         p1.setOwnBoard(b1);
         p1.setEnemyBoard(b2);
@@ -60,7 +59,7 @@ public class Match implements IMatch {
         b2.importShips(ships2);
 
         g.matchHistoryService.recordPlayers(p1, p2);
-        g.matchHistoryService.recordShips(ships1, ships2);
+        g.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());
     }
 
     public void playMatch() {

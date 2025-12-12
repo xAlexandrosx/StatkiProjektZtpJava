@@ -5,7 +5,8 @@ import players.playerstrategy.IPlayerSupplier;
 import players.playerstrategy.PlayerStrategy;
 import players.playerstrategy.PlayerSupplier;
 
-void main() {
+public class Main {
+    public static void main(String[] args) {
 
     Map<Integer, IPlayer> playerMap = new HashMap<>();
     playerMap.put(0, new HumanPlayer("", null));
@@ -18,9 +19,11 @@ void main() {
 
     Game g = new Game(playerSupplier);
 
-    int option;
-    do {
-        g.consoleMenu.display();
-        option = g.consoleMenu.handleInput();
-    } while (option != -1);
+        int option;
+        do {
+            g.consoleMenu.display();
+            option = g.consoleMenu.handleInput();
+        } while (option != -1);
+    }
 }
+
