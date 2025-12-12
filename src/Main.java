@@ -5,6 +5,9 @@ import players.playerstrategy.IPlayerSupplier;
 import players.playerstrategy.PlayerStrategy;
 import players.playerstrategy.PlayerSupplier;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) {
 

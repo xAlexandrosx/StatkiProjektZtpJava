@@ -116,6 +116,7 @@ public class Board {
 
             Battleship ship = null;
             for (Battleship s : ships) {
+                // poniewaz nie usuwamy statkow, w iteracji ignorujemy zatopione??
                 if(s.isSunk()) return false;
                 if (s.intersects(x, y)) {
                     ship = s;
@@ -130,10 +131,12 @@ public class Board {
 
             if (ship.isSunk()) {
                 System.out.println("Sunk");
+                // nie usuwamy statkow z listy poniewaz nadal korzysta z niej metoda isTileFromSunkShip
             } else {
                 System.out.println("Not sunk");
             }
         }
+        return true;
     }
     private boolean isTileFromSunkShip(int x, int y) {
         if (ships == null) return false;

@@ -41,6 +41,7 @@ public class Match implements IMatch {
             this.p2 = ai2;
         }
 
+        // pobieramy Boardy z Deployera, z juz rozmieszczonymi statkami
         Board b1 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
         Board b2 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
 
@@ -49,14 +50,6 @@ public class Match implements IMatch {
 
         p2.setOwnBoard(b2);
         p2.setEnemyBoard(b1);
-
-        // te dwie linijki sa do zmiany, to tylko chwilowe rozwiązanie
-        List<Battleship> ships1 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
-        List<Battleship> ships2 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
-        // -----------------------------------------------------------
-
-        b1.importShips(ships1);
-        b2.importShips(ships2);
 
         g.matchHistoryService.recordPlayers(p1, p2);
         g.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());

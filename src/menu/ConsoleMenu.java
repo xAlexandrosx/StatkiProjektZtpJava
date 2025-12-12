@@ -70,11 +70,11 @@ public class ConsoleMenu implements IMenu {
             System.out.println("2. Medium");
             System.out.println("3. Hard");
             int choice = g.scanner.nextInt();
-            g.scanner.nextInt();
             if (choice > 3 || choice < 1) {
-                System.out.println("Wrong input");
+                System.out.println("Unknown option, try again.");
                 continue;
             }
+            System.out.printf("AI difficulty set to %d\n", choice);
             return choice;
         }
     }
