@@ -1,15 +1,18 @@
 package menu;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import Match.Match;
-import players.IPlayer;
 
 public class ConsoleMenu implements IMenu {
 
-    private final Game g;
+    private final ServiceLocator sl;
 
-    public ConsoleMenu(Game g) {
-        this.g = g;
+    private final int PLAYER_VS_PLAYER = 0;
+    private final int PLAYER_VS_COMPUTER = 1;
+    private final int COMPUTER_VS_COMPUTER = 2;
+
+    public ConsoleMenu(ServiceLocator sl) {
+        this.sl = sl;
     }
 
     // MENU DISPLAY
@@ -17,14 +20,14 @@ public class ConsoleMenu implements IMenu {
         System.out.println("\n===================== MENU =====================");
 
         String p1Name = "";
-        if (g.isPlayerExisting(1)) p1Name = g.getPlayer(1).getName();
+        if (sl.globalVariables.isPlayerExisting(1)) p1Name = sl.globalVariables.getPlayer(1).getName();
         String p2Name = "";
-        if (g.isPlayerExisting(2)) p2Name = g.getPlayer(2).getName();
+        if (sl.globalVariables.isPlayerExisting(2)) p2Name = sl.globalVariables.getPlayer(2).getName();
 
         System.out.println("P1: " + p1Name);
         System.out.println("P2: " + p2Name);
 
-        System.out.println("Board Size: " + g.getBoardSize());
+        System.out.println("Board Size: " + sl.globalVariables.getBoardSize());
         System.out.println();
 
         System.out.println("1. Start match with 2 players");
@@ -41,18 +44,18 @@ public class ConsoleMenu implements IMenu {
     }
 
     public int handleInput() {
-        int choice = g.scanner.nextInt();
-        g.scanner.nextLine();
+        int choice = sl.scanner.nextInt();
+        sl.scanner.nextLine();
 
         switch (choice) {
-            case 1 -> new Match(g, g.PLAYER_VS_PLAYER).playMatch();
-            case 2 -> new Match(g, g.PLAYER_VS_COMPUTER).playMatch();
-            case 3 -> new Match(g, g.COMPUTER_VS_COMPUTER).playMatch();
-            case 4 -> g.matchHistoryService.displayHistory();
-            case 5 -> g.setBoardSize();
-            case 6 -> g.registrationService.logOut();
-            case 7 -> g.registrationService.logIn();
-            case 8 -> g.registrationService.signIn();
+            case 1 -> new Match(sl, PLAYER_VS_PLAYER).playMatch();
+            case 2 -> new Match(sl, PLAYER_VS_COMPUTER).playMatch();
+            case 3 -> new Match(sl, COMPUTER_VS_COMPUTER).playMatch();
+            case 4 -> sl.matchHistoryService.displayHistory();
+            case 5 -> sl.globalVariables.setBoardSize();
+            case 6 -> sl.registrationServiceProxy.logOut();
+            case 7 -> sl.registrationServiceProxy.logIn();
+            case 8 -> sl.registrationServiceProxy.signIn();
             case 9 -> {
                 System.out.println("Goodbye!");
                 return -1;
@@ -69,7 +72,7 @@ public class ConsoleMenu implements IMenu {
             System.out.println("1. Easy");
             System.out.println("2. Medium");
             System.out.println("3. Hard");
-            int choice = g.scanner.nextInt();
+            int choice = sl.scanner.nextInt();
             if (choice > 3 || choice < 1) {
                 System.out.println("Unknown option, try again.");
                 continue;

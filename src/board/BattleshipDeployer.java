@@ -1,17 +1,17 @@
 package board;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 
 public class BattleshipDeployer implements IBattleshipDeployer {
 
-    private final Game g;
+    private final ServiceLocator sl;
 
-    public BattleshipDeployer(Game g) {
-        this.g = g;
+    public BattleshipDeployer(ServiceLocator sl) {
+        this.sl = sl;
     }
 
     public Board getBattleshipsRandom(int boardSize) {
-        BoardBuilder bb = new BoardBuilder(g);
+        BoardBuilder bb = new BoardBuilder(sl);
         boolean[][] grid = new boolean[boardSize][boardSize];
 
         int[] shipSizes = {4, 3, 3, 2, 2, 2, 2};
@@ -25,9 +25,9 @@ public class BattleshipDeployer implements IBattleshipDeployer {
     public void placeShip(BoardBuilder bb, int size, int length, boolean[][] grid) {
         boolean placed = false;
         while (!placed) {
-            boolean horizontal = g.random.nextBoolean();
-            int row = g.random.nextInt(size);
-            int col = g.random.nextInt(size);
+            boolean horizontal = sl.random.nextBoolean();
+            int row = sl.random.nextInt(size);
+            int col = sl.random.nextInt(size);
 
             if (horizontal) {
                 if (col + length > size) continue;

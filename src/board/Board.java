@@ -1,6 +1,6 @@
 package board;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import battleship.Battleship;
 import battleship.BattleshipAdapter;
 import battleship.IBattleship;
@@ -15,13 +15,13 @@ public class Board {
     private static final int HIT = 2;
     private static final int MISS = 3;
 
-    private final Game g;
+    private final ServiceLocator sl;
     private final int[][] tiles;
     private List<Battleship> ships;
 
-    public Board(Game g) {
-        this.g = g;
-        this.tiles = new int[g.getBoardSize()][g.getBoardSize()];
+    public Board(ServiceLocator sl) {
+        this.sl = sl;
+        this.tiles = new int[sl.globalVariables.getBoardSize()][sl.globalVariables.getBoardSize()];
     }
 
     public List<Battleship> getShips() {
@@ -64,12 +64,12 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         sb.append("   ");
-        for (int j = 0; j < g.getBoardSize(); j++) sb.append(j).append(" ");
+        for (int j = 0; j < sl.globalVariables.getBoardSize(); j++) sb.append(j).append(" ");
         sb.append("\n");
 
-        for (int i = 0; i < g.getBoardSize(); i++) {
+        for (int i = 0; i < sl.globalVariables.getBoardSize(); i++) {
             sb.append(i).append("  ");
-            for (int j = 0; j < g.getBoardSize(); j++) {
+            for (int j = 0; j < sl.globalVariables.getBoardSize(); j++) {
                 int tile = tiles[i][j];
                 if (isEnemy && tile == SHIP) {
                     tile = EMPTY;
@@ -99,7 +99,7 @@ public class Board {
     }
 
     public boolean registerShot(int x, int y) {
-        if (!(x >= 0 && x < g.getBoardSize() && y >= 0 && y < g.getBoardSize())) {
+        if (!(x >= 0 && x < sl.globalVariables.getBoardSize() && y >= 0 && y < sl.globalVariables.getBoardSize())) {
             System.out.println("Shot out of bounds!");
             return false;
         }

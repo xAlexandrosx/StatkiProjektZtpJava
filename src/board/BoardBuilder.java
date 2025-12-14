@@ -1,6 +1,6 @@
 package board;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import battleship.Battleship;
 
 /* BUILDER */
@@ -8,7 +8,7 @@ public class BoardBuilder {
     private final Board board;
     private boolean done = false;
 
-    public BoardBuilder(Game g) {
+    public BoardBuilder(ServiceLocator g) {
         board = new Board(g);
         board.importShips(null);
     }

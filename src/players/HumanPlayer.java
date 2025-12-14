@@ -1,18 +1,16 @@
 package players;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import registrationservice.PlayerProfile;
 import statisticsservice.StatisticsService;
 
-import java.util.Scanner;
-
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String name, Game g) {
-        super(name, g);
+    public HumanPlayer(String name, ServiceLocator sl) {
+        super(name, sl);
     }
-    public HumanPlayer(String name, Game g, PlayerProfile playerProfile) {
-        super(name, g);
+    public HumanPlayer(String name, ServiceLocator sl, PlayerProfile playerProfile) {
+        super(name, sl);
         this.playerProfile = playerProfile;
     }
 
@@ -24,18 +22,18 @@ public class HumanPlayer extends Player {
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
 
-        g.matchHistoryService.recordTurn(getName(), x, y);
+        sl.matchHistoryService.recordTurn(getName(), x, y);
         StatisticsService.getInstance().RegisterShot(this, enemyBoard.registerShot(x, y));
         StatisticsService.getInstance().RegisterMove(this);
     }
 
     private int readInt(String prompt) {
         System.out.print(prompt);
-        while (!g.scanner.hasNextInt()) {
+        while (!sl.scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
-            g.scanner.next();
+            sl.scanner.next();
             System.out.print(prompt);
         }
-        return g.scanner.nextInt();
+        return sl.scanner.nextInt();
     }
 }
