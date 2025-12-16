@@ -126,6 +126,7 @@ public class ConsoleMenu implements IMenu {
             }
         }
     }
+
     public void displayPlayerProfile(PlayerProfile profile){
         System.out.println("\n===================== " + profile.getName() +"'s PROFILE =====================");
 
