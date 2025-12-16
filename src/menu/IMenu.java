@@ -11,6 +11,5 @@ public interface IMenu {
     int userChooseAiDifficulty();
 
     void displayRanking();
-
-    void displayPlayerProfile(PlayerProfile profile);
+    void displayHistory();
 }

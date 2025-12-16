@@ -85,7 +85,7 @@ public class MatchHistoryService implements IMatchHistoryService {
 
         return matches;
     }
-
+    /**
     public void displayHistory() {
         List<MatchRecord> matches;
 
@@ -119,4 +119,5 @@ public class MatchHistoryService implements IMatchHistoryService {
             System.out.println();
         }
     }
+    **/
 }

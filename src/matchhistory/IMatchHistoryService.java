@@ -22,5 +22,5 @@ public interface IMatchHistoryService {
 
     List<MatchRecord> loadExistingMatches();
 
-    void displayHistory();
+    //void displayHistory();
 }
