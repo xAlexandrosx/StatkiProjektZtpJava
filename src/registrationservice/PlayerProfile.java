@@ -13,8 +13,6 @@ public class PlayerProfile {
 
     private int moveCount; // Total number of moves ever made
 
-    private int score;
-
     // Access methods
     public String getName(){
         return name;
@@ -31,7 +29,12 @@ public class PlayerProfile {
     public void SetMatchesWon(int matchesWon){ this.matchesWon = matchesWon; }
 
     public int GetMatchesLost(){ return matchesPlayed-matchesWon; }
-
+    public double GetWinRatio() {
+        if (matchesPlayed == 0){
+            return 0;
+        }
+        return (double) matchesWon / matchesPlayed;
+    }
 
     public int GetHitCount(){ return hitCount; }
     public void SetHitCount(int hitCount){ this.hitCount = hitCount; }
@@ -39,14 +42,23 @@ public class PlayerProfile {
     public int GetMissCount(){ return missCount; }
     public void SetMissCount(int missCount){ this.missCount = missCount; }
 
-    public double Accuracy(){ return (double) hitCount /(hitCount + missCount); }
-
+    public double GetAccuracy(){
+        if (hitCount + missCount == 0){
+            return 0;
+        }
+        return (double) hitCount /(hitCount + missCount);
+    }
 
     public int GetMoveCount(){ return moveCount; }
     public void SetMoveCount(int moveCount){ this.moveCount = moveCount; }
 
-    public int GetScore(){ return score; }
-    public void SetScore(int score){ this.score = score; }
+    public double GetMovesPerCount(){
+        if (matchesPlayed == 0){
+            return 0;
+        }
+        return (double) moveCount / matchesPlayed;
+    }
+
 
     // Constructors
     /**
@@ -61,14 +73,12 @@ public class PlayerProfile {
         hitCount = 0;
         missCount = 0;
         moveCount = 0;
-
-        score = 0; // Fix later to use for real ELO ranking
     }
 
     /**
      * Constructor for recreating the user profile object from saved data
      */
-    public PlayerProfile(String name, int matchesPlayed, int matchesWon, int hitCount, int missCount, int moveCount, int score){
+    public PlayerProfile(String name, int matchesPlayed, int matchesWon, int hitCount, int missCount, int moveCount){
         this.name = name;
 
         this.matchesPlayed = matchesPlayed;
@@ -77,7 +87,5 @@ public class PlayerProfile {
         this.hitCount = hitCount;
         this.missCount = missCount;
         this.moveCount = moveCount;
-
-        this.score = score;
     }
 }
