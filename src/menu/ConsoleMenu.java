@@ -2,6 +2,10 @@ package menu;
 
 import ServiceLocator.ServiceLocator;
 import Match.Match;
+import registrationservice.PlayerProfile;
+
+import java.util.Comparator;
+import java.util.List;
 
 public class ConsoleMenu implements IMenu {
 
@@ -38,7 +42,8 @@ public class ConsoleMenu implements IMenu {
         System.out.println("6. Log out");
         System.out.println("7. Log in");
         System.out.println("8. Register new player");
-        System.out.println("9. Exit");
+        System.out.println("9. Display ranking");
+        System.out.println("10. Exit");
         System.out.println("================================================");
         System.out.print("Choose an option: ");
     }
@@ -56,7 +61,8 @@ public class ConsoleMenu implements IMenu {
             case 6 -> sl.registrationServiceProxy.logOut();
             case 7 -> sl.registrationServiceProxy.logIn();
             case 8 -> sl.registrationServiceProxy.signIn();
-            case 9 -> {
+            case 9 -> displayRanking();
+            case 10 -> {
                 System.out.println("Goodbye!");
                 return -1;
             }
@@ -80,5 +86,62 @@ public class ConsoleMenu implements IMenu {
             System.out.printf("AI difficulty set to %d\n", choice);
             return choice;
         }
+    }
+
+    public void displayRanking(){
+        List<PlayerProfile> playerProfiles = sl.registrationServiceProxy.loadPlayers();
+        playerProfiles.sort(Comparator.comparingInt(PlayerProfile::GetMatchesWon));
+        List<PlayerProfile> profilesOrdered = playerProfiles.reversed();
+
+        if (profilesOrdered.size() > 0){
+            System.out.println("\n===================== RANKING =====================");
+            for (int i = 0; i < profilesOrdered.size(); i++){
+                PlayerProfile profile = profilesOrdered.get(i);
+                System.out.println((i+1) + ". " + profile.getName() + ", " + profile.GetMatchesWon() + "/" + profile.GetMatchesPlayed() + " won matches.");
+            }
+        }
+        else{
+            System.out.println("No registered players yet");
+        }
+
+
+        while (true){
+            System.out.println("\nChoose an option:");
+            System.out.println("0. Exit.");
+            for (int i = 0; i < profilesOrdered.size(); i++){
+                PlayerProfile profile = profilesOrdered.get(i);
+                System.out.println((i+1) + ". See " + profile.getName() + "'s player profile.");
+            }
+
+            int choice = sl.scanner.nextInt();
+            if (choice == 0){
+                System.out.println("Returning to the main menu.");
+                return;
+            }
+            else if(choice > 0 && choice <= profilesOrdered.size()){
+                displayPlayerProfile(profilesOrdered.get(choice-1));
+            }
+            else{
+                System.out.println("Unknown option, try again.");
+            }
+        }
+    }
+    public void displayPlayerProfile(PlayerProfile profile){
+        System.out.println("\n===================== " + profile.getName() +"'s PROFILE =====================");
+
+        System.out.println("\nMatches played: " + profile.GetMatchesPlayed());
+        System.out.println("Matches won: " + profile.GetMatchesWon());
+        System.out.println("Matches lost: " + profile.GetMatchesLost());
+        System.out.println("Win ratio: " + profile.GetWinRatio());
+
+        System.out.println("\nShots hit: " + profile.GetMissCount());
+        System.out.println("Shots missed: " + profile.GetMissCount());
+        System.out.println("Accuracy: " + profile.GetAccuracy());
+
+        System.out.println("\nAverage number of moves per match: " + profile.GetMovesPerCount());
+        System.out.println("Total number of moves: " + profile.GetMoveCount());
+
+        sl.scanner.next();
+        sl.scanner.nextLine();
     }
 }
