@@ -157,16 +157,17 @@ public class ConsoleMenu implements IMenu {
                 System.out.println("You are already on the last page of the history.");
             }
             else if (choice > 2 && choice < matches.size() + 3){
-                displayMatchHistory(matches.get(start + choice - 3));
+                replayMatch(matches.get(start + choice - 3));
             }
             else{
                 System.out.println("Unknown option, try again.");
             }
         }
     }
-    private void displayMatchHistory(MatchRecord record){
+    private void replayMatch(MatchRecord record){
         Stack<ICommand> executedMoves = new Stack<>();
         Stack<ICommand> remainingMoves = new Stack<>();
+        int turnCounter = 0;
 
         // Recreating the boards for players
         Board board1 = new Board(sl);
@@ -202,7 +203,7 @@ public class ConsoleMenu implements IMenu {
         }
 
         board1.importShips(ships1);
-        board1.importShips(ships2);
+        board2.importShips(ships2);
 
         for(TurnRecord turnRecord : record.turns){
             ShootCommand newCommand;
@@ -219,7 +220,13 @@ public class ConsoleMenu implements IMenu {
         System.out.println("Starting a replay between " + record.player1 + " and " + record.player2);
 
         while(true) {
-            // Printing the state of the boards for both players
+            System.out.println("Round " + turnCounter);
+
+            System.out.println(  record.player1 + "'s board");
+            board1.displayBoard(false);
+
+            System.out.println(  record.player2 + "'s board");
+            board2.displayBoard(false);
 
             System.out.println("\nChoose option:");
             System.out.println("0. Exit");
@@ -234,6 +241,9 @@ public class ConsoleMenu implements IMenu {
             }
             else if (choice == 1) {
                 if (!executedMoves.isEmpty()) {
+                    turnCounter--;
+                    System.out.println(record.turns.get(turnCounter-1).player + "'s turn");
+
                     ICommand move = executedMoves.pop();
                     move.undo();
                     remainingMoves.add(move);
@@ -244,6 +254,9 @@ public class ConsoleMenu implements IMenu {
             }
             else if (choice == 2){
                 if (!remainingMoves.isEmpty()){
+                    turnCounter++;
+                    System.out.println(record.turns.get(turnCounter-1).player + "'s turn");
+
                     ICommand move = remainingMoves.pop();
                     move.execute();
                     executedMoves.add(move);
@@ -256,7 +269,7 @@ public class ConsoleMenu implements IMenu {
                 System.out.println("Unknown option, try again.");
             }
 
-            if(choice == record.turns.size()){
+            if(turnCounter == record.turns.size()){
                 System.out.println("The match is over - " + record.winner + " won the game!");
             }
         }
