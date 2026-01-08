@@ -2,12 +2,15 @@ package menu;
 
 import ServiceLocator.ServiceLocator;
 import Match.Match;
+import battleship.Battleship;
+import board.Board;
+import command.ICommand;
+import command.ShootCommand;
 import matchhistory.MatchRecord;
+import matchhistory.TurnRecord;
 import registrationservice.PlayerProfile;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class ConsoleMenu implements IMenu {
 
@@ -162,6 +165,101 @@ public class ConsoleMenu implements IMenu {
         }
     }
     private void displayMatchHistory(MatchRecord record){
+        Stack<ICommand> executedMoves = new Stack<>();
+        Stack<ICommand> remainingMoves = new Stack<>();
+
+        // Recreating the boards for players
+        Board board1 = new Board(sl);
+        List<Battleship> ships1 = new ArrayList<Battleship>();
+        for(List<int[]> coordinates : record.ships1){
+            int startX = coordinates.getFirst()[0];
+            int startY = coordinates.getFirst()[1];
+            int len = coordinates.size();
+            boolean vert = false;
+
+            if(coordinates.get(0)[0] == coordinates.get(1)[0]){
+                vert = true;
+            }
+
+            Battleship newShip = new Battleship(startX, startY, len, vert);
+            ships1.add(newShip);
+        }
+
+        Board board2 = new Board(sl);
+        List<Battleship> ships2 = new ArrayList<Battleship>();
+        for(List<int[]> coordinates : record.ships2){
+            int startX = coordinates.getFirst()[0];
+            int startY = coordinates.getFirst()[1];
+            int len = coordinates.size();
+            boolean vert = false;
+
+            if(coordinates.get(0)[0] == coordinates.get(1)[0]){
+                vert = true;
+            }
+
+            Battleship newShip = new Battleship(startX, startY, len, vert);
+            ships2.add(newShip);
+        }
+
+        board1.importShips(ships1);
+        board1.importShips(ships2);
+
+        for(TurnRecord turnRecord : record.turns){
+            ShootCommand newCommand;
+            if(Objects.equals(turnRecord.player, record.player1)){
+                newCommand = new ShootCommand(board2, turnRecord.x, turnRecord.y);
+            }
+            else{
+                newCommand = new ShootCommand(board1, turnRecord.x, turnRecord.y);
+            }
+
+            remainingMoves.push(newCommand);
+        }
+
+        System.out.println("Starting a replay between " + record.player1 + " and " + record.player2);
+
+        while(true) {
+            // Printing the state of the boards for both players
+
+            System.out.println("\nChoose option:");
+            System.out.println("0. Exit");
+            System.out.println("1. Previous turn");
+            System.out.println("2. Next turn");
+
+            int choice = sl.scanner.nextInt();
+            sl.scanner.nextLine();
+
+            if (choice == 0) {
+                return;
+            }
+            else if (choice == 1) {
+                if (!executedMoves.isEmpty()) {
+                    ICommand move = executedMoves.pop();
+                    move.undo();
+                    remainingMoves.add(move);
+                }
+                else {
+                    System.out.println("Can't replay the previous move.");
+                }
+            }
+            else if (choice == 2){
+                if (!remainingMoves.isEmpty()){
+                    ICommand move = remainingMoves.pop();
+                    move.execute();
+                    executedMoves.add(move);
+                }
+                else{
+                    System.out.println("Can't replay the next move.");
+                }
+            }
+            else{
+                System.out.println("Unknown option, try again.");
+            }
+
+            if(choice == record.turns.size()){
+                System.out.println("The match is over - " + record.winner + " won the game!");
+            }
+        }
 
     }
 

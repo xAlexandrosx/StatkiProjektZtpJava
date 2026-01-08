@@ -1,6 +1,8 @@
 package players;
 
 import ServiceLocator.ServiceLocator;
+import command.ICommand;
+import command.ShootCommand;
 import registrationservice.PlayerProfile;
 import statisticsservice.StatisticsService;
 
@@ -22,8 +24,10 @@ public class HumanPlayer extends Player {
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
 
+        ShootCommand command = new ShootCommand(enemyBoard, x, y);
+
         sl.matchHistoryService.recordTurn(getName(), x, y);
-        StatisticsService.getInstance().RegisterShot(this, enemyBoard.registerShot(x, y));
+        StatisticsService.getInstance().RegisterShot(this, command.execute());
         StatisticsService.getInstance().RegisterMove(this);
     }
 
