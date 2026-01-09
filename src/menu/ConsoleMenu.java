@@ -156,7 +156,7 @@ public class ConsoleMenu implements IMenu {
 
                 System.out.println("You are already on the last page of the history.");
             }
-            else if (choice > 2 && choice < matches.size() + 3){
+            else if (choice > 2 && choice < (end - start) /* Liczba dostępnych meczy */ + 3 /* Przesunięcie */){
                 replayMatch(matches.get(start + choice - 3));
             }
             else{
