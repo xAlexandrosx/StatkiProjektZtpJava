@@ -164,69 +164,19 @@ public class ConsoleMenu implements IMenu {
             }
         }
     }
-    private void replayMatch(MatchRecord record){
-        Stack<ICommand> executedMoves = new Stack<>();
-        Stack<ICommand> remainingMoves = new Stack<>();
-        int turnCounter = 0;
+    private void replayMatch(MatchRecord matchRecord){
+        sl.replayService.LoadMatch(matchRecord);
 
-        // Recreating the boards for players
-        Board board1 = new Board(sl);
-        List<Battleship> ships1 = new ArrayList<Battleship>();
-        for(List<int[]> coordinates : record.ships1){
-            int startX = coordinates.getFirst()[0];
-            int startY = coordinates.getFirst()[1];
-            int len = coordinates.size();
-            boolean vert = false;
-
-            if(coordinates.get(0)[0] == coordinates.get(1)[0]){
-                vert = true;
-            }
-
-            Battleship newShip = new Battleship(startX, startY, len, vert);
-            ships1.add(newShip);
-        }
-
-        Board board2 = new Board(sl);
-        List<Battleship> ships2 = new ArrayList<Battleship>();
-        for(List<int[]> coordinates : record.ships2){
-            int startX = coordinates.getFirst()[0];
-            int startY = coordinates.getFirst()[1];
-            int len = coordinates.size();
-            boolean vert = false;
-
-            if(coordinates.get(0)[0] == coordinates.get(1)[0]){
-                vert = true;
-            }
-
-            Battleship newShip = new Battleship(startX, startY, len, vert);
-            ships2.add(newShip);
-        }
-
-        board1.importShips(ships1);
-        board2.importShips(ships2);
-
-        for(TurnRecord turnRecord : record.turns){
-            ShootCommand newCommand;
-            if(Objects.equals(turnRecord.player, record.player1)){
-                newCommand = new ShootCommand(board2, turnRecord.x, turnRecord.y);
-            }
-            else{
-                newCommand = new ShootCommand(board1, turnRecord.x, turnRecord.y);
-            }
-
-            remainingMoves.push(newCommand);
-        }
-
-        System.out.println("Starting a replay between " + record.player1 + " and " + record.player2);
+        System.out.println("Starting a replay between " + matchRecord.player1 + " and " + matchRecord.player2);
 
         while(true) {
-            System.out.println("Round " + turnCounter);
+            System.out.println("Round " + sl.replayService.getTurnCounter());
 
-            System.out.println(  record.player1 + "'s board");
-            board1.displayBoard(false);
+            System.out.println(matchRecord.player1 + "'s board");
+            sl.replayService.displayBoard(matchRecord.player1);
 
-            System.out.println(  record.player2 + "'s board");
-            board2.displayBoard(false);
+            System.out.println(matchRecord.player2 + "'s board");
+            sl.replayService.displayBoard(matchRecord.player2);
 
             System.out.println("\nChoose option:");
             System.out.println("0. Exit");
@@ -240,26 +190,16 @@ public class ConsoleMenu implements IMenu {
                 return;
             }
             else if (choice == 1) {
-                if (!executedMoves.isEmpty()) {
-                    turnCounter--;
-                    System.out.println(record.turns.get(turnCounter-1).player + "'s turn");
-
-                    ICommand move = executedMoves.pop();
-                    move.undo();
-                    remainingMoves.add(move);
+                if (sl.replayService.PreviousMove()) {
+                    System.out.println(matchRecord.turns.get(sl.replayService.getTurnCounter()-1).player + "'s turn");
                 }
                 else {
                     System.out.println("Can't replay the previous move.");
                 }
             }
             else if (choice == 2){
-                if (!remainingMoves.isEmpty()){
-                    turnCounter++;
-                    System.out.println(record.turns.get(turnCounter-1).player + "'s turn");
-
-                    ICommand move = remainingMoves.pop();
-                    move.execute();
-                    executedMoves.add(move);
+                if (sl.replayService.NextMove()){
+                    System.out.println(matchRecord.turns.get(sl.replayService.getTurnCounter()-1).player + "'s turn");
                 }
                 else{
                     System.out.println("Can't replay the next move.");
@@ -269,8 +209,8 @@ public class ConsoleMenu implements IMenu {
                 System.out.println("Unknown option, try again.");
             }
 
-            if(turnCounter == record.turns.size()){
-                System.out.println("The match is over - " + record.winner + " won the game!");
+            if(sl.replayService.getTurnCounter() == matchRecord.turns.size()){
+                System.out.println("The match is over - " + matchRecord.winner + " won the game!");
             }
         }
 
