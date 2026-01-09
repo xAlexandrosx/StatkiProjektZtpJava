@@ -2,6 +2,8 @@ package Match;
 
 import ServiceLocator.ServiceLocator;
 import board.Board;
+import observer.notifications.MatchFinishedNotification;
+import observer.notifications.ShipsPlacedNotification;
 import players.IPlayer;
 import statisticsservice.StatisticsService;
 
@@ -50,7 +52,8 @@ public class Match implements IMatch {
         p2.setEnemyBoard(b1);
 
         sl.matchHistoryService.recordPlayers(p1, p2);
-        sl.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());
+        sl.notificationManager.publish(new ShipsPlacedNotification(b1.adaptShips(), b2.adaptShips()));
+        //sl.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());
     }
 
     public void playMatch() {
@@ -87,8 +90,9 @@ public class Match implements IMatch {
         }
 
         StatisticsService.getInstance().RegisterMatch(winner, loser);
-        sl.matchHistoryService.setWinner(winner.getName());
-        sl.matchHistoryService.saveMatchToFile();
+        sl.notificationManager.publish(new MatchFinishedNotification(winner, loser));
+        //sl.matchHistoryService.setWinner(winner.getName());
+        //sl.matchHistoryService.saveMatchToFile();
 
         // Saving the player profiles to save changes -
         // we don't need to differentiate between temporary accounts and registered one -

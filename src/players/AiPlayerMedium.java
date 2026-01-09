@@ -2,6 +2,7 @@ package players;
 
 import ServiceLocator.ServiceLocator;
 import command.ShootCommand;
+import observer.notifications.TurnTakenNotification;
 
 public class AiPlayerMedium extends Player {
 
@@ -24,12 +25,14 @@ public class AiPlayerMedium extends Player {
             if (tile == 0 || tile == 1) break;
         }
 
-        sl.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
-
         System.out.println(playerProfile.getName() + " shoots at " + x + ", " + y);
 
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
-        command.execute();
+        boolean shotResult = command.execute();
+
+        sl.notificationManager.publish(new TurnTakenNotification(this, x, y, shotResult));
+        //sl.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
+
         enemyBoard.displayBoard(false);
 
         try {

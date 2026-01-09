@@ -10,6 +10,7 @@ import matchhistory.IMatchHistoryService;
 import matchhistory.MatchHistoryService;
 import menu.ConsoleMenu;
 import menu.IMenu;
+import observer.NotificationManager;
 import players.playerstrategy.IPlayerSupplier;
 import registrationservice.IRegistrationService;
 import registrationservice.RegistrationService;
@@ -36,6 +37,7 @@ public class ServiceLocator {
     private final IRegistrationService registrationService = new RegistrationService(this);
     public final IRegistrationService registrationServiceProxy = new RegistrationServiceAccessProxy(registrationService);
     public final IMatchHistoryService matchHistoryService = new MatchHistoryService(this);
+    public final NotificationManager notificationManager = new NotificationManager();
     public final IReplayService replayService = new ReplayService(this);
     public final IPlayerSupplier playerSupplier;
 }

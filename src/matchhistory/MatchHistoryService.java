@@ -1,5 +1,10 @@
 package matchhistory;
 import ServiceLocator.ServiceLocator;
+import observer.*;
+import observer.notifications.MatchFinishedNotification;
+import observer.notifications.Notification;
+import observer.notifications.ShipsPlacedNotification;
+import observer.notifications.TurnTakenNotification;
 import players.IPlayer;
 import battleship.IBattleship;
 
@@ -8,16 +13,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class MatchHistoryService implements IMatchHistoryService {
+public class MatchHistoryService implements IMatchHistoryService, Subscriber {
     private final ServiceLocator sl;
     private MatchRecord current;
     private final String FILE_PATH = "src/matchhistory/match_history.json";
 
     public MatchHistoryService(ServiceLocator sl) {
         this.sl = sl;
+        sl.notificationManager.subscribe(this);
     }
 
     public void recordPlayers(IPlayer p1, IPlayer p2) {
@@ -34,9 +39,26 @@ public class MatchHistoryService implements IMatchHistoryService {
         current.boardSize = sl.globalVariables.getBoardSize();
     }
 
-    public void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships) {
+    // Private methods providing internal functionality
+    void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships) {
         current.ships1 = extractShipCoordinates(p1Ships);
         current.ships2 = extractShipCoordinates(p2Ships);
+    }
+    void recordTurn(String player, int x, int y) {
+        current.turns.add(new TurnRecord(player, x, y));
+    }
+    void setWinner(String winner) {
+        current.winner = winner;
+    }
+    void saveMatchToFile() {
+        List<MatchRecord> matches = loadExistingMatches();
+        matches.add(current);
+
+        try (Writer writer = new FileWriter(FILE_PATH)) {
+            sl.gson.toJson(matches, writer);
+        } catch (IOException e) {
+            System.out.println("Error: could not save match history.");
+        }
     }
 
     public List<List<int[]>> extractShipCoordinates(List<IBattleship> ships) {
@@ -50,25 +72,6 @@ public class MatchHistoryService implements IMatchHistoryService {
             list.add(coords);
         }
         return list;
-    }
-
-    public void recordTurn(String player, int x, int y) {
-        current.turns.add(new TurnRecord(player, x, y));
-    }
-
-    public void setWinner(String winner) {
-        current.winner = winner;
-    }
-
-    public void saveMatchToFile() {
-        List<MatchRecord> matches = loadExistingMatches();
-        matches.add(current);
-
-        try (Writer writer = new FileWriter(FILE_PATH)) {
-            sl.gson.toJson(matches, writer);
-        } catch (IOException e) {
-            System.out.println("Error: could not save match history.");
-        }
     }
 
     public List<MatchRecord> loadExistingMatches() {
@@ -120,4 +123,18 @@ public class MatchHistoryService implements IMatchHistoryService {
         }
     }
     **/
+
+    @Override
+    public void update(Notification notification) {
+        if (notification instanceof TurnTakenNotification n){
+            recordTurn(n.player().getName(), n.x(), n.y());
+        }
+        else if (notification instanceof ShipsPlacedNotification n){
+            recordShips(n.player1Ships(), n.player2Ships());
+        }
+        else if (notification instanceof MatchFinishedNotification n){
+            setWinner(n.winner().getName());
+            saveMatchToFile();
+        }
+    }
 }

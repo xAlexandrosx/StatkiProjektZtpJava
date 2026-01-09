@@ -3,6 +3,7 @@ package players;
 import ServiceLocator.ServiceLocator;
 import command.ICommand;
 import command.ShootCommand;
+import observer.notifications.TurnTakenNotification;
 import registrationservice.PlayerProfile;
 import statisticsservice.StatisticsService;
 
@@ -25,9 +26,11 @@ public class HumanPlayer extends Player {
         int y = readInt("Enter Y: ");
 
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
+        boolean shotResult = command.execute();
 
-        sl.matchHistoryService.recordTurn(getName(), x, y);
-        StatisticsService.getInstance().RegisterShot(this, command.execute());
+        sl.notificationManager.publish(new TurnTakenNotification(this, x, y, shotResult));
+        //sl.matchHistoryService.recordTurn(getName(), x, y);
+        StatisticsService.getInstance().RegisterShot(this, shotResult);
         StatisticsService.getInstance().RegisterMove(this);
     }
 
