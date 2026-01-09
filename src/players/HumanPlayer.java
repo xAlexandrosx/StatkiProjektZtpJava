@@ -30,8 +30,8 @@ public class HumanPlayer extends Player {
 
         sl.notificationManager.publish(new TurnTakenNotification(this, x, y, shotResult));
         //sl.matchHistoryService.recordTurn(getName(), x, y);
-        StatisticsService.getInstance().RegisterShot(this, shotResult);
-        StatisticsService.getInstance().RegisterMove(this);
+        //StatisticsService.getInstance().RegisterShot(this, shotResult);
+        //StatisticsService.getInstance().RegisterMove(this);
     }
 
     private int readInt(String prompt) {

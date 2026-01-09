@@ -1,10 +1,7 @@
 package matchhistory;
 import ServiceLocator.ServiceLocator;
 import observer.*;
-import observer.notifications.MatchFinishedNotification;
-import observer.notifications.Notification;
-import observer.notifications.ShipsPlacedNotification;
-import observer.notifications.TurnTakenNotification;
+import observer.notifications.*;
 import players.IPlayer;
 import battleship.IBattleship;
 
@@ -25,7 +22,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         sl.notificationManager.subscribe(this);
     }
 
-    public void recordPlayers(IPlayer p1, IPlayer p2) {
+    void recordPlayers(IPlayer p1, IPlayer p2) {
         current = new MatchRecord();
         current.turns = new ArrayList<>();
 
@@ -129,7 +126,8 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         if (notification instanceof TurnTakenNotification n){
             recordTurn(n.player().getName(), n.x(), n.y());
         }
-        else if (notification instanceof ShipsPlacedNotification n){
+        else if (notification instanceof MatchConfiguredNotification n){
+            recordPlayers(n.player1(), n.player2());
             recordShips(n.player1Ships(), n.player2Ships());
         }
         else if (notification instanceof MatchFinishedNotification n){

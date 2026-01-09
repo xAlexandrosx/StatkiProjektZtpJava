@@ -8,11 +8,11 @@ import players.Player;
 import java.util.List;
 
 public interface IMatchHistoryService {
-    void recordPlayers(IPlayer p1, IPlayer p2);
+    //void recordPlayers(IPlayer p1, IPlayer p2);
 
     //void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships);
 
-    List<List<int[]>> extractShipCoordinates(List<IBattleship> ships);
+    //List<List<int[]>> extractShipCoordinates(List<IBattleship> ships);
 
     //void recordTurn(String player, int x, int y);
 
