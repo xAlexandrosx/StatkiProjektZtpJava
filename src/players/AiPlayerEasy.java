@@ -1,6 +1,7 @@
 package players;
 
 import ServiceLocator.ServiceLocator;
+import command.ShootCommand;
 
 public class AiPlayerEasy extends Player {
 
@@ -26,7 +27,9 @@ public class AiPlayerEasy extends Player {
         sl.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
 
         System.out.println(playerProfile.getName() + " shoots at " + x + ", " + y);
-        enemyBoard.registerShot(x, y);
+
+        ShootCommand command = new ShootCommand(enemyBoard, x, y);
+        command.execute();
         enemyBoard.displayBoard(false);
 
         try {

@@ -97,6 +97,7 @@ public class Board {
     public int getTile(int x, int y) {
         return tiles[x][y];
     }
+    public void setTile(int x, int y, int tile) { tiles[x][y] = tile; }
 
     public boolean registerShot(int x, int y) {
         if (!(x >= 0 && x < sl.globalVariables.getBoardSize() && y >= 0 && y < sl.globalVariables.getBoardSize())) {
@@ -138,6 +139,7 @@ public class Board {
         }
         return true;
     }
+
     private boolean isTileFromSunkShip(int x, int y) {
         if (ships == null) return false;
         for (Battleship ship : ships) {

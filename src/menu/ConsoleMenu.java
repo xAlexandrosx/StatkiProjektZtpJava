@@ -2,10 +2,15 @@ package menu;
 
 import ServiceLocator.ServiceLocator;
 import Match.Match;
+import battleship.Battleship;
+import board.Board;
+import command.ICommand;
+import command.ShootCommand;
+import matchhistory.MatchRecord;
+import matchhistory.TurnRecord;
 import registrationservice.PlayerProfile;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class ConsoleMenu implements IMenu {
 
@@ -56,7 +61,7 @@ public class ConsoleMenu implements IMenu {
             case 1 -> new Match(sl, PLAYER_VS_PLAYER).playMatch();
             case 2 -> new Match(sl, PLAYER_VS_COMPUTER).playMatch();
             case 3 -> new Match(sl, COMPUTER_VS_COMPUTER).playMatch();
-            case 4 -> sl.matchHistoryService.displayHistory();
+            case 4 -> displayHistory(); //sl.matchHistoryService.displayHistory();
             case 5 -> sl.globalVariables.setBoardSize();
             case 6 -> sl.registrationServiceProxy.logOut();
             case 7 -> sl.registrationServiceProxy.logIn();
@@ -86,6 +91,129 @@ public class ConsoleMenu implements IMenu {
             System.out.printf("AI difficulty set to %d\n", choice);
             return choice;
         }
+    }
+
+    public void displayHistory(){
+        List<MatchRecord> matches = sl.matchHistoryService.loadExistingMatches();
+
+        if (matches.isEmpty()){
+            System.out.println("There is no match history yet!");
+            return;
+        }
+
+        Collections.reverse(matches);
+        int start = 0;
+        int end = Math.min(matches.size(), 5);
+
+        while(true){
+            for (int i = start; i < end; i++){
+                MatchRecord match = matches.get(i);
+
+                System.out.println("Match ID: " + match.gameID);
+                System.out.println(match.date + ", " + match.time);
+
+                String player1 = match.player1;
+                String player2 = match.player2;
+
+                if (match.winner != null) {
+                    if (match.winner.equals(player1)) player1 = "*" + player1 + "*";
+                    else if (match.winner.equals(player2)) player2 = "*" + player2 + "*";
+                }
+
+                System.out.println(player1 + " vs " + player2);
+                System.out.println();
+            }
+
+            System.out.println("\nChoose option:");
+            System.out.println("0. Exit");
+            System.out.println("1. Previous page");
+            System.out.println("2. Next page");
+            for (int i = start; i < end; i++) {
+                MatchRecord match = matches.get(i);
+                System.out.println((i + 3 - start) + ". Replay match " + match.gameID);
+            }
+
+            int choice = sl.scanner.nextInt();
+            if (choice == 0) {
+                System.out.println("Returning to the main menu.");
+                return;
+            }
+            else if (choice == 1){
+                if (start - 5 >= 0){
+                    end = start;
+                    start = start - 5;
+                    continue;
+                }
+
+                System.out.println("You are already on the first page of the history.");
+            }
+            else if(choice == 2){
+                if (start + 5  <= matches.size()){
+                    start = start + 5;
+                    end = Math.min(end + 5, matches.size());
+                    continue;
+                }
+
+                System.out.println("You are already on the last page of the history.");
+            }
+            else if (choice > 2 && choice < (end - start) /* Liczba dostępnych meczy */ + 3 /* Przesunięcie */){
+                replayMatch(matches.get(start + choice - 3));
+            }
+            else{
+                System.out.println("Unknown option, try again.");
+            }
+        }
+    }
+    private void replayMatch(MatchRecord matchRecord){
+        sl.replayService.LoadMatch(matchRecord);
+
+        System.out.println("Starting a replay between " + matchRecord.player1 + " and " + matchRecord.player2);
+
+        while(true) {
+            System.out.println("Round " + sl.replayService.getTurnCounter());
+
+            System.out.println(matchRecord.player1 + "'s board");
+            sl.replayService.displayBoard(matchRecord.player1);
+
+            System.out.println(matchRecord.player2 + "'s board");
+            sl.replayService.displayBoard(matchRecord.player2);
+
+            System.out.println("\nChoose option:");
+            System.out.println("0. Exit");
+            System.out.println("1. Previous turn");
+            System.out.println("2. Next turn");
+
+            int choice = sl.scanner.nextInt();
+            sl.scanner.nextLine();
+
+            if (choice == 0) {
+                return;
+            }
+            else if (choice == 1) {
+                if (sl.replayService.PreviousMove()) {
+                    System.out.println(matchRecord.turns.get(sl.replayService.getTurnCounter()-1).player + "'s turn");
+                }
+                else {
+                    System.out.println("Can't replay the previous move.");
+                }
+            }
+            else if (choice == 2){
+                if (sl.replayService.NextMove()){
+                    System.out.println(matchRecord.turns.get(sl.replayService.getTurnCounter()-1).player + "'s turn");
+                }
+                else{
+                    System.out.println("Can't replay the next move.");
+                }
+            }
+            else{
+                System.out.println("Unknown option, try again.");
+            }
+
+            if(sl.replayService.getTurnCounter() == matchRecord.turns.size()){
+                System.out.println("The match is over - " + matchRecord.winner + " won the game!");
+            }
+        }
+
     }
 
     public void displayRanking(){
@@ -126,8 +254,7 @@ public class ConsoleMenu implements IMenu {
             }
         }
     }
-
-    public void displayPlayerProfile(PlayerProfile profile){
+    private void displayPlayerProfile(PlayerProfile profile){
         System.out.println("\n===================== " + profile.getName() +"'s PROFILE =====================");
 
         System.out.println("\nMatches played: " + profile.GetMatchesPlayed());
