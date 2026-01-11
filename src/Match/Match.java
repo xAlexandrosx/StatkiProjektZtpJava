@@ -51,9 +51,7 @@ public class Match implements IMatch {
         p2.setOwnBoard(b2);
         p2.setEnemyBoard(b1);
 
-        //sl.matchHistoryService.recordPlayers(p1, p2);
         sl.notificationManager.publish(new MatchConfiguredNotification(p1, p2, b1.adaptShips(), b2.adaptShips()));
-        //sl.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());
     }
 
     public void playMatch() {
@@ -90,9 +88,6 @@ public class Match implements IMatch {
         }
 
         sl.notificationManager.publish(new MatchFinishedNotification(winner, loser));
-        //StatisticsService.getInstance().RegisterMatch(winner, loser);
-        //sl.matchHistoryService.setWinner(winner.getName());
-        //sl.matchHistoryService.saveMatchToFile();
 
         // Saving the player profiles to save changes -
         // we don't need to differentiate between temporary accounts and registered one -

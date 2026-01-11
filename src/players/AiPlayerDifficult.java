@@ -31,7 +31,6 @@ public class AiPlayerDifficult extends Player {
         boolean shotResult = command.execute();
 
         sl.notificationManager.publish(new TurnTakenNotification(this, x, y, shotResult));
-        //sl.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
 
         enemyBoard.displayBoard(false);
 
