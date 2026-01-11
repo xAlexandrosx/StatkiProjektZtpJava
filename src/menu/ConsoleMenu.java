@@ -20,8 +20,8 @@ public class ConsoleMenu implements IMenu {
     private final int PLAYER_VS_COMPUTER = 1;
     private final int COMPUTER_VS_COMPUTER = 2;
 
-    public ConsoleMenu(ServiceLocator sl) {
-        this.sl = sl;
+    public ConsoleMenu() {
+        this.sl = ServiceLocator.getInstance();
     }
 
     // MENU DISPLAY
@@ -29,14 +29,14 @@ public class ConsoleMenu implements IMenu {
         System.out.println("\n===================== MENU =====================");
 
         String p1Name = "";
-        if (sl.globalVariables.isPlayerExisting(1)) p1Name = sl.globalVariables.getPlayer(1).getName();
+        if (sl.getGlobalVariables().isPlayerExisting(1)) p1Name = sl.getGlobalVariables().getPlayer(1).getName();
         String p2Name = "";
-        if (sl.globalVariables.isPlayerExisting(2)) p2Name = sl.globalVariables.getPlayer(2).getName();
+        if (sl.getGlobalVariables().isPlayerExisting(2)) p2Name = sl.getGlobalVariables().getPlayer(2).getName();
 
         System.out.println("P1: " + p1Name);
         System.out.println("P2: " + p2Name);
 
-        System.out.println("Board Size: " + sl.globalVariables.getBoardSize());
+        System.out.println("Board Size: " + sl.getGlobalVariables().getBoardSize());
         System.out.println();
 
         System.out.println("1. Start match with 2 players");
@@ -54,18 +54,18 @@ public class ConsoleMenu implements IMenu {
     }
 
     public int handleInput() {
-        int choice = sl.scanner.nextInt();
-        sl.scanner.nextLine();
+        int choice = sl.getScanner().nextInt();
+        sl.getScanner().nextLine();
 
         switch (choice) {
             case 1 -> new Match(sl, PLAYER_VS_PLAYER).playMatch();
             case 2 -> new Match(sl, PLAYER_VS_COMPUTER).playMatch();
             case 3 -> new Match(sl, COMPUTER_VS_COMPUTER).playMatch();
             case 4 -> displayHistory();
-            case 5 -> sl.globalVariables.setBoardSize();
-            case 6 -> sl.registrationServiceProxy.logOut();
-            case 7 -> sl.registrationServiceProxy.logIn();
-            case 8 -> sl.registrationServiceProxy.signIn();
+            case 5 -> sl.getGlobalVariables().setBoardSize();
+            case 6 -> sl.getRegistrationServiceProxy().logOut();
+            case 7 -> sl.getRegistrationServiceProxy().logIn();
+            case 8 -> sl.getRegistrationServiceProxy().signIn();
             case 9 -> displayRanking();
             case 10 -> {
                 System.out.println("Goodbye!");
@@ -83,7 +83,7 @@ public class ConsoleMenu implements IMenu {
             System.out.println("1. Easy");
             System.out.println("2. Medium");
             System.out.println("3. Hard");
-            int choice = sl.scanner.nextInt();
+            int choice = sl.getScanner().nextInt();
             if (choice > 3 || choice < 1) {
                 System.out.println("Unknown option, try again.");
                 continue;
@@ -94,7 +94,7 @@ public class ConsoleMenu implements IMenu {
     }
 
     public void displayHistory(){
-        List<MatchRecord> matches = sl.matchHistoryService.loadExistingMatches();
+        List<MatchRecord> matches = sl.getMatchHistoryService().loadExistingMatches();
 
         if (matches.isEmpty()){
             System.out.println("There is no match history yet!");
@@ -133,7 +133,7 @@ public class ConsoleMenu implements IMenu {
                 System.out.println((i + 3 - start) + ". Replay match " + match.gameID);
             }
 
-            int choice = sl.scanner.nextInt();
+            int choice = sl.getScanner().nextInt();
             if (choice == 0) {
                 System.out.println("Returning to the main menu.");
                 return;
@@ -165,41 +165,41 @@ public class ConsoleMenu implements IMenu {
         }
     }
     private void replayMatch(MatchRecord matchRecord){
-        sl.replayService.LoadMatch(matchRecord);
+        sl.getReplayService().LoadMatch(matchRecord);
 
         System.out.println("Starting a replay between " + matchRecord.player1 + " and " + matchRecord.player2);
 
         while(true) {
-            System.out.println("Round " + sl.replayService.getTurnCounter());
+            System.out.println("Round " + sl.getReplayService().getTurnCounter());
 
             System.out.println(matchRecord.player1 + "'s board");
-            sl.replayService.displayBoard(matchRecord.player1);
+            sl.getReplayService().displayBoard(matchRecord.player1);
 
             System.out.println(matchRecord.player2 + "'s board");
-            sl.replayService.displayBoard(matchRecord.player2);
+            sl.getReplayService().displayBoard(matchRecord.player2);
 
             System.out.println("\nChoose option:");
             System.out.println("0. Exit");
             System.out.println("1. Previous turn");
             System.out.println("2. Next turn");
 
-            int choice = sl.scanner.nextInt();
-            sl.scanner.nextLine();
+            int choice = sl.getScanner().nextInt();
+            sl.getScanner().nextLine();
 
             if (choice == 0) {
                 return;
             }
             else if (choice == 1) {
-                if (sl.replayService.PreviousMove()) {
-                    System.out.println(matchRecord.turns.get(sl.replayService.getTurnCounter()-1).player + "'s turn");
+                if (sl.getReplayService().PreviousMove()) {
+                    System.out.println(matchRecord.turns.get(sl.getReplayService().getTurnCounter()-1).player + "'s turn");
                 }
                 else {
                     System.out.println("Can't replay the previous move.");
                 }
             }
             else if (choice == 2){
-                if (sl.replayService.NextMove()){
-                    System.out.println(matchRecord.turns.get(sl.replayService.getTurnCounter()-1).player + "'s turn");
+                if (sl.getReplayService().NextMove()){
+                    System.out.println(matchRecord.turns.get(sl.getReplayService().getTurnCounter()-1).player + "'s turn");
                 }
                 else{
                     System.out.println("Can't replay the next move.");
@@ -209,7 +209,7 @@ public class ConsoleMenu implements IMenu {
                 System.out.println("Unknown option, try again.");
             }
 
-            if(sl.replayService.getTurnCounter() == matchRecord.turns.size()){
+            if(sl.getReplayService().getTurnCounter() == matchRecord.turns.size()){
                 System.out.println("The match is over - " + matchRecord.winner + " won the game!");
             }
         }
@@ -217,7 +217,7 @@ public class ConsoleMenu implements IMenu {
     }
 
     public void displayRanking(){
-        List<PlayerProfile> playerProfiles = sl.registrationServiceProxy.loadPlayers();
+        List<PlayerProfile> playerProfiles = sl.getRegistrationServiceProxy().loadPlayers();
         playerProfiles.sort(Comparator.comparingInt(PlayerProfile::GetMatchesWon));
         List<PlayerProfile> profilesOrdered = playerProfiles.reversed();
 
@@ -241,7 +241,7 @@ public class ConsoleMenu implements IMenu {
                 System.out.println((i+1) + ". See " + profile.getName() + "'s player profile.");
             }
 
-            int choice = sl.scanner.nextInt();
+            int choice = sl.getScanner().nextInt();
             if (choice == 0){
                 System.out.println("Returning to the main menu.");
                 return;
@@ -269,7 +269,7 @@ public class ConsoleMenu implements IMenu {
         System.out.println("\nAverage number of moves per match: " + profile.GetMovesPerCount());
         System.out.println("Total number of moves: " + profile.GetMoveCount());
 
-        sl.scanner.next();
-        sl.scanner.nextLine();
+        sl.getScanner().next();
+        sl.getScanner().nextLine();
     }
 }

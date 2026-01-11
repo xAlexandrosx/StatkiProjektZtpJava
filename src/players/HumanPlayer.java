@@ -28,16 +28,16 @@ public class HumanPlayer extends Player {
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
         boolean shotResult = command.execute();
 
-        sl.notificationManager.publish(new TurnTakenNotification(this, x, y, shotResult));
+        sl.getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
     }
 
     private int readInt(String prompt) {
         System.out.print(prompt);
-        while (!sl.scanner.hasNextInt()) {
+        while (!sl.getScanner().hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
-            sl.scanner.next();
+            sl.getScanner().next();
             System.out.print(prompt);
         }
-        return sl.scanner.nextInt();
+        return sl.getScanner().nextInt();
     }
 }

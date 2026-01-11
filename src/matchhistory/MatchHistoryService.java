@@ -13,13 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MatchHistoryService implements IMatchHistoryService, Subscriber {
-    private final ServiceLocator sl;
     private MatchRecord current;
     private final String FILE_PATH = "src/matchhistory/match_history.json";
 
-    public MatchHistoryService(ServiceLocator sl) {
-        this.sl = sl;
-        sl.notificationManager.subscribe(this);
+    public MatchHistoryService() {
+        ServiceLocator.getInstance().getNotificationManager().subscribe(this);
     }
 
     void recordPlayers(IPlayer p1, IPlayer p2) {
@@ -33,7 +31,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         current.time = LocalTime.now().withNano(0).toString();
         current.player1 = p1.getName();
         current.player2 = p2.getName();
-        current.boardSize = sl.globalVariables.getBoardSize();
+        current.boardSize = ServiceLocator.getInstance().getGlobalVariables().getBoardSize();
     }
 
     // Private methods providing internal functionality
@@ -52,7 +50,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         matches.add(current);
 
         try (Writer writer = new FileWriter(FILE_PATH)) {
-            sl.gson.toJson(matches, writer);
+            ServiceLocator.getInstance().getGson().toJson(matches, writer);
         } catch (IOException e) {
             System.out.println("Error: could not save match history.");
         }
@@ -75,7 +73,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         List<MatchRecord> matches = new ArrayList<>();
 
         try (Reader reader = new FileReader(FILE_PATH)) {
-            MatchRecord[] existing = sl.gson.fromJson(reader, MatchRecord[].class);
+            MatchRecord[] existing = ServiceLocator.getInstance().getGson().fromJson(reader, MatchRecord[].class);
             if (existing != null) {
                 matches.addAll(Arrays.asList(existing));
             }

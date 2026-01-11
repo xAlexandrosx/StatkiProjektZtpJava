@@ -6,12 +6,12 @@ public class BattleshipDeployer implements IBattleshipDeployer {
 
     private final ServiceLocator sl;
 
-    public BattleshipDeployer(ServiceLocator sl) {
-        this.sl = sl;
+    public BattleshipDeployer() {
+        this.sl = ServiceLocator.getInstance();
     }
 
     public Board getBattleshipsRandom(int boardSize) {
-        BoardBuilder bb = new BoardBuilder(sl);
+        BoardBuilder bb = new BoardBuilder();
         boolean[][] grid = new boolean[boardSize][boardSize];
 
         int[] shipSizes = {4, 3, 3, 2, 2, 2, 2};
@@ -25,9 +25,9 @@ public class BattleshipDeployer implements IBattleshipDeployer {
     public void placeShip(BoardBuilder bb, int size, int length, boolean[][] grid) {
         boolean placed = false;
         while (!placed) {
-            boolean horizontal = sl.random.nextBoolean();
-            int row = sl.random.nextInt(size);
-            int col = sl.random.nextInt(size);
+            boolean horizontal = sl.getRandom().nextBoolean();
+            int row = sl.getRandom().nextInt(size);
+            int col = sl.getRandom().nextInt(size);
 
             if (horizontal) {
                 if (col + length > size) continue;

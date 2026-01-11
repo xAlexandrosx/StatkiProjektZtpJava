@@ -9,8 +9,8 @@ import players.IPlayer;
 import players.Player;
 
 public class StatisticsService implements IStatisticsService, Subscriber {
-    public StatisticsService(ServiceLocator sl){
-        sl.notificationManager.subscribe(this);
+    public StatisticsService(){
+        ServiceLocator.getInstance().getNotificationManager().subscribe(this);
     }
 
     void RegisterShot(Player player, boolean hit) {

@@ -8,8 +8,8 @@ public class BoardBuilder {
     private final Board board;
     private boolean done = false;
 
-    public BoardBuilder(ServiceLocator g) {
-        board = new Board(g);
+    public BoardBuilder() {
+        board = new Board();
         board.importShips(null);
     }
 
