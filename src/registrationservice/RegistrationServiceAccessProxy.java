@@ -10,42 +10,42 @@ public class RegistrationServiceAccessProxy implements IRegistrationService {
         this.realService = realService;
     }
 
-    //jezeli profi jest Ai, jego nazwa zaczyna się od komputer (przynajmniej póki co)
+    // ai - uzytkownik nazywa sie computer
     private boolean isAiProfile(PlayerProfile profile) {
         if (profile == null) return false;
         String name = profile.getName();
         return name.startsWith("Computer");
     }
+
+    // gośc pasożyt - profil nazywa się Guest
     private boolean isGuestProfile(PlayerProfile profile) {
         if (profile == null) return false;
         String name = profile.getName();
         return name.startsWith("Guest");
     }
-    //tylko człowieki musza być  zalogowane
+
+    // Tylko zarejestrowani ludzie muszą być zalogowani
     private void ensureHumanLoggedIn(PlayerProfile profile) {
 
-        // ai nie musi być zalogowane
+        // kąkuter nie musi  się logować
         if (isAiProfile(profile)) {
             return;
         }
 
-        // guest nie musi być zalogowany
+        // goście też nie
         if (isGuestProfile(profile)) {
             return;
         }
 
-        // człowieki z profilem musza bycc zalogowane
+        //tylko user musi
         if (!realService.isLoggedIn(profile.getName())) {
             throw new SecurityException("Brak dostępu — musisz być zalogowany!");
         }
     }
 
-
-    // oddeleogwanie  metod
-
     @Override
     public List<PlayerProfile> loadPlayers() {
-        // czytanie grczy nie wymaga logowania
+        // załadowanie graczy jest zawsze dostępne
         return realService.loadPlayers();
     }
 

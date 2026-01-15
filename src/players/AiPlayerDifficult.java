@@ -3,7 +3,7 @@ package players;
 import ServiceLocator.ServiceLocator;
 import command.ShootCommand;
 
-public class AiPlayerDifficult extends Player {
+public class AiPlayerDifficult extends AiPlayerBase {
 
     public AiPlayerDifficult(String name, ServiceLocator sl) {
         super(name, sl);
