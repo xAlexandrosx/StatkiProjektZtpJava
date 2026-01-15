@@ -5,8 +5,7 @@
     "matchesWon": 0,
     "hitCount": 0,
     "missCount": 0,
-    "moveCount": 0,
-    "score": 0
+    "moveCount": 0
   },
   {
     "name": "WIktor",
@@ -14,8 +13,7 @@
     "matchesWon": 2,
     "hitCount": 0,
     "missCount": 0,
-    "moveCount": 0,
-    "score": 0
+    "moveCount": 0
   },
   {
     "name": "Olek",
@@ -23,8 +21,7 @@
     "matchesWon": 1,
     "hitCount": 0,
     "missCount": 0,
-    "moveCount": 0,
-    "score": 0
+    "moveCount": 0
   },
   {
     "name": "karol",
@@ -32,7 +29,14 @@
     "matchesWon": 1,
     "hitCount": 5,
     "missCount": 2,
-    "moveCount": 0,
-    "score": 0
+    "moveCount": 0
+  },
+  {
+    "name": "Andrzej",
+    "matchesPlayed": 0,
+    "matchesWon": 0,
+    "hitCount": 0,
+    "missCount": 0,
+    "moveCount": 0
   }
 ]

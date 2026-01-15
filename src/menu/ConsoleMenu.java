@@ -191,7 +191,7 @@ public class ConsoleMenu implements IMenu {
             }
             else if (choice == 1) {
                 if (sl.getReplayService().PreviousMove()) {
-                    System.out.println(matchRecord.turns.get(sl.getReplayService().getTurnCounter()-1).player + "'s turn");
+                    System.out.println(matchRecord.turns.get(sl.getReplayService().getTurnCounter()).player + "'s turn");
                 }
                 else {
                     System.out.println("Can't replay the previous move.");
@@ -199,7 +199,7 @@ public class ConsoleMenu implements IMenu {
             }
             else if (choice == 2){
                 if (sl.getReplayService().NextMove()){
-                    System.out.println(matchRecord.turns.get(sl.getReplayService().getTurnCounter()-1).player + "'s turn");
+                    System.out.println(matchRecord.turns.get(sl.getReplayService().getTurnCounter()).player + "'s turn");
                 }
                 else{
                     System.out.println("Can't replay the next move.");
@@ -269,6 +269,7 @@ public class ConsoleMenu implements IMenu {
         System.out.println("\nAverage number of moves per match: " + profile.GetMovesPerCount());
         System.out.println("Total number of moves: " + profile.GetMoveCount());
 
+        System.out.println("Press enter to return to the ranking list.");
         sl.getScanner().next();
         sl.getScanner().nextLine();
     }
