@@ -1,6 +1,7 @@
 package players;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
+import observer.notifications.TurnTakenNotification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +13,13 @@ public abstract class AiPlayerBase extends Player {
     private int lastHitX = -1;
     private int lastHitY = -1;
 
-    public AiPlayerBase(String name, Game g) {
-        super(name, g);
+    public AiPlayerBase(String name) {
+        super(name);
     }
 
     @Override
     public void takeTurn() {
-        int size = getGame().getBoardSize();
+        int size = ServiceLocator.getInstance().getGlobalVariables().getBoardSize();
 
         // 1) TARGET mode: jeśli ostatnio był hit, spróbuj sąsiadów (4-kierunki)
         int[] target = pickTargetShot(size);
@@ -58,7 +59,7 @@ public abstract class AiPlayerBase extends Player {
 
             if (!candidates.isEmpty()) {
                 // losuj z kandydatów (nie będzie “mielenia”, bo max 4 pola)
-                int idx = g.random.nextInt(candidates.size());
+                int idx = ServiceLocator.getInstance().getRandom().nextInt(candidates.size());
                 return candidates.get(idx);
             }
 
@@ -83,8 +84,8 @@ public abstract class AiPlayerBase extends Player {
         int maxAttempts = size * size; // bezpiecznie, ale i tak szybko wyjdzie
 
         for (int attempts = 0; attempts < maxAttempts; attempts++) {
-            int x = g.random.nextInt(size);
-            int y = g.random.nextInt(size);
+            int x = ServiceLocator.getInstance().getRandom().nextInt(size);
+            int y = ServiceLocator.getInstance().getRandom().nextInt(size);
 
             // szachownica
             if (((x + y) & 1) != 0) continue;
@@ -132,14 +133,15 @@ public abstract class AiPlayerBase extends Player {
      * Jeśli registerShot zwraca boolean/int – dopasuj 2 linijki w środku.
      */
     private boolean shootAndReport(int x, int y) {
-        g.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
-
         System.out.println(playerProfile.getName() + " shoots at " + x + ", " + y);
 
         // W zależności od Twojej implementacji:
         // - jeśli registerShot zwraca boolean -> hit = enemyBoard.registerShot(x,y);
         // - jeśli zwraca int/status -> zmapuj.
         Object result = enemyBoard.registerShot(x, y);
+
+        // Rejestrujemy strzał
+        ServiceLocator.getInstance().getNotificationManager().publish(new TurnTakenNotification(this, x, y, (boolean) result));
 
         enemyBoard.displayBoard(false);
 
@@ -162,7 +164,7 @@ public abstract class AiPlayerBase extends Player {
 
     protected void sleepDelay() {
         try {
-            Thread.sleep(g.AI_DELAY);
+            Thread.sleep(ServiceLocator.getInstance().getGlobalVariables().getAiDelay());
         } catch (InterruptedException ignored) {
         }
     }

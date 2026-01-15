@@ -9,11 +9,11 @@ import statisticsservice.StatisticsService;
 
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String name, ServiceLocator sl) {
-        super(name, sl);
+    public HumanPlayer(String name) {
+        super(name);
     }
-    public HumanPlayer(String name, ServiceLocator sl, PlayerProfile playerProfile) {
-        super(name, sl);
+    public HumanPlayer(String name, PlayerProfile playerProfile) {
+        super(name);
         this.playerProfile = playerProfile;
     }
 
@@ -28,16 +28,16 @@ public class HumanPlayer extends Player {
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
         boolean shotResult = command.execute();
 
-        sl.getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
+        ServiceLocator.getInstance().getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
     }
 
     private int readInt(String prompt) {
         System.out.print(prompt);
-        while (!sl.getScanner().hasNextInt()) {
+        while (!ServiceLocator.getInstance().getScanner().hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
-            sl.getScanner().next();
+            ServiceLocator.getInstance().getScanner().next();
             System.out.print(prompt);
         }
-        return sl.getScanner().nextInt();
+        return ServiceLocator.getInstance().getScanner().nextInt();
     }
 }

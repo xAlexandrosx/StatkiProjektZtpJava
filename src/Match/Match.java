@@ -8,16 +8,16 @@ import players.IPlayer;
 import statisticsservice.StatisticsService;
 
 public class Match implements IMatch {
+    ServiceLocator sl;
 
-    private final ServiceLocator sl;
     private final IPlayer p1;
     private final IPlayer p2;
 
     private final int PLAYER_VS_PLAYER = 0;
     private final int PLAYER_VS_COMPUTER = 1;
 
-    public Match(ServiceLocator sl, int variant) {
-        this.sl = sl;
+    public Match(int variant) {
+        this.sl = ServiceLocator.getInstance();
 
         if (variant == PLAYER_VS_PLAYER) {
             this.p1 = sl.getGlobalVariables().getPlayer(1);
@@ -25,18 +25,15 @@ public class Match implements IMatch {
         } else if (variant == PLAYER_VS_COMPUTER) {
             this.p1 = sl.getGlobalVariables().getPlayer(1);
             IPlayer ai = sl.getPlayerSupplier().createPlayer(sl.getConsoleMenu().userChooseAiDifficulty());
-            ai.setGame(sl);
             ai.setName("Computer");
             this.p2 = ai;
         }
         else { // COMPUTER_VS_COMPUTER
             IPlayer ai1 = sl.getPlayerSupplier().createPlayer(sl.getConsoleMenu().userChooseAiDifficulty());
-            ai1.setGame(sl);
             ai1.setName("Computer 1");
             this.p1 = ai1;
 
             IPlayer ai2 = sl.getPlayerSupplier().createPlayer(sl.getConsoleMenu().userChooseAiDifficulty());
-            ai2.setGame(sl);
             ai2.setName("Computer 2");
             this.p2 = ai2;
         }

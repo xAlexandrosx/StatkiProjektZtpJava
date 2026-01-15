@@ -1,6 +1,5 @@
 package players.playerstrategy;
 
-import Game.Game;
 import players.*;
 
 import java.util.Map;
@@ -27,16 +26,16 @@ public class PlayerStrategy implements IPlayerStrategy {
         // nowa instancja na podstawie typu prototypu
         // bez tego AI vs AI z tym samym difficulty będzie jednym graczem
         if (prototype instanceof HumanPlayer) {
-            return new HumanPlayer("Guest", null); // game i nazwa ustawiasz potem setGame/setName
+            return new HumanPlayer("Guest"); // game i nazwa ustawiasz potem setGame/setName
         }
         if (prototype instanceof AiPlayerEasy) {
-            return new AiPlayerEasy("Computer", null);
+            return new AiPlayerEasy("Computer");
         }
         if (prototype instanceof AiPlayerMedium) {
-            return new AiPlayerMedium("Computer", null);
+            return new AiPlayerMedium("Computer");
         }
         if (prototype instanceof AiPlayerDifficult) {
-            return new AiPlayerDifficult("Computer", null);
+            return new AiPlayerDifficult("Computer");
         }
 
         // jeśli dojdą nowe typy

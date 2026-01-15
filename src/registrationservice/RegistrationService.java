@@ -96,11 +96,11 @@ public class RegistrationService implements IRegistrationService {
         }
 
         if (!sl.getGlobalVariables().isPlayerExisting(1)) {
-            sl.getGlobalVariables().setPlayer(new HumanPlayer(playerName, sl, playerProfile) ,1);
+            sl.getGlobalVariables().setPlayer(new HumanPlayer(playerName, playerProfile) ,1);
             System.out.println(playerName + " logged in as Player 1.");
         }
         else if (!sl.getGlobalVariables().isPlayerExisting(2)) {
-            sl.getGlobalVariables().setPlayer(new HumanPlayer(playerName, sl, playerProfile) ,2);
+            sl.getGlobalVariables().setPlayer(new HumanPlayer(playerName, playerProfile) ,2);
             System.out.println(playerName + " logged in as Player 2.");
         }
         else {

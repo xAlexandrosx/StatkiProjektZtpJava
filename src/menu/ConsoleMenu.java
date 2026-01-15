@@ -58,9 +58,9 @@ public class ConsoleMenu implements IMenu {
         sl.getScanner().nextLine();
 
         switch (choice) {
-            case 1 -> new Match(sl, PLAYER_VS_PLAYER).playMatch();
-            case 2 -> new Match(sl, PLAYER_VS_COMPUTER).playMatch();
-            case 3 -> new Match(sl, COMPUTER_VS_COMPUTER).playMatch();
+            case 1 -> new Match(PLAYER_VS_PLAYER).playMatch();
+            case 2 -> new Match(PLAYER_VS_COMPUTER).playMatch();
+            case 3 -> new Match(COMPUTER_VS_COMPUTER).playMatch();
             case 4 -> displayHistory();
             case 5 -> sl.getGlobalVariables().setBoardSize();
             case 6 -> sl.getRegistrationServiceProxy().logOut();

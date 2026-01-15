@@ -12,8 +12,6 @@ public interface IPlayer {
 
     void setName(String name);
 
-    void setGame(ServiceLocator g);
-
     PlayerProfile getPlayerProfile();
     void setPlayerProfile(PlayerProfile pf);
     Board getOwnBoard();

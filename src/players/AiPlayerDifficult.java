@@ -6,14 +6,15 @@ import observer.notifications.TurnTakenNotification;
 
 public class AiPlayerDifficult extends AiPlayerBase {
 
-    public AiPlayerDifficult(String name, ServiceLocator sl) {
-        super(name, sl);
+    public AiPlayerDifficult(String name) {
+        super(name);
     }
 
     @Override
     public void takeTurn() {
+        ServiceLocator sl = ServiceLocator.getInstance();
 
-        int size = getGame().getGlobalVariables().getBoardSize();
+        int size = sl.getGlobalVariables().getBoardSize();
         int x, y;
 
         while (true) {

@@ -5,15 +5,11 @@ import board.Board;
 import registrationservice.PlayerProfile;
 
 public abstract class Player implements IPlayer {
-
-    protected ServiceLocator sl;
     protected Board ownBoard;
     protected Board enemyBoard;
     protected PlayerProfile playerProfile;
 
-    public Player(String name, ServiceLocator sl) {
-        this.sl = sl;
-
+    public Player(String name) {
         playerProfile = new PlayerProfile(name);
     }
 
@@ -24,13 +20,6 @@ public abstract class Player implements IPlayer {
     }
     public void setName(String name) {
         playerProfile.setName(name);
-    }
-
-    public ServiceLocator getGame() {
-        return sl;
-    }
-    public void setGame(ServiceLocator sl) {
-        this.sl = sl;
     }
 
     public Board getOwnBoard() {

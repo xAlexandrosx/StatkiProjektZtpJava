@@ -20,7 +20,6 @@ public class GlobalVariables implements IGlobalVariables {
             if (player1 == null) {
                 IPlayer newPlayer = sl.getPlayerSupplier().createPlayer(HUMAN_PLAYER);
                 newPlayer.setName("Guest 1");
-                newPlayer.setGame(sl);
                 return newPlayer;
             }
             return player1;
@@ -28,7 +27,6 @@ public class GlobalVariables implements IGlobalVariables {
             if (player2 == null) {
                 IPlayer newPlayer = sl.getPlayerSupplier().createPlayer(HUMAN_PLAYER);
                 newPlayer.setName("Guest 2");
-                newPlayer.setGame(sl);
                 return newPlayer;
             }
             return player2;

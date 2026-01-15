@@ -6,12 +6,13 @@ import observer.notifications.TurnTakenNotification;
 
 public class AiPlayerEasy extends AiPlayerBase {
 
-    public AiPlayerEasy(String name, ServiceLocator sl) {
-        super(name, sl);
+    public AiPlayerEasy(String name) {
+        super(name);
     }
 
     @Override
     public void takeTurn() {
+        ServiceLocator sl = ServiceLocator.getInstance();
 
         int size = sl.getGlobalVariables().getBoardSize();
         int x, y;
