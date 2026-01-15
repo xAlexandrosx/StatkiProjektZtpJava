@@ -3,6 +3,7 @@ package players;
 import ServiceLocator.ServiceLocator;
 import command.ICommand;
 import command.ShootCommand;
+import observer.notifications.TurnTakenNotification;
 import registrationservice.PlayerProfile;
 import statisticsservice.StatisticsService;
 
@@ -25,19 +26,18 @@ public class HumanPlayer extends Player {
         int y = readInt("Enter Y: ");
 
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
+        boolean shotResult = command.execute();
 
-        sl.matchHistoryService.recordTurn(getName(), x, y);
-        StatisticsService.getInstance().RegisterShot(this, command.execute());
-        StatisticsService.getInstance().RegisterMove(this);
+        sl.getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
     }
 
     private int readInt(String prompt) {
         System.out.print(prompt);
-        while (!sl.scanner.hasNextInt()) {
+        while (!sl.getScanner().hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
-            sl.scanner.next();
+            sl.getScanner().next();
             System.out.print(prompt);
         }
-        return sl.scanner.nextInt();
+        return sl.getScanner().nextInt();
     }
 }

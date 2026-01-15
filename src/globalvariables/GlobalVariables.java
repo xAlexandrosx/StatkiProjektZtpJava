@@ -4,13 +4,6 @@ import ServiceLocator.ServiceLocator;
 import players.IPlayer;
 
 public class GlobalVariables implements IGlobalVariables {
-
-    private final ServiceLocator sl;
-
-    public GlobalVariables(ServiceLocator sl) {
-        this.sl = sl;
-    }
-
     public final int HUMAN_PLAYER = 0;
 
     private final int AI_DELAY = 0;
@@ -21,9 +14,11 @@ public class GlobalVariables implements IGlobalVariables {
     private int boardSize = 10;
 
     public IPlayer getPlayer(int index) {
+        ServiceLocator sl = ServiceLocator.getInstance();
+
         if (index == 1) {
             if (player1 == null) {
-                IPlayer newPlayer = sl.playerSupplier.createPlayer(HUMAN_PLAYER);
+                IPlayer newPlayer = sl.getPlayerSupplier().createPlayer(HUMAN_PLAYER);
                 newPlayer.setName("Guest 1");
                 newPlayer.setGame(sl);
                 return newPlayer;
@@ -31,7 +26,7 @@ public class GlobalVariables implements IGlobalVariables {
             return player1;
         } else if (index == 2) {
             if (player2 == null) {
-                IPlayer newPlayer = sl.playerSupplier.createPlayer(HUMAN_PLAYER);
+                IPlayer newPlayer = sl.getPlayerSupplier().createPlayer(HUMAN_PLAYER);
                 newPlayer.setName("Guest 2");
                 newPlayer.setGame(sl);
                 return newPlayer;
@@ -61,10 +56,11 @@ public class GlobalVariables implements IGlobalVariables {
     }
 
     public void setBoardSize() {
+        ServiceLocator sl = ServiceLocator.getInstance();
 
         System.out.print("Enter new board size: ");
-        int size = sl.scanner.nextInt();
-        sl.scanner.nextLine();
+        int size = sl.getScanner().nextInt();
+        sl.getScanner().nextLine();
         if (size < 10) {
             System.out.println("Boardsize must be 10 or greater.");
         } else {

@@ -15,13 +15,12 @@ public class Board {
     private static final int HIT = 2;
     private static final int MISS = 3;
 
-    private final ServiceLocator sl;
     private final int[][] tiles;
     private List<Battleship> ships;
 
-    public Board(ServiceLocator sl) {
-        this.sl = sl;
-        this.tiles = new int[sl.globalVariables.getBoardSize()][sl.globalVariables.getBoardSize()];
+    public Board() {
+        this.tiles = new int[ServiceLocator.getInstance().getGlobalVariables().getBoardSize()]
+                            [ServiceLocator.getInstance().getGlobalVariables().getBoardSize()];
     }
 
     public List<Battleship> getShips() {
@@ -62,14 +61,15 @@ public class Board {
 
     public void displayBoard(boolean isEnemy) {
         StringBuilder sb = new StringBuilder();
+        ServiceLocator sl = ServiceLocator.getInstance();
 
         sb.append("   ");
-        for (int j = 0; j < sl.globalVariables.getBoardSize(); j++) sb.append(j).append(" ");
+        for (int j = 0; j < sl.getGlobalVariables().getBoardSize(); j++) sb.append(j).append(" ");
         sb.append("\n");
 
-        for (int i = 0; i < sl.globalVariables.getBoardSize(); i++) {
+        for (int i = 0; i < sl.getGlobalVariables().getBoardSize(); i++) {
             sb.append(i).append("  ");
-            for (int j = 0; j < sl.globalVariables.getBoardSize(); j++) {
+            for (int j = 0; j < sl.getGlobalVariables().getBoardSize(); j++) {
                 int tile = tiles[i][j];
                 if (isEnemy && tile == SHIP) {
                     tile = EMPTY;
@@ -100,7 +100,8 @@ public class Board {
     public void setTile(int x, int y, int tile) { tiles[x][y] = tile; }
 
     public boolean registerShot(int x, int y) {
-        if (!(x >= 0 && x < sl.globalVariables.getBoardSize() && y >= 0 && y < sl.globalVariables.getBoardSize())) {
+        if (!(x >= 0 && x < ServiceLocator.getInstance().getGlobalVariables().getBoardSize() &&
+              y >= 0 && y < ServiceLocator.getInstance().getGlobalVariables().getBoardSize())) {
             System.out.println("Shot out of bounds!");
             return false;
         }

@@ -28,15 +28,15 @@ public class ReplayService implements IReplayService {
 
     int turnCounter;
 
-    public ReplayService(ServiceLocator sl){
+    public ReplayService(){
         executedMoves = new Stack<>();
         remainingMoves = new Stack<>();
 
         ships1 = new ArrayList<>();
         ships2 = new ArrayList<>();
 
-        board1 = new Board(sl);
-        board2 = new Board(sl);
+        board1 = new Board();
+        board2 = new Board();
 
         turnCounter = 0;
     }

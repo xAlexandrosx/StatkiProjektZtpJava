@@ -11,15 +11,15 @@ public class RegistrationService implements IRegistrationService {
     private final ServiceLocator sl;
     private final String FILE_PATH = "src/registrationservice/player_profiles.csv";
 
-    public RegistrationService(ServiceLocator sl) {
-        this.sl = sl;
+    public RegistrationService() {
+        this.sl = ServiceLocator.getInstance();
     }
 
     public List<PlayerProfile> loadPlayers() {
         List<PlayerProfile> playerProfiles = new ArrayList<>();
 
         try(Reader reader = new FileReader(FILE_PATH)) {
-            PlayerProfile[] existing = sl.gson.fromJson(reader, PlayerProfile[].class);
+            PlayerProfile[] existing = sl.getGson().fromJson(reader, PlayerProfile[].class);
 
             if (existing != null){
                 playerProfiles.addAll(Arrays.asList(existing));
@@ -36,7 +36,7 @@ public class RegistrationService implements IRegistrationService {
         playerProfiles.add(playerProfile);
 
         try (Writer writer = new FileWriter(FILE_PATH)) {
-            sl.gson.toJson(playerProfiles, writer);
+            sl.getGson().toJson(playerProfiles, writer);
         } catch (IOException e) {
             System.out.println("Error: could not save player profiles.");
         }
@@ -55,7 +55,7 @@ public class RegistrationService implements IRegistrationService {
             playerProfiles.set(playerProfiles.indexOf(oldProfile), newProfile);
 
             try (Writer writer = new FileWriter(FILE_PATH)) {
-                sl.gson.toJson(playerProfiles, writer);
+                sl.getGson().toJson(playerProfiles, writer);
             } catch (IOException e) {
                 System.out.println("Error: could not save player profiles.");
             }
@@ -64,8 +64,8 @@ public class RegistrationService implements IRegistrationService {
     }
 
     public boolean isLoggedIn(String playerName) {
-        IPlayer p1 = sl.globalVariables.getPlayer(1);
-        IPlayer p2 = sl.globalVariables.getPlayer(2);
+        IPlayer p1 = sl.getGlobalVariables().getPlayer(1);
+        IPlayer p2 = sl.getGlobalVariables().getPlayer(2);
 
         boolean isPlayer1 = p1 != null && p1.getName().equals(playerName);
         boolean isPlayer2 = p2 != null && p2.getName().equals(playerName);
@@ -75,7 +75,7 @@ public class RegistrationService implements IRegistrationService {
 
     public void logIn() {
         System.out.print("Enter player name to log in: ");
-        String playerName = sl.scanner.nextLine();
+        String playerName = sl.getScanner().nextLine();
 
         List<PlayerProfile> players = loadPlayers();
 
@@ -95,12 +95,12 @@ public class RegistrationService implements IRegistrationService {
             return;
         }
 
-        if (!sl.globalVariables.isPlayerExisting(1)) {
-            sl.globalVariables.setPlayer(new HumanPlayer(playerName, sl, playerProfile) ,1);
+        if (!sl.getGlobalVariables().isPlayerExisting(1)) {
+            sl.getGlobalVariables().setPlayer(new HumanPlayer(playerName, sl, playerProfile) ,1);
             System.out.println(playerName + " logged in as Player 1.");
         }
-        else if (!sl.globalVariables.isPlayerExisting(2)) {
-            sl.globalVariables.setPlayer(new HumanPlayer(playerName, sl, playerProfile) ,2);
+        else if (!sl.getGlobalVariables().isPlayerExisting(2)) {
+            sl.getGlobalVariables().setPlayer(new HumanPlayer(playerName, sl, playerProfile) ,2);
             System.out.println(playerName + " logged in as Player 2.");
         }
         else {
@@ -113,16 +113,16 @@ public class RegistrationService implements IRegistrationService {
         System.out.println("0 - Log out account of Player 1");
         System.out.println("1 - Log out account of Player 2");
 
-        int idx = sl.scanner.nextInt();
-        sl.scanner.nextLine();
+        int idx = sl.getScanner().nextInt();
+        sl.getScanner().nextLine();
 
-        if (idx == 0 && sl.globalVariables.isPlayerExisting(1)) {
-            System.out.println(sl.globalVariables.getPlayer(1).getName() + " logged out.");
-            sl.globalVariables.setPlayer(null ,1);
+        if (idx == 0 && sl.getGlobalVariables().isPlayerExisting(1)) {
+            System.out.println(sl.getGlobalVariables().getPlayer(1).getName() + " logged out.");
+            sl.getGlobalVariables().setPlayer(null ,1);
         }
-        else if (idx == 1 && sl.globalVariables.isPlayerExisting(2)) {
-            System.out.println(sl.globalVariables.getPlayer(2).getName() + " logged out.");
-            sl.globalVariables.setPlayer(null ,2);
+        else if (idx == 1 && sl.getGlobalVariables().isPlayerExisting(2)) {
+            System.out.println(sl.getGlobalVariables().getPlayer(2).getName() + " logged out.");
+            sl.getGlobalVariables().setPlayer(null ,2);
         }
         else {
             System.out.println("No player logged in at index " + idx + ".");
@@ -131,7 +131,7 @@ public class RegistrationService implements IRegistrationService {
 
     public void signIn() {
         System.out.print("Enter a new username: ");
-        String playerName = sl.scanner.nextLine();
+        String playerName = sl.getScanner().nextLine();
 
         List<PlayerProfile> players = loadPlayers();
         boolean profileExists = players

@@ -16,12 +16,14 @@ void main() {
     IPlayerStrategy playerStrategy = new PlayerStrategy(playerMap);
     IPlayerSupplier playerSupplier = new PlayerSupplier(playerStrategy);
 
-    ServiceLocator sl = new ServiceLocator(playerSupplier);
+    // We initialize the singleton instance
+    ServiceLocator.init(playerSupplier);
 
+    ServiceLocator serviceLocator = ServiceLocator.getInstance();
     int option;
     do {
-        sl.consoleMenu.display();
-        option = sl.consoleMenu.handleInput();
+        ServiceLocator.getInstance().getConsoleMenu().display();
+        option = serviceLocator.getConsoleMenu().handleInput();
     } while (option != -1);
 }
 

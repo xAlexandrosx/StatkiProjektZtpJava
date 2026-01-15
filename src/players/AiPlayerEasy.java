@@ -2,6 +2,7 @@ package players;
 
 import ServiceLocator.ServiceLocator;
 import command.ShootCommand;
+import observer.notifications.TurnTakenNotification;
 
 public class AiPlayerEasy extends AiPlayerBase {
 
@@ -12,28 +13,29 @@ public class AiPlayerEasy extends AiPlayerBase {
     @Override
     public void takeTurn() {
 
-        int size = sl.globalVariables.getBoardSize();
+        int size = sl.getGlobalVariables().getBoardSize();
         int x, y;
 
         while (true) {
-            x = sl.random.nextInt(size);
-            y = sl.random.nextInt(size);
+            x = sl.getRandom().nextInt(size);
+            y = sl.getRandom().nextInt(size);
 
             int tile = enemyBoard.getTile(x, y);
 
             if (tile == 0 || tile == 1) break;
         }
 
-        sl.matchHistoryService.recordTurn(playerProfile.getName(), x, y);
-
         System.out.println(playerProfile.getName() + " shoots at " + x + ", " + y);
 
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
-        command.execute();
+        boolean shotResult = command.execute();
+
+        sl.getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
+
         enemyBoard.displayBoard(false);
 
         try {
-            Thread.sleep(sl.globalVariables.getAiDelay());
+            Thread.sleep(sl.getGlobalVariables().getAiDelay());
         } catch (InterruptedException e) {
             System.out.println("Waiting failed for some reason...");
         }

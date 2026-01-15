@@ -2,6 +2,8 @@ package Match;
 
 import ServiceLocator.ServiceLocator;
 import board.Board;
+import observer.notifications.MatchConfiguredNotification;
+import observer.notifications.MatchFinishedNotification;
 import players.IPlayer;
 import statisticsservice.StatisticsService;
 
@@ -18,30 +20,30 @@ public class Match implements IMatch {
         this.sl = sl;
 
         if (variant == PLAYER_VS_PLAYER) {
-            this.p1 = sl.globalVariables.getPlayer(1);
-            this.p2 = sl.globalVariables.getPlayer(2);
+            this.p1 = sl.getGlobalVariables().getPlayer(1);
+            this.p2 = sl.getGlobalVariables().getPlayer(2);
         } else if (variant == PLAYER_VS_COMPUTER) {
-            this.p1 = sl.globalVariables.getPlayer(1);
-            IPlayer ai = sl.playerSupplier.createPlayer(sl.consoleMenu.userChooseAiDifficulty());
+            this.p1 = sl.getGlobalVariables().getPlayer(1);
+            IPlayer ai = sl.getPlayerSupplier().createPlayer(sl.getConsoleMenu().userChooseAiDifficulty());
             ai.setGame(sl);
             ai.setName("Computer");
             this.p2 = ai;
         }
         else { // COMPUTER_VS_COMPUTER
-            IPlayer ai1 = sl.playerSupplier.createPlayer(sl.consoleMenu.userChooseAiDifficulty());
+            IPlayer ai1 = sl.getPlayerSupplier().createPlayer(sl.getConsoleMenu().userChooseAiDifficulty());
             ai1.setGame(sl);
             ai1.setName("Computer 1");
             this.p1 = ai1;
 
-            IPlayer ai2 = sl.playerSupplier.createPlayer(sl.consoleMenu.userChooseAiDifficulty());
+            IPlayer ai2 = sl.getPlayerSupplier().createPlayer(sl.getConsoleMenu().userChooseAiDifficulty());
             ai2.setGame(sl);
             ai2.setName("Computer 2");
             this.p2 = ai2;
         }
 
         // pobieramy Boardy z Deployera, z juz rozmieszczonymi statkami
-        Board b1 = sl.battleshipDeployer.getBattleshipsRandom(sl.globalVariables.getBoardSize());
-        Board b2 = sl.battleshipDeployer.getBattleshipsRandom(sl.globalVariables.getBoardSize());
+        Board b1 = sl.getBattleshipDeployer().getBattleshipsRandom(sl.getGlobalVariables().getBoardSize());
+        Board b2 = sl.getBattleshipDeployer().getBattleshipsRandom(sl.getGlobalVariables().getBoardSize());
 
         p1.setOwnBoard(b1);
         p1.setEnemyBoard(b2);
@@ -49,8 +51,7 @@ public class Match implements IMatch {
         p2.setOwnBoard(b2);
         p2.setEnemyBoard(b1);
 
-        sl.matchHistoryService.recordPlayers(p1, p2);
-        sl.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());
+        sl.getNotificationManager().publish(new MatchConfiguredNotification(p1, p2, b1.adaptShips(), b2.adaptShips()));
     }
 
     public void playMatch() {
@@ -86,14 +87,12 @@ public class Match implements IMatch {
             }
         }
 
-        StatisticsService.getInstance().RegisterMatch(winner, loser);
-        sl.matchHistoryService.setWinner(winner.getName());
-        sl.matchHistoryService.saveMatchToFile();
+        sl.getNotificationManager().publish(new MatchFinishedNotification(winner, loser));
 
         // Saving the player profiles to save changes -
         // we don't need to differentiate between temporary accounts and registered one -
         // function only updates existing accounts.
-        sl.registrationServiceProxy.updatePlayer(winner.getPlayerProfile());
-        sl.registrationServiceProxy.updatePlayer(loser.getPlayerProfile());
+        sl.getRegistrationServiceProxy().updatePlayer(winner.getPlayerProfile());
+        sl.getRegistrationServiceProxy().updatePlayer(loser.getPlayerProfile());
     }
 }
