@@ -1,4 +1,4 @@
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import players.*;
 import players.playerstrategy.IPlayerStrategy;
 import players.playerstrategy.IPlayerSupplier;
@@ -9,18 +9,19 @@ void main() {
 
     Map<Integer, IPlayer> playerMap = new HashMap<>();
     playerMap.put(0, new HumanPlayer("", null));
-    playerMap.put(1, new AiPlayerEasy("",null));
-    playerMap.put(2, new AiPlayerMedium("",null));
-    playerMap.put(3, new AiPlayerDifficult("",null));
+    playerMap.put(1, new AiPlayerEasy("", null));
+    playerMap.put(2, new AiPlayerMedium("", null));
+    playerMap.put(3, new AiPlayerDifficult("", null));
 
     IPlayerStrategy playerStrategy = new PlayerStrategy(playerMap);
     IPlayerSupplier playerSupplier = new PlayerSupplier(playerStrategy);
 
-    Game g = new Game(playerSupplier);
+    ServiceLocator sl = new ServiceLocator(playerSupplier);
 
     int option;
     do {
-        g.consoleMenu.display();
-        option = g.consoleMenu.handleInput();
+        sl.consoleMenu.display();
+        option = sl.consoleMenu.handleInput();
     } while (option != -1);
 }
+

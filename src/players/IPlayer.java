@@ -1,6 +1,6 @@
 package players;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import board.Board;
 import registrationservice.PlayerProfile;
 
@@ -12,7 +12,7 @@ public interface IPlayer {
 
     void setName(String name);
 
-    void setGame(Game g);
+    void setGame(ServiceLocator g);
 
     PlayerProfile getPlayerProfile();
     void setPlayerProfile(PlayerProfile pf);

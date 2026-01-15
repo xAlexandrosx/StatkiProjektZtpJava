@@ -10,8 +10,8 @@
   },
   {
     "name": "WIktor",
-    "matchesPlayed": 0,
-    "matchesWon": 0,
+    "matchesPlayed": 3,
+    "matchesWon": 2,
     "hitCount": 0,
     "missCount": 0,
     "moveCount": 0,
@@ -19,10 +19,19 @@
   },
   {
     "name": "Olek",
-    "matchesPlayed": 0,
-    "matchesWon": 0,
+    "matchesPlayed": 3,
+    "matchesWon": 1,
     "hitCount": 0,
     "missCount": 0,
+    "moveCount": 0,
+    "score": 0
+  },
+  {
+    "name": "karol",
+    "matchesPlayed": 1,
+    "matchesWon": 1,
+    "hitCount": 5,
+    "missCount": 2,
     "moveCount": 0,
     "score": 0
   }

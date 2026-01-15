@@ -1,5 +1,7 @@
 package menu;
 
+import registrationservice.PlayerProfile;
+
 public interface IMenu {
 
     void display();
@@ -7,4 +9,7 @@ public interface IMenu {
     int handleInput();
 
     int userChooseAiDifficulty();
+
+    void displayRanking();
+    void displayHistory();
 }

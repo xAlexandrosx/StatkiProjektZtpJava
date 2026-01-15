@@ -1,49 +1,47 @@
 package Match;
 
-import Game.Game;
-import battleship.Battleship;
+import ServiceLocator.ServiceLocator;
 import board.Board;
-import players.AiPlayerEasy;
 import players.IPlayer;
-import players.Player;
 import statisticsservice.StatisticsService;
-
-import java.util.List;
 
 public class Match implements IMatch {
 
-    private final Game g;
+    private final ServiceLocator sl;
     private final IPlayer p1;
     private final IPlayer p2;
 
-    public Match(Game g, int variant) {
-        this.g = g;
+    private final int PLAYER_VS_PLAYER = 0;
+    private final int PLAYER_VS_COMPUTER = 1;
 
-        if (variant == g.PLAYER_VS_PLAYER) {
-            this.p1 = g.getPlayer(1);
-            this.p2 = g.getPlayer(2);
-        }
-        else if (variant == g.PLAYER_VS_COMPUTER) {
-            this.p1 = g.getPlayer(1);
-            IPlayer ai = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
-            ai.setGame(g);
+    public Match(ServiceLocator sl, int variant) {
+        this.sl = sl;
+
+        if (variant == PLAYER_VS_PLAYER) {
+            this.p1 = sl.globalVariables.getPlayer(1);
+            this.p2 = sl.globalVariables.getPlayer(2);
+        } else if (variant == PLAYER_VS_COMPUTER) {
+            this.p1 = sl.globalVariables.getPlayer(1);
+            IPlayer ai = sl.playerSupplier.createPlayer(sl.consoleMenu.userChooseAiDifficulty());
+            ai.setGame(sl);
             ai.setName("Computer");
             this.p2 = ai;
         }
         else { // COMPUTER_VS_COMPUTER
-            IPlayer ai1 = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
-            ai1.setGame(g);
+            IPlayer ai1 = sl.playerSupplier.createPlayer(sl.consoleMenu.userChooseAiDifficulty());
+            ai1.setGame(sl);
             ai1.setName("Computer 1");
             this.p1 = ai1;
 
-            IPlayer ai2 = g.playerSupplier.createPlayer(g.consoleMenu.userChooseAiDifficulty());
-            ai2.setGame(g);
+            IPlayer ai2 = sl.playerSupplier.createPlayer(sl.consoleMenu.userChooseAiDifficulty());
+            ai2.setGame(sl);
             ai2.setName("Computer 2");
             this.p2 = ai2;
         }
 
-        Board b1 = new Board(g);
-        Board b2 = new Board(g);
+        // pobieramy Boardy z Deployera, z juz rozmieszczonymi statkami
+        Board b1 = sl.battleshipDeployer.getBattleshipsRandom(sl.globalVariables.getBoardSize());
+        Board b2 = sl.battleshipDeployer.getBattleshipsRandom(sl.globalVariables.getBoardSize());
 
         p1.setOwnBoard(b1);
         p1.setEnemyBoard(b2);
@@ -51,16 +49,8 @@ public class Match implements IMatch {
         p2.setOwnBoard(b2);
         p2.setEnemyBoard(b1);
 
-        // te dwie linijki sa do zmiany, to tylko chwilowe rozwiązanie
-        List<Battleship> ships1 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
-        List<Battleship> ships2 = g.battleshipDeployer.getBattleshipsRandom(g.getBoardSize());
-        // -----------------------------------------------------------
-
-        b1.importShips(ships1);
-        b2.importShips(ships2);
-
-        g.matchHistoryService.recordPlayers(p1, p2);
-        g.matchHistoryService.recordShips(ships1, ships2);
+        sl.matchHistoryService.recordPlayers(p1, p2);
+        sl.matchHistoryService.recordShips(b1.adaptShips(), b2.adaptShips());
     }
 
     public void playMatch() {
@@ -97,13 +87,13 @@ public class Match implements IMatch {
         }
 
         StatisticsService.getInstance().RegisterMatch(winner, loser);
-        g.matchHistoryService.setWinner(winner.getName());
-        g.matchHistoryService.saveMatchToFile();
+        sl.matchHistoryService.setWinner(winner.getName());
+        sl.matchHistoryService.saveMatchToFile();
 
         // Saving the player profiles to save changes -
         // we don't need to differentiate between temporary accounts and registered one -
         // function only updates existing accounts.
-        g.registrationService.updatePlayer(winner.getPlayerProfile());
-        g.registrationService.updatePlayer(loser.getPlayerProfile());
+        sl.registrationServiceProxy.updatePlayer(winner.getPlayerProfile());
+        sl.registrationServiceProxy.updatePlayer(loser.getPlayerProfile());
     }
 }

@@ -1,18 +1,18 @@
 package players;
 
-import Game.Game;
+import ServiceLocator.ServiceLocator;
 import board.Board;
 import registrationservice.PlayerProfile;
 
 public abstract class Player implements IPlayer {
 
-    protected Game g;
+    protected ServiceLocator sl;
     protected Board ownBoard;
     protected Board enemyBoard;
     protected PlayerProfile playerProfile;
 
-    public Player(String name, Game g) {
-        this.g = g;
+    public Player(String name, ServiceLocator sl) {
+        this.sl = sl;
 
         playerProfile = new PlayerProfile(name);
     }
@@ -26,11 +26,11 @@ public abstract class Player implements IPlayer {
         playerProfile.setName(name);
     }
 
-    public Game getGame() {
-        return g;
+    public ServiceLocator getGame() {
+        return sl;
     }
-    public void setGame(Game g) {
-        this.g = g;
+    public void setGame(ServiceLocator sl) {
+        this.sl = sl;
     }
 
     public Board getOwnBoard() {

@@ -1,8 +1,8 @@
 package matchhistory;
-import Game.Game;
-import battleship.Battleship;
+import ServiceLocator.ServiceLocator;
 import players.IPlayer;
-import players.Player;
+import battleship.IBattleship;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,12 +12,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class MatchHistoryService implements IMatchHistoryService {
-    private final Game g;
+    private final ServiceLocator sl;
     private MatchRecord current;
     private final String FILE_PATH = "src/matchhistory/match_history.json";
 
-    public MatchHistoryService(Game g) {
-        this.g = g;
+    public MatchHistoryService(ServiceLocator sl) {
+        this.sl = sl;
     }
 
     public void recordPlayers(IPlayer p1, IPlayer p2) {
@@ -31,18 +31,18 @@ public class MatchHistoryService implements IMatchHistoryService {
         current.time = LocalTime.now().withNano(0).toString();
         current.player1 = p1.getName();
         current.player2 = p2.getName();
-        current.boardSize = g.getBoardSize();
+        current.boardSize = sl.globalVariables.getBoardSize();
     }
 
-    public void recordShips(List<Battleship> p1Ships, List<Battleship> p2Ships) {
+    public void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships) {
         current.ships1 = extractShipCoordinates(p1Ships);
         current.ships2 = extractShipCoordinates(p2Ships);
     }
 
-    public List<List<int[]>> extractShipCoordinates(List<Battleship> ships) {
+    public List<List<int[]>> extractShipCoordinates(List<IBattleship> ships) {
         List<List<int[]>> list = new ArrayList<>();
 
-        for (Battleship ship : ships) {
+        for (IBattleship ship : ships) {
             List<int[]> coords = new ArrayList<>();
             for (int[] t : ship.getTiles()) {
                 coords.add(new int[]{ t[0], t[1] });
@@ -65,7 +65,7 @@ public class MatchHistoryService implements IMatchHistoryService {
         matches.add(current);
 
         try (Writer writer = new FileWriter(FILE_PATH)) {
-            g.gson.toJson(matches, writer);
+            sl.gson.toJson(matches, writer);
         } catch (IOException e) {
             System.out.println("Error: could not save match history.");
         }
@@ -75,7 +75,7 @@ public class MatchHistoryService implements IMatchHistoryService {
         List<MatchRecord> matches = new ArrayList<>();
 
         try (Reader reader = new FileReader(FILE_PATH)) {
-            MatchRecord[] existing = g.gson.fromJson(reader, MatchRecord[].class);
+            MatchRecord[] existing = sl.gson.fromJson(reader, MatchRecord[].class);
             if (existing != null) {
                 matches.addAll(Arrays.asList(existing));
             }
@@ -85,12 +85,12 @@ public class MatchHistoryService implements IMatchHistoryService {
 
         return matches;
     }
-
+    /**
     public void displayHistory() {
         List<MatchRecord> matches;
 
         try (Reader reader = new FileReader(FILE_PATH)) {
-            MatchRecord[] existing = g.gson.fromJson(reader, MatchRecord[].class);
+            MatchRecord[] existing = sl.gson.fromJson(reader, MatchRecord[].class);
             if (existing == null || existing.length == 0) {
                 System.out.println("No match history found.");
                 return;
@@ -119,4 +119,5 @@ public class MatchHistoryService implements IMatchHistoryService {
             System.out.println();
         }
     }
+    **/
 }
