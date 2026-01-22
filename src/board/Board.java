@@ -10,17 +10,18 @@ import java.util.List;
 
 public class Board {
 
-    private static final int EMPTY = 0;
-    private static final int SHIP = 1;
-    private static final int HIT = 2;
-    private static final int MISS = 3;
+    public static final int EMPTY = 0;
+    public static final int SHIP = 1;
+    public static final int HIT = 2;
+    public static final int MISS = 3;
 
+    public final int size;
     private final int[][] tiles;
     private List<Battleship> ships;
 
     public Board() {
-        this.tiles = new int[ServiceLocator.getInstance().getGlobalVariables().getBoardSize()]
-                            [ServiceLocator.getInstance().getGlobalVariables().getBoardSize()];
+        this.size = ServiceLocator.getInstance().getGlobalVariables().getBoardSize();
+        this.tiles = new int[size][size];
     }
 
     public List<Battleship> getShips() {
@@ -100,8 +101,8 @@ public class Board {
     public void setTile(int x, int y, int tile) { tiles[x][y] = tile; }
 
     public boolean registerShot(int x, int y) {
-        if (!(x >= 0 && x < ServiceLocator.getInstance().getGlobalVariables().getBoardSize() &&
-              y >= 0 && y < ServiceLocator.getInstance().getGlobalVariables().getBoardSize())) {
+        if (!(x >= 0 && x < size &&
+              y >= 0 && y < size)) {
             System.out.println("Shot out of bounds!");
             return false;
         }
@@ -118,9 +119,11 @@ public class Board {
 
             Battleship ship = null;
             for (Battleship s : ships) {
-                // poniewaz nie usuwamy statkow, w iteracji ignorujemy zatopione??
-                if(s.isSunk()) return false;
                 if (s.intersects(x, y)) {
+                    if(s.isSunk()){
+                        System.out.println("Already sunk!");
+                        return false;
+                    }
                     ship = s;
                     break;
                 }
@@ -130,12 +133,12 @@ public class Board {
                 System.out.println("ERROR: Ship not found!");
                 return false;
             }
-
+            ship.hit();
             if (ship.isSunk()) {
                 System.out.println("Sunk");
                 // nie usuwamy statkow z listy poniewaz nadal korzysta z niej metoda isTileFromSunkShip
             } else {
-                System.out.println("Not sunk");
+                System.out.println("HP: " + ship.getHp() +  " / " + ship.length );
             }
         }
         return true;
@@ -149,5 +152,23 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public boolean isEmpty(int x, int y) {
+        for (Battleship ship : ships) {
+            if(ship.intersects(x, y)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean allSunk() {
+        for (Battleship ship : ships) {
+            if(!ship.isSunk()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

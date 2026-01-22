@@ -8,13 +8,13 @@ import players.IPlayer;
 import statisticsservice.StatisticsService;
 
 public class Match implements IMatch {
-    ServiceLocator sl;
+    protected ServiceLocator sl;
 
-    private final IPlayer p1;
-    private final IPlayer p2;
+    protected final IPlayer p1;
+    protected final IPlayer p2;
 
-    private final int PLAYER_VS_PLAYER = 0;
-    private final int PLAYER_VS_COMPUTER = 1;
+    public static final int PLAYER_VS_PLAYER = 0;
+    public static final int PLAYER_VS_COMPUTER = 1;
 
     public Match(int variant) {
         this.sl = ServiceLocator.getInstance();
@@ -64,8 +64,7 @@ public class Match implements IMatch {
             System.out.println("==========================");
             p1.takeTurn();
 
-            if (p2.getOwnBoard().getShips().isEmpty()) {
-                System.out.println(p1.getName() + " wins!");
+            if (p2.getOwnBoard().allSunk()) {
                 winner = p1;
                 loser = p2;
                 break;
@@ -76,16 +75,19 @@ public class Match implements IMatch {
             System.out.println("==========================");
             p2.takeTurn();
 
-            if (p1.getOwnBoard().getShips().isEmpty()) {
-                System.out.println(p2.getName() + " wins!");
+            if (p1.getOwnBoard().allSunk()) {
                 winner = p2;
                 loser = p1;
                 break;
             }
         }
+        finishMatch(winner, loser);
+    }
 
+    protected void finishMatch(IPlayer winner, IPlayer loser) {
+        assert winner != null && loser != null;
+        System.out.println(winner.getName() + " wins!");
         sl.getNotificationManager().publish(new MatchFinishedNotification(winner, loser));
-
         // Saving the player profiles to save changes -
         // we don't need to differentiate between temporary accounts and registered one -
         // function only updates existing accounts.

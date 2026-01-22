@@ -1,13 +1,8 @@
 package menu;
 
+import Match.MatchRenderer;
 import ServiceLocator.ServiceLocator;
-import Match.Match;
-import battleship.Battleship;
-import board.Board;
-import command.ICommand;
-import command.ShootCommand;
 import matchhistory.MatchRecord;
-import matchhistory.TurnRecord;
 import registrationservice.PlayerProfile;
 
 import java.util.*;
@@ -58,9 +53,9 @@ public class ConsoleMenu implements IMenu {
         sl.getScanner().nextLine();
 
         switch (choice) {
-            case 1 -> new Match(PLAYER_VS_PLAYER).playMatch();
-            case 2 -> new Match(PLAYER_VS_COMPUTER).playMatch();
-            case 3 -> new Match(COMPUTER_VS_COMPUTER).playMatch();
+            case 1 -> new MatchRenderer(PLAYER_VS_PLAYER).playMatch();
+            case 2 -> new MatchRenderer(PLAYER_VS_COMPUTER).setSwitchImmediately().playMatch();
+            case 3 -> new MatchRenderer(COMPUTER_VS_COMPUTER).setSwitchImmediately().playMatch();
             case 4 -> displayHistory();
             case 5 -> sl.getGlobalVariables().setBoardSize();
             case 6 -> sl.getRegistrationServiceProxy().logOut();

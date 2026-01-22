@@ -24,11 +24,14 @@ public class HumanPlayer extends Player {
 
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");
+        hitTarget(x, y);
+    }
 
+    public boolean hitTarget(int x, int y) {
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
         boolean shotResult = command.execute();
-
         ServiceLocator.getInstance().getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
+        return shotResult;
     }
 
     private int readInt(String prompt) {
