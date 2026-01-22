@@ -1,11 +1,11 @@
 [
   {
     "name": "Piotr",
-    "matchesPlayed": 1,
+    "matchesPlayed": 2,
     "matchesWon": 0,
-    "hitCount": 0,
-    "missCount": 0,
-    "moveCount": 0
+    "hitCount": 18,
+    "missCount": 70,
+    "moveCount": 88
   },
   {
     "name": "WIktor",

@@ -33288,5 +33288,1072 @@
         "y": 5
       }
     ]
+  },
+  {
+    "gameID": "31",
+    "date": "2026-01-22",
+    "time": "23:15:01",
+    "player1": "Piotr",
+    "player2": "Computer",
+    "winner": "Computer",
+    "boardSize": 10,
+    "ships1": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          8
+        ]
+      ],
+      [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      [
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ]
+      ],
+      [
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      [
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          3
+        ]
+      ]
+    ],
+    "ships2": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          9
+        ]
+      ],
+      [
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      [
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          2
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          9
+        ]
+      ],
+      [
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          8
+        ]
+      ],
+      [
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          8
+        ]
+      ]
+    ],
+    "turns": [
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 8,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 8,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 4,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 8,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 4,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 4,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 5,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 7
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 8
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 9
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 8,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 9,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 8,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 6,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 4,
+        "y": 7
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 5,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 8,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "player": "Computer",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 9
+      },
+      {
+        "player": "Piotr",
+        "x": 3,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 8
+      },
+      {
+        "player": "Piotr",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 6
+      },
+      {
+        "player": "Piotr",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 7,
+        "y": 3
+      },
+      {
+        "player": "Piotr",
+        "x": 4,
+        "y": 1
+      },
+      {
+        "player": "Computer",
+        "x": 9,
+        "y": 2
+      },
+      {
+        "player": "Piotr",
+        "x": 7,
+        "y": 0
+      },
+      {
+        "player": "Computer",
+        "x": 6,
+        "y": 1
+      },
+      {
+        "player": "Piotr",
+        "x": 8,
+        "y": 3
+      },
+      {
+        "player": "Computer",
+        "x": 0,
+        "y": 7
+      }
+    ]
   }
 ]

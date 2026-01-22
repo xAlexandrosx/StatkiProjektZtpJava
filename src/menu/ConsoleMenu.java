@@ -253,7 +253,7 @@ public class ConsoleMenu implements IMenu {
         System.out.println("Matches lost: " + profile.GetMatchesLost());
         System.out.println("Win ratio: " + profile.GetWinRatio());
 
-        System.out.println("\nShots hit: " + profile.GetMissCount());
+        System.out.println("\nShots hit: " + profile.GetHitCount());
         System.out.println("Shots missed: " + profile.GetMissCount());
         System.out.println("Accuracy: " + profile.GetAccuracy());
 
