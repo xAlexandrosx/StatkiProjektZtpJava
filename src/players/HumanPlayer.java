@@ -20,7 +20,7 @@ public class HumanPlayer extends Player {
     @Override
     public void takeTurn() {
         System.out.println(getName() + ", it's your turn!");
-        enemyBoard.displayBoard(true);
+        System.out.println(enemyBoard.displayBoard(true));
 
         int x = readInt("Enter X: ");
         int y = readInt("Enter Y: ");

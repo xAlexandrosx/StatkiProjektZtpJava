@@ -45,16 +45,21 @@ public class ReplayService implements IReplayService {
         return turnCounter;
     }
 
-    public boolean displayBoard(String playerName){
-        if(Objects.equals(player1, playerName)){
-            board1.displayBoard(false);
-            return true;
+    public String displayBoards(){
+        String stringBoard1 = board1.displayBoard(false);
+        String stringBoard2 = board2.displayBoard(false);
+
+        String[] rowsBoard1 = stringBoard1.split("\n");
+        String[] rowsBoard2 = stringBoard2.split("\n");
+
+        StringBuilder result = new StringBuilder();
+
+        result.append(player1 + "'s board").append("          ").append(player2 + "'s board\n");
+        for (int i = 0; i < rowsBoard1.length; i++){
+            result.append(rowsBoard1[i]).append("     ").append(rowsBoard2[i]).append("\n");
         }
-        else if(Objects.equals(player2, playerName)){
-            board1.displayBoard(false);
-            return true;
-        }
-        return false;
+
+        return result.toString();
     }
 
     public void LoadMatch(MatchRecord matchRecord){

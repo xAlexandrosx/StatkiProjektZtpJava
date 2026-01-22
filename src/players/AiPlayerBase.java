@@ -143,7 +143,7 @@ public abstract class AiPlayerBase extends Player {
         // Rejestrujemy strzał
         ServiceLocator.getInstance().getNotificationManager().publish(new TurnTakenNotification(this, x, y, (boolean) result));
 
-        enemyBoard.displayBoard(false);
+        System.out.println(enemyBoard.displayBoard(false));
 
         // Spróbujmy sensownie zinterpretować wynik bez zgadywania za mocno:
         // Jeśli registerShot zwraca boolean -> obsłuż.

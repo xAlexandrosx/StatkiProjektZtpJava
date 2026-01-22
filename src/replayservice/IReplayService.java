@@ -5,7 +5,7 @@ import matchhistory.MatchRecord;
 public interface IReplayService {
     public int getTurnCounter();
 
-    public boolean displayBoard(String playerName);
+    public String displayBoards();
 
     public void LoadMatch(MatchRecord matchRecord);
 

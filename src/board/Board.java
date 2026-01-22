@@ -60,7 +60,7 @@ public class Board {
         }
     }
 
-    public void displayBoard(boolean isEnemy) {
+    public String displayBoard(boolean isEnemy) {
         StringBuilder sb = new StringBuilder();
         ServiceLocator sl = ServiceLocator.getInstance();
 
@@ -79,7 +79,7 @@ public class Board {
             }
             sb.append("\n");
         }
-        System.out.println(sb);
+        return sb.toString();
     }
 
     private char getTileSymbol(int tile, int x, int y, boolean isEnemy) {

@@ -33,7 +33,7 @@ public class AiPlayerEasy extends AiPlayerBase {
 
         sl.getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));
 
-        enemyBoard.displayBoard(false);
+        System.out.println(enemyBoard.displayBoard(false));
 
         try {
             Thread.sleep(sl.getGlobalVariables().getAiDelay());

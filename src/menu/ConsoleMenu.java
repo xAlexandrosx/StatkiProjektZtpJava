@@ -167,11 +167,7 @@ public class ConsoleMenu implements IMenu {
         while(true) {
             System.out.println("Round " + sl.getReplayService().getTurnCounter());
 
-            System.out.println(matchRecord.player1 + "'s board");
-            sl.getReplayService().displayBoard(matchRecord.player1);
-
-            System.out.println(matchRecord.player2 + "'s board");
-            sl.getReplayService().displayBoard(matchRecord.player2);
+            System.out.println(sl.getReplayService().displayBoards());
 
             System.out.println("\nChoose option:");
             System.out.println("0. Exit");
