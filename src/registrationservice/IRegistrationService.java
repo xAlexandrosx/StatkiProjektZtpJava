@@ -2,7 +2,7 @@ package registrationservice;
 
 import java.util.List;
 
-public interface IRegistrationService {
+public interface IRegistrationService { // Interfejs klasy RegistrationService
 
     List<PlayerProfile> loadPlayers();
 

@@ -7,7 +7,7 @@ import registrationservice.PlayerProfile;
 
 import java.util.*;
 
-public class ConsoleMenu implements IMenu {
+public class ConsoleMenu implements IMenu { // Klasa odpowiadająca
 
     private final ServiceLocator sl;
 
@@ -17,7 +17,7 @@ public class ConsoleMenu implements IMenu {
 
     public ConsoleMenu() {
         this.sl = ServiceLocator.getInstance();
-    }
+    } // Konstruktor
 
     // MENU DISPLAY
     public void display() {
@@ -72,7 +72,7 @@ public class ConsoleMenu implements IMenu {
     }
 
     @Override
-    public int userChooseAiDifficulty() {
+    public int userChooseAiDifficulty() { // Metoda pozwalająca wybrać poziom trudności AI
         while (true) {
             System.out.println("Choose difficulty:");
             System.out.println("1. Easy");
@@ -88,7 +88,7 @@ public class ConsoleMenu implements IMenu {
         }
     }
 
-    public void displayHistory(){
+    public void displayHistory(){ // Metoda obsługująca wyświetlanie historii rozegranych rozgrywek
         List<MatchRecord> matches = sl.getMatchHistoryService().loadExistingMatches();
 
         if (matches.isEmpty()){
@@ -159,7 +159,7 @@ public class ConsoleMenu implements IMenu {
             }
         }
     }
-    private void replayMatch(MatchRecord matchRecord){
+    private void replayMatch(MatchRecord matchRecord){ // Metoda pozwalająca na odtworzenie przebiegu meczu
         sl.getReplayService().LoadMatch(matchRecord);
 
         System.out.println("Starting a replay between " + matchRecord.player1 + " and " + matchRecord.player2);
@@ -207,7 +207,7 @@ public class ConsoleMenu implements IMenu {
 
     }
 
-    public void displayRanking(){
+    public void displayRanking(){ // Metooda wyświetlająca ranking gry
         List<PlayerProfile> playerProfiles = sl.getRegistrationServiceProxy().loadPlayers();
         playerProfiles.sort(Comparator.comparingInt(PlayerProfile::GetMatchesWon));
         List<PlayerProfile> profilesOrdered = playerProfiles.reversed();
@@ -245,7 +245,7 @@ public class ConsoleMenu implements IMenu {
             }
         }
     }
-    private void displayPlayerProfile(PlayerProfile profile){
+    private void displayPlayerProfile(PlayerProfile profile){ // Metoda wyświetlająca profil gracza
         System.out.println("\n===================== " + profile.getName() +"'s PROFILE =====================");
 
         System.out.println("\nMatches played: " + profile.GetMatchesPlayed());

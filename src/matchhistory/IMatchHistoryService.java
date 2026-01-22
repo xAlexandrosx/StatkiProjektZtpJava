@@ -7,7 +7,7 @@ import players.Player;
 
 import java.util.List;
 
-public interface IMatchHistoryService {
+public interface IMatchHistoryService { // Interfejs klasy MatchHistoryService
     //void recordPlayers(IPlayer p1, IPlayer p2);
 
     //void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships);

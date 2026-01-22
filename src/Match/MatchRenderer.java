@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MatchRenderer extends JPanel implements IMatch {
+public class MatchRenderer extends JPanel implements IMatch { // Klasa odpowiedzialna za obsługę okienka z grą
     private final MatchFrame frame;
     public static final int viewportW = 512,
             viewportH = 768;
@@ -28,7 +28,7 @@ public class MatchRenderer extends JPanel implements IMatch {
     private volatile String title;
     private boolean swImmediately;
 
-    public MatchRenderer(int variant) {
+    public MatchRenderer(int variant) { // Konstruktor
         match = new Match(variant);
         frame = new MatchFrame(MatchRenderer.this);
         swImmediately = variant == Match.PLAYER_VS_COMPUTER;
@@ -53,12 +53,12 @@ public class MatchRenderer extends JPanel implements IMatch {
 
     }
 
-    public MatchRenderer setSwitchImmediately(){
+    public MatchRenderer setSwitchImmediately(){ // Metoda zmieniająca tryb gry
         swImmediately = true;
         return this;
     }
 
-    private void setPerspective(IPlayer perp){
+    private void setPerspective(IPlayer perp){ // Metoda ustawiająca perspektywę
         if(perp.getOwnBoard().allSunk()) {
             frame.dispose();
             match.finishMatch(perspective, perp);
@@ -75,7 +75,7 @@ public class MatchRenderer extends JPanel implements IMatch {
         }
     }
 
-    private void switchPerspective(){
+    private void switchPerspective(){ // Metoda zmieniająca perspektywę gry
         IPlayer opposite = match.p1;
         if (perspective != null && perspective.equals(match.p1)){
             opposite = match.p2;
@@ -105,13 +105,13 @@ public class MatchRenderer extends JPanel implements IMatch {
         }
     }
 
-    private void updateTitle() {
+    private void updateTitle() { // Metoda aktualizująca stan kafelka planszy
         drawBoard = true;
         title = perspective.getName() + "'s Shots:";
         updateRenderer();
     }
 
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) { // Metoda rysująca okienko
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         g2d.setBackground(bgColor);
@@ -122,7 +122,7 @@ public class MatchRenderer extends JPanel implements IMatch {
         g2d.drawString(title, boardOffsetX, boardOffsetY - 10);
     }
 
-    private void drawShip(Battleship obj) {
+    private void drawShip(Battleship obj) { // Metoda rysująca statki
         int x = boardOffsetX + (obj.posX * cellSize);
         int y = boardOffsetY + (obj.posY * cellSize);
 
@@ -140,7 +140,7 @@ public class MatchRenderer extends JPanel implements IMatch {
         }
     }
 
-    public void render() {
+    public void render() { // Metoda do renderowania
         if (perspective == null) return;
 
         Board bb = perspective.getOwnBoard();
@@ -183,14 +183,14 @@ public class MatchRenderer extends JPanel implements IMatch {
         }
     }
 
-    public void updateRenderer() {
+    public void updateRenderer() { // Metoda aktualizacja renderera
         if (isVisible() && perspective != null) {
             repaint();
         }
     }
 
     @Override
-    public void playMatch() {
+    public void playMatch() { // Metoda uruchamiająca rozgrywkę
         setPerspective(match.p1);
         updateTitle();
         frame.setVisible(true);

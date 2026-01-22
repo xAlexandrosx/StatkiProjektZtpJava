@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
-public class ReplayService implements IReplayService {
+public class ReplayService implements IReplayService { // Klasa obsługująca funkcjonalność ponownego odtwarzania rozgrywki
     Stack<ICommand> executedMoves;
     Stack<ICommand> remainingMoves;
 
@@ -28,7 +28,7 @@ public class ReplayService implements IReplayService {
 
     int turnCounter;
 
-    public ReplayService(){
+    public ReplayService(){ // Konstruktor
         executedMoves = new Stack<>();
         remainingMoves = new Stack<>();
 
@@ -43,9 +43,9 @@ public class ReplayService implements IReplayService {
 
     public int getTurnCounter(){
         return turnCounter;
-    }
+    } // Metoda zwracająca licznik tur
 
-    public String displayBoards(){
+    public String displayBoards(){ // Metoda wyświetlająca plansze
         String stringBoard1 = board1.displayBoard(false);
         String stringBoard2 = board2.displayBoard(false);
 
@@ -62,7 +62,7 @@ public class ReplayService implements IReplayService {
         return result.toString();
     }
 
-    public void LoadMatch(MatchRecord matchRecord){
+    public void LoadMatch(MatchRecord matchRecord){ // Metoda uruchamiająca mecz
         // Setting up player names
         player1 = matchRecord.player1;
         player2 = matchRecord.player2;
@@ -113,7 +113,7 @@ public class ReplayService implements IReplayService {
         }
     }
 
-    public boolean PreviousMove(){
+    public boolean PreviousMove(){ // Poprzedni ruch
         if(!executedMoves.isEmpty()){
             turnCounter--;
 
@@ -126,7 +126,7 @@ public class ReplayService implements IReplayService {
         return false;
     }
 
-    public boolean NextMove(){
+    public boolean NextMove(){ // Następny ruch
         if(!remainingMoves.isEmpty()){
             turnCounter++;
 

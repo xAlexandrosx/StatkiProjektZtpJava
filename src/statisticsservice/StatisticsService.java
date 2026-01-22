@@ -8,12 +8,12 @@ import observer.notifications.TurnTakenNotification;
 import players.IPlayer;
 import players.Player;
 
-public class StatisticsService implements IStatisticsService, Subscriber {
+public class StatisticsService implements IStatisticsService, Subscriber { // Klasa obsługująca statystyki gracza
     public StatisticsService(){
         ServiceLocator.getInstance().getNotificationManager().subscribe(this);
     }
 
-    void RegisterShot(Player player, boolean hit) {
+    void RegisterShot(Player player, boolean hit) { // Metoda rejestrująca strzał
         if(hit){
             player.getPlayerProfile().SetHitCount(player.getPlayerProfile().GetHitCount() + 1);
         }
@@ -22,11 +22,11 @@ public class StatisticsService implements IStatisticsService, Subscriber {
         }
     }
 
-    void RegisterMove(Player player) {
+    void RegisterMove(Player player) { // Metoda rejestrująca ruch
         player.getPlayerProfile().SetMoveCount(player.getPlayerProfile().GetMoveCount() + 1);
     }
 
-    void RegisterMatch(IPlayer winner, IPlayer loser) {
+    void RegisterMatch(IPlayer winner, IPlayer loser) { // Metoda rejestrująca mecz
         winner.getPlayerProfile().SetMatchesWon(winner.getPlayerProfile().GetMatchesWon() + 1);
         winner.getPlayerProfile().SetMatchesPlayed(winner.getPlayerProfile().GetMatchesPlayed() + 1);
 
@@ -34,7 +34,7 @@ public class StatisticsService implements IStatisticsService, Subscriber {
     }
 
     @Override
-    public void update(Notification notification) {
+    public void update(Notification notification) { // Metoda wywołująca powiadomienia
         if(notification instanceof TurnTakenNotification n){
             RegisterShot(n.player(), n.hit());
             RegisterMove(n.player());

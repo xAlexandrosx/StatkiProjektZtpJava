@@ -3,17 +3,17 @@ package globalvariables;
 import ServiceLocator.ServiceLocator;
 import players.IPlayer;
 
-public class GlobalVariables implements IGlobalVariables {
+public class GlobalVariables implements IGlobalVariables { // Klasa zawierająca zmienne globalne
     public final int HUMAN_PLAYER = 0;
 
-    private final int AI_DELAY = 0;
+    private final int AI_DELAY = 0; // Opóźnienie odpowiedzi bota
 
-    private IPlayer player1;
-    private IPlayer player2;
+    private IPlayer player1; // Jeden gracz
+    private IPlayer player2; // Drugi gracz
 
-    private int boardSize = 10;
+    private int boardSize = 10; // Rozmiar planszy
 
-    public IPlayer getPlayer(int index) {
+    public IPlayer getPlayer(int index) { // Metoda zwracająca instancję gracza
         ServiceLocator sl = ServiceLocator.getInstance();
 
         if (index == 1) {
@@ -35,11 +35,11 @@ public class GlobalVariables implements IGlobalVariables {
         return null;
     }
 
-    public boolean isPlayerExisting(int index) {
+    public boolean isPlayerExisting(int index) { // Metoda sprawdzająca, czy istnieje gracz przypisany do gry
         return (index != 1 || player1 != null) && (index != 2 || player2 != null);
     }
 
-    public void setPlayer(IPlayer player, int index) {
+    public void setPlayer(IPlayer player, int index) { // Metoda przypisująca instancje graczy do gry
         if (index == 1) {
             this.player1 = player;
         } else if (index == 2) {
@@ -51,9 +51,9 @@ public class GlobalVariables implements IGlobalVariables {
 
     public int getBoardSize() {
         return boardSize;
-    }
+    } // Metoda zwracająca rozmiar planszy
 
-    public void setBoardSize() {
+    public void setBoardSize() {  // Metoda modyfikująca rozmiar planszy
         ServiceLocator sl = ServiceLocator.getInstance();
 
         System.out.print("Enter new board size: ");
@@ -70,5 +70,5 @@ public class GlobalVariables implements IGlobalVariables {
     @Override
     public int getAiDelay() {
         return AI_DELAY;
-    }
+    } // Metoda zwracająca czas potrzebny AI do wykonania ruchu
 }

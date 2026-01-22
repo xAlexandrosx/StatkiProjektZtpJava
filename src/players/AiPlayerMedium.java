@@ -4,7 +4,7 @@ import ServiceLocator.ServiceLocator;
 import command.ShootCommand;
 import observer.notifications.TurnTakenNotification;
 
-public class AiPlayerMedium extends AiPlayerBase {
+public class AiPlayerMedium extends AiPlayerBase { // Klasa AI - poziom średni
 
     public AiPlayerMedium(String name) {
         super(name);

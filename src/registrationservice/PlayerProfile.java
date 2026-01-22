@@ -1,19 +1,19 @@
 package registrationservice;
 
-public class PlayerProfile {
+public class PlayerProfile { // Klasa profilu gracza (użytkownika)
     // Identification variables
-    private String name;
+    private String name; // Nazwa gracza
 
     // Statistics saved in files
-    private int matchesPlayed;
-    private int matchesWon;
+    private int matchesPlayed; // Liczba rozegranych meczów
+    private int matchesWon; // Liczba wygranych meczów
 
-    private int hitCount;
-    private int missCount;
+    private int hitCount; // Licznik trafień
+    private int missCount; // Licznik spudłowań
 
     private int moveCount; // Total number of moves ever made
 
-    // Access methods
+    // Metody dostępu
     public String getName(){
         return name;
     }
@@ -60,11 +60,7 @@ public class PlayerProfile {
     }
 
 
-    // Constructors
-    /**
-     * Constructor for creating new user profile from scratch
-     */
-    public PlayerProfile(String name){
+    public PlayerProfile(String name){ // Konstruktor
         this.name = name;
 
         matchesPlayed = 0;
@@ -75,10 +71,7 @@ public class PlayerProfile {
         moveCount = 0;
     }
 
-    /**
-     * Constructor for recreating the user profile object from saved data
-     */
-    public PlayerProfile(String name, int matchesPlayed, int matchesWon, int hitCount, int missCount, int moveCount){
+    public PlayerProfile(String name, int matchesPlayed, int matchesWon, int hitCount, int missCount, int moveCount){ // Konstruktor dla zapisanego w pliku profilu
         this.name = name;
 
         this.matchesPlayed = matchesPlayed;

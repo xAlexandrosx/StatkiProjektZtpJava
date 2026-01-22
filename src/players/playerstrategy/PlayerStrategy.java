@@ -4,7 +4,7 @@ import players.*;
 
 import java.util.Map;
 
-public class PlayerStrategy implements IPlayerStrategy {
+public class PlayerStrategy implements IPlayerStrategy { // Klasa odpowiada za ustawienie strategii dla botów
 
     private final Map<Integer, IPlayer> playerMap;
 

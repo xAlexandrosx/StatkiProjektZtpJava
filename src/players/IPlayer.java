@@ -4,7 +4,7 @@ import ServiceLocator.ServiceLocator;
 import board.Board;
 import registrationservice.PlayerProfile;
 
-public interface IPlayer {
+public interface IPlayer { // Interfejs klasy Player
 
     void takeTurn();
 

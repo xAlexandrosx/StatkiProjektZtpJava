@@ -3,7 +3,7 @@ package matchhistory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatchRecord {
+public class MatchRecord { // Klasa określająca wzorzec zapisu rozgrywki
     public String gameID;
     public String date;
     public String time;

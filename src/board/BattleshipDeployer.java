@@ -2,15 +2,15 @@ package board;
 
 import ServiceLocator.ServiceLocator;
 
-public class BattleshipDeployer implements IBattleshipDeployer {
+public class BattleshipDeployer implements IBattleshipDeployer { // Klasa odpowiadająca za ułożenie statków na planszy
 
     private final ServiceLocator sl;
 
     public BattleshipDeployer() {
         this.sl = ServiceLocator.getInstance();
-    }
+    } // Konstruktor
 
-    public Board getBattleshipsRandom(int boardSize) {
+    public Board getBattleshipsRandom(int boardSize) { // Metoda układająca statki losowo
         BoardBuilder bb = new BoardBuilder();
         boolean[][] grid = new boolean[boardSize][boardSize];
 
@@ -22,7 +22,7 @@ public class BattleshipDeployer implements IBattleshipDeployer {
         return bb.toBoard();
     }
 
-    public void placeShip(BoardBuilder bb, int size, int length, boolean[][] grid) {
+    public void placeShip(BoardBuilder bb, int size, int length, boolean[][] grid) { // Metoda obsługująca ułożenie statku w danym miejscu planszy
         boolean placed = false;
         while (!placed) {
             boolean horizontal = sl.getRandom().nextBoolean();

@@ -7,7 +7,7 @@ import observer.notifications.MatchFinishedNotification;
 import players.IPlayer;
 import statisticsservice.StatisticsService;
 
-public class Match implements IMatch {
+public class Match implements IMatch { // Klasa odpowiedzialna za konteneryzację gry do jednej rozgrywki
     protected ServiceLocator sl;
 
     protected final IPlayer p1;
@@ -16,7 +16,7 @@ public class Match implements IMatch {
     public static final int PLAYER_VS_PLAYER = 0;
     public static final int PLAYER_VS_COMPUTER = 1;
 
-    public Match(int variant) {
+    public Match(int variant) { // Konstruktor
         this.sl = ServiceLocator.getInstance();
 
         if (variant == PLAYER_VS_PLAYER) {
@@ -51,7 +51,7 @@ public class Match implements IMatch {
         sl.getNotificationManager().publish(new MatchConfiguredNotification(p1, p2, b1.adaptShips(), b2.adaptShips()));
     }
 
-    public void playMatch() {
+    public void playMatch() { // Główna metoda obsługująca pętle gry
 
         System.out.println("Starting match between " + p1.getName() + " and " + p2.getName());
 
@@ -84,7 +84,7 @@ public class Match implements IMatch {
         finishMatch(winner, loser);
     }
 
-    protected void finishMatch(IPlayer winner, IPlayer loser) {
+    protected void finishMatch(IPlayer winner, IPlayer loser) { // Funkcja kończąca rozgrywkę
         assert winner != null && loser != null;
         System.out.println(winner.getName() + " wins!");
         sl.getNotificationManager().publish(new MatchFinishedNotification(winner, loser));

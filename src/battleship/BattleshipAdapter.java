@@ -3,16 +3,10 @@ package battleship;
 import java.util.ArrayList;
 import java.util.List;
 
-/* ADAPTER dla MatchHistoryService */
-public class BattleshipAdapter implements IBattleship {
-    private final Battleship s;
-    public BattleshipAdapter(Battleship b) {
-        this.s = b;
-    }
-
-    /* zwraca pary koordynatow zajmowane przez statek */
+public class BattleshipAdapter implements IBattleship { // Adapter klasy Battleship
+    private final Battleship s; // Zmienna statku
     @Override
-    public List<int[]> getTiles() {
+    public List<int[]> getTiles() { // Metoda zwracająca pary koordynatow zajmowane przez statek
         List<int[]> ret = new ArrayList<>();
         int x = s.posX, y = s.posY;
         if (s.vertical) {
@@ -26,4 +20,8 @@ public class BattleshipAdapter implements IBattleship {
         }
         return ret;
     }
+
+    public BattleshipAdapter(Battleship b) {
+        this.s = b;
+    } // Konstruktor
 }

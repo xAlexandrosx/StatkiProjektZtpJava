@@ -4,14 +4,16 @@ import ServiceLocator.ServiceLocator;
 import battleship.Battleship;
 
 /* BUILDER */
-public class BoardBuilder {
-    private final Board board;
-    private boolean done = false;
+public class BoardBuilder { // Klasa wzorca Builder, dodająca statki różnego rozmiaru
+    private final Board board; // Plansza
+    private boolean done = false; // Zmienna informująca o końcu działania Buildera
 
-    public BoardBuilder() {
+    public BoardBuilder() { // Konstruktor
         board = new Board();
         board.importShips(null);
     }
+
+    // Zbiór metod dodających statki różnego rozmiaru do planszy we wskazanych współrzędnych
 
     public BoardBuilder addSingle(int x, int y) {
         return add(x, y, 1, false);
@@ -34,7 +36,7 @@ public class BoardBuilder {
         return this;
     }
 
-    public Board toBoard() {
+    public Board toBoard() { //
         if (done) return null;
         done = true;
         return board;

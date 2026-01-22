@@ -1,4 +1,4 @@
 package ServiceLocator;
 
-public interface IServiceLocator {
+public interface IServiceLocator { // Interfejs klasy ServiceLocator
 }

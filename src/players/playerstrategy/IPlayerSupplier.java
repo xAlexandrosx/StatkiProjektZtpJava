@@ -2,7 +2,7 @@ package players.playerstrategy;
 
 import players.IPlayer;
 
-public interface IPlayerSupplier {
+public interface IPlayerSupplier { // Interfejs klasy PlayerSupplier
 
     IPlayerStrategy getPlayerStrategy();
 

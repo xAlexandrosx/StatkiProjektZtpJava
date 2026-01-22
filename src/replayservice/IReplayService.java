@@ -2,7 +2,7 @@ package replayservice;
 
 import matchhistory.MatchRecord;
 
-public interface IReplayService {
+public interface IReplayService { // Interfejs klasy ReplayService
     public int getTurnCounter();
 
     public String displayBoards();

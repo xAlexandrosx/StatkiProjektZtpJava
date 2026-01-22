@@ -1,6 +1,6 @@
 package command;
 
-public interface ICommand {
+public interface ICommand { // Interfejs klasy ShootCommand
     boolean execute();
     void undo();
 }

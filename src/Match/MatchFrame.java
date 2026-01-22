@@ -2,9 +2,9 @@ package Match;
 
 import javax.swing.*;
 
-public class MatchFrame extends JDialog {
+public class MatchFrame extends JDialog { // Klasa odpowiedzialna za stworzenie okienka z grą
 
-    public MatchFrame(MatchRenderer renderer) {
+    public MatchFrame(MatchRenderer renderer) { // Konstruktor
         setTitle("Battleships Game");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setModal(true);

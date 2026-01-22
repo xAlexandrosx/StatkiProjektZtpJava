@@ -2,7 +2,7 @@ package players.playerstrategy;
 
 import players.IPlayer;
 
-public class PlayerSupplier implements IPlayerSupplier {
+public class PlayerSupplier implements IPlayerSupplier { // Klasa łącząca strategię z graczem
     private IPlayerStrategy playerStrategy;
 
     public PlayerSupplier(IPlayerStrategy strategy) {

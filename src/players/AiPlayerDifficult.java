@@ -4,7 +4,7 @@ import ServiceLocator.ServiceLocator;
 import command.ShootCommand;
 import observer.notifications.TurnTakenNotification;
 
-public class AiPlayerDifficult extends AiPlayerBase {
+public class AiPlayerDifficult extends AiPlayerBase { // Klasa AI - poziom trudny
 
     public AiPlayerDifficult(String name) {
         super(name);

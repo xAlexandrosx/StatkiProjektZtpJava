@@ -1,4 +1,4 @@
 package statisticsservice;
 
-public interface IStatisticsService {
+public interface IStatisticsService { // Interfejs klasy StatisticsService
 }

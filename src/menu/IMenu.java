@@ -2,7 +2,7 @@ package menu;
 
 import registrationservice.PlayerProfile;
 
-public interface IMenu {
+public interface IMenu { // Interfejs klasy Menu
 
     void display();
 

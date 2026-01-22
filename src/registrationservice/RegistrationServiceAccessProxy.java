@@ -2,7 +2,7 @@ package registrationservice;
 
 import java.util.List;
 
-public class RegistrationServiceAccessProxy implements IRegistrationService {
+public class RegistrationServiceAccessProxy implements IRegistrationService { // Klasa wzorca Proxy dostępowego
 
     private final IRegistrationService realService;
 

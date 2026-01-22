@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MatchHistoryService implements IMatchHistoryService, Subscriber {
+public class MatchHistoryService implements IMatchHistoryService, Subscriber { // Klasa odpowiadająca za obsługę historii rozgrywek
     private MatchRecord current;
     private final String FILE_PATH = "src/matchhistory/match_history.json";
 
-    public MatchHistoryService() {
+    public MatchHistoryService() { // Konstruktor
         ServiceLocator.getInstance().getNotificationManager().subscribe(this);
     }
 
-    void recordPlayers(IPlayer p1, IPlayer p2) {
+    void recordPlayers(IPlayer p1, IPlayer p2) { // Zapisywanie graczy
         current = new MatchRecord();
         current.turns = new ArrayList<>();
 
@@ -35,17 +35,17 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
     }
 
     // Private methods providing internal functionality
-    void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships) {
+    void recordShips(List<IBattleship> p1Ships, List<IBattleship> p2Ships) { // Zapisanie statków
         current.ships1 = extractShipCoordinates(p1Ships);
         current.ships2 = extractShipCoordinates(p2Ships);
     }
     void recordTurn(String player, int x, int y) {
         current.turns.add(new TurnRecord(player, x, y));
-    }
+    } // Zapisanie tury
     void setWinner(String winner) {
         current.winner = winner;
-    }
-    void saveMatchToFile() {
+    } // Metoda ustalająca zwyciężce
+    void saveMatchToFile() { // Metoda zapisująca mecz do pliku
         List<MatchRecord> matches = loadExistingMatches();
         matches.add(current);
 
@@ -56,7 +56,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         }
     }
 
-    public List<List<int[]>> extractShipCoordinates(List<IBattleship> ships) {
+    public List<List<int[]>> extractShipCoordinates(List<IBattleship> ships) { // Funkcja odczytująca współrzędne statków
         List<List<int[]>> list = new ArrayList<>();
 
         for (IBattleship ship : ships) {
@@ -69,7 +69,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
         return list;
     }
 
-    public List<MatchRecord> loadExistingMatches() {
+    public List<MatchRecord> loadExistingMatches() { // Metoda wczytująca mecze
         List<MatchRecord> matches = new ArrayList<>();
 
         try (Reader reader = new FileReader(FILE_PATH)) {
@@ -120,7 +120,7 @@ public class MatchHistoryService implements IMatchHistoryService, Subscriber {
     **/
 
     @Override
-    public void update(Notification notification) {
+    public void update(Notification notification) { // Aktualizacja powiadomień wzorca Observer
         if (notification instanceof TurnTakenNotification n){
             recordTurn(n.player().getName(), n.x(), n.y());
         }

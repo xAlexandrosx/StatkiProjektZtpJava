@@ -7,7 +7,7 @@ import observer.notifications.TurnTakenNotification;
 import registrationservice.PlayerProfile;
 import statisticsservice.StatisticsService;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer extends Player { // Klasa dziedzicząca po Player dla ludzkich graczy
 
     public HumanPlayer(String name) {
         super(name);
@@ -18,7 +18,7 @@ public class HumanPlayer extends Player {
     }
 
     @Override
-    public void takeTurn() {
+    public void takeTurn() { // Metoda obsługująca turę
         System.out.println(getName() + ", it's your turn!");
         System.out.println(enemyBoard.displayBoard(true));
 
@@ -27,7 +27,7 @@ public class HumanPlayer extends Player {
         hitTarget(x, y);
     }
 
-    public boolean hitTarget(int x, int y) {
+    public boolean hitTarget(int x, int y) { // Metoda obsługująca strzał
         ShootCommand command = new ShootCommand(enemyBoard, x, y);
         boolean shotResult = command.execute();
         ServiceLocator.getInstance().getNotificationManager().publish(new TurnTakenNotification(this, x, y, shotResult));

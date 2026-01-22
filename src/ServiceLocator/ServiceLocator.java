@@ -23,7 +23,7 @@ import statisticsservice.StatisticsService;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ServiceLocator {
+public class ServiceLocator { // Główna klasa scalająca wszytkie moduły gry w całość
     private static ServiceLocator instance;
 
     //region Services

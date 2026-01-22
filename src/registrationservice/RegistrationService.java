@@ -6,7 +6,7 @@ import players.IPlayer;
 import java.io.*;
 import java.util.*;
 
-public class RegistrationService implements IRegistrationService {
+public class RegistrationService implements IRegistrationService { // Klasa odpowiedzialna za logowanie i rejestrację kont
 
     private final ServiceLocator sl;
     private final String FILE_PATH = "src/registrationservice/player_profiles.csv";
@@ -15,7 +15,7 @@ public class RegistrationService implements IRegistrationService {
         this.sl = ServiceLocator.getInstance();
     }
 
-    public List<PlayerProfile> loadPlayers() {
+    public List<PlayerProfile> loadPlayers() { // Metoda zwracająca listę profili
         List<PlayerProfile> playerProfiles = new ArrayList<>();
 
         try(Reader reader = new FileReader(FILE_PATH)) {
@@ -31,7 +31,7 @@ public class RegistrationService implements IRegistrationService {
         return playerProfiles;
     }
 
-    public void writePlayer(PlayerProfile playerProfile) {
+    public void writePlayer(PlayerProfile playerProfile) { // Metoda dodająca profil gracza w bazie
         List<PlayerProfile> playerProfiles = loadPlayers();
         playerProfiles.add(playerProfile);
 
@@ -42,7 +42,7 @@ public class RegistrationService implements IRegistrationService {
         }
     }
 
-    public void updatePlayer(PlayerProfile newProfile){
+    public void updatePlayer(PlayerProfile newProfile){ // Metoda modyfikująca profil gracza w bazie
         List<PlayerProfile> playerProfiles = loadPlayers();
 
         PlayerProfile oldProfile = playerProfiles
@@ -63,7 +63,7 @@ public class RegistrationService implements IRegistrationService {
 
     }
 
-    public boolean isLoggedIn(String playerName) {
+    public boolean isLoggedIn(String playerName) { // Metoda sprawdzająca, czy użytkownik jest zalogowany
         IPlayer p1 = sl.getGlobalVariables().getPlayer(1);
         IPlayer p2 = sl.getGlobalVariables().getPlayer(2);
 
@@ -73,7 +73,7 @@ public class RegistrationService implements IRegistrationService {
         return isPlayer1 || isPlayer2;
     }
 
-    public void logIn() {
+    public void logIn() { // Metoda logująca
         System.out.print("Enter player name to log in: ");
         String playerName = sl.getScanner().nextLine();
 
@@ -108,7 +108,7 @@ public class RegistrationService implements IRegistrationService {
         }
     }
 
-    public void logOut() {
+    public void logOut() { // Metoda wylogowująca
         System.out.println("Logout:");
         System.out.println("0 - Log out account of Player 1");
         System.out.println("1 - Log out account of Player 2");
@@ -129,7 +129,7 @@ public class RegistrationService implements IRegistrationService {
         }
     }
 
-    public void signIn() {
+    public void signIn() { // Metoda rejestrująca
         System.out.print("Enter a new username: ");
         String playerName = sl.getScanner().nextLine();
 

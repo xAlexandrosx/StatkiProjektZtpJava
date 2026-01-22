@@ -2,7 +2,7 @@ package globalvariables;
 
 import players.IPlayer;
 
-public interface IGlobalVariables {
+public interface IGlobalVariables { // Interfejs klasy GlobalVariables
 
     IPlayer getPlayer(int index);
 

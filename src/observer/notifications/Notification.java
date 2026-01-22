@@ -1,4 +1,4 @@
 package observer.notifications;
 
-public interface Notification {
+public interface Notification { // Interfejs powiadomienia
 }

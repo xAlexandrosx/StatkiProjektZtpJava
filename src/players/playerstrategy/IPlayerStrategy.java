@@ -4,7 +4,7 @@ import players.IPlayer;
 
 import java.util.Map;
 
-public interface IPlayerStrategy {
+public interface IPlayerStrategy { // Interfejs klasy PlayerStrategy
 
     Map<Integer, IPlayer> getPlayerMap();
 

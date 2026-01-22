@@ -5,6 +5,7 @@ import players.IPlayer;
 
 import java.util.List;
 
+// Powiadomienie o skonfigurowaniu meczu
 public record MatchConfiguredNotification(
     IPlayer player1,
     IPlayer player2,

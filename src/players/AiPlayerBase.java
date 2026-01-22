@@ -6,7 +6,7 @@ import observer.notifications.TurnTakenNotification;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AiPlayerBase extends Player {
+public abstract class AiPlayerBase extends Player { // Klasa dziedzicząca po Player będącą szkicem dla klas AI o różnym poziomie trudności
 
     // stan “hunt & target”
     private boolean hitLastTurn = false;
@@ -15,10 +15,10 @@ public abstract class AiPlayerBase extends Player {
 
     public AiPlayerBase(String name) {
         super(name);
-    }
+    } // Konstruktor
 
     @Override
-    public void takeTurn() {
+    public void takeTurn() { // Metoda obsługująca turę gracza
         int size = ServiceLocator.getInstance().getGlobalVariables().getBoardSize();
 
         // 1) TARGET mode: jeśli ostatnio był hit, spróbuj sąsiadów (4-kierunki)
